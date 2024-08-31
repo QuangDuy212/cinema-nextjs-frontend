@@ -21,7 +21,7 @@ const items: MenuProps['items'] = [
 const AppHeader = () => {
     return (
         <>
-            <div style={{ backgroundColor: "#10151b" }}>
+            <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100%" }}>
                 <div className="container"
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >

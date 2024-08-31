@@ -1,0 +1,24 @@
+.content {
+    &__main {
+
+        .title {
+            display      : flex;
+            align-items  : center;
+            gap          : 10px;
+            margin-bottom: 10px;
+
+            .circle {
+                width           : 16px;
+                height          : 16px;
+                border-radius   : 50%;
+                background-color: #EF4444;
+                z-index         : 1000;
+                display         : flex;
+                justify-content : center;
+                align-items     : center;
+            }
+
+            color: #fff;
+        }
+    }
+}
