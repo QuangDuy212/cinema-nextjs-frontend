@@ -24,14 +24,7 @@ const items: MenuProps['items'] = [
 const AppFooter = () => {
     return (
         <>
-            <Dropdown menu={{ items }} trigger={['click']}>
-                <a onClick={(e) => e.preventDefault()}>
-                    <Space>
-                        Click me
-                        <DownOutlined />
-                    </Space>
-                </a>
-            </Dropdown>
+            Footer
         </>
     )
 }
