@@ -6,6 +6,7 @@ import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import "antd/dist/antd.css";
+import ActiveLink from './active.link';
 
 const items: MenuProps['items'] = [
     {
@@ -27,13 +28,13 @@ const AppHeader = () => {
                 >
                     <div style={{ display: "flex", padding: "15px 0", gap: "30px" }}>
                         <img src='https://chieuphimquocgia.com.vn/_next/image?url=%2Fimages%2Flogo.png&w=96&q=75' style={{ height: "50px", width: "70px" }} />
-                        <a href="/" className='nav-link'>Trang chủ</a>
-                        <a href="/movies" className='nav-link'>Lịch chiếu</a>
-                        <a href="/news-list" className='nav-link'>Tin tức</a>
-                        <a href="/promotions" className='nav-link'>Khuyến mãi</a>
-                        <a href="/ticket-price" className='nav-link'>Giá vé</a>
-                        <a href="/festivals" className='nav-link'>Liên hoan phim</a>
-                        <a href="/about" className='nav-link'>Giới thiệu</a>
+                        <ActiveLink href="/">Trang chủ</ActiveLink>
+                        <ActiveLink href="/movies" >Lịch chiếu</ActiveLink>
+                        <ActiveLink href="/news-list" >Khuyến mãi</ActiveLink>
+                        <ActiveLink href="/promotions" >Khuyến mãi</ActiveLink>
+                        <ActiveLink href="/ticket-price" >Giá vé</ActiveLink>
+                        <ActiveLink href="/festivals" >Liên hoan phim</ActiveLink>
+                        <ActiveLink href="/about" >Giới thiệu</ActiveLink>
                     </div>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", fontSize: "16px" }}>
                         <Dropdown menu={{ items }} trigger={['click']}>
