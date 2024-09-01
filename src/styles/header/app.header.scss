@@ -1,20 +1,21 @@
-.nav-link {}
+.nav-link {
 
-a {
-    text-decoration: none;
-    color          : #fff !important;
-    font-size      : 16px;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
-    font-weight    : 300;
+    a {
+        text-decoration: none;
+        color          : #fff !important;
+        font-size      : 16px;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        font-weight    : 300;
 
-    &:hover {
+        &:hover {
+            color: #ef4444 !important;
+        }
+    }
+
+
+    .active {
         color: #ef4444 !important;
     }
-}
-
-
-.active {
-    color: #ef4444 !important;
 }

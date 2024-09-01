@@ -18,7 +18,11 @@ const SwiperComponent = () => {
     return (
         <>
             <div style={{ height: "100vh" }}>
-                <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+                <Swiper
+                    autoplay={true}
+                    rewind={true}
+                    navigation={true}
+                    modules={[Navigation]} className="mySwiper">
                     <SwiperSlide>
                         <img src='/home/1.png' />
                     </SwiperSlide>

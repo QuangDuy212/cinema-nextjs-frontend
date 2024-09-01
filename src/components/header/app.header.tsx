@@ -26,7 +26,7 @@ const AppHeader = () => {
                 <div className="container"
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <div style={{ display: "flex", padding: "15px 0", gap: "30px" }}>
+                    <div style={{ display: "flex", padding: "15px 0", gap: "30px" }} className='nav-link'>
                         <img src='https://chieuphimquocgia.com.vn/_next/image?url=%2Fimages%2Flogo.png&w=96&q=75' style={{ height: "50px", width: "70px" }} />
                         <ActiveLink href="/">Trang chủ</ActiveLink>
                         <ActiveLink href="/movies" >Lịch chiếu</ActiveLink>

@@ -2,6 +2,7 @@
 import { Col, Row } from "antd";
 import FilmCard from "./film.card";
 import 'src/styles/main/content.homepage.scss'
+import Link from "next/link";
 
 const ContentHomepage = () => {
     return (
@@ -10,26 +11,52 @@ const ContentHomepage = () => {
             <div className="container">
                 <div className="content">
                     <div className="content__main">
-                        <div className="title">
-                            <div className="circle"></div>
-                            <span style={{ color: "#fff ", fontSize: "20px", fontWeight: 600 }}>Phim đang chiếu</span>
-                        </div>
-                        <div className="main">
-                            <Row gutter={[20, 20]}>
-                                <Col sm={24} md={12} lg={8} xl={4}>
-                                    <FilmCard /></Col>
-                                <Col sm={24} md={12} lg={8} xl={4}>
-                                    <FilmCard /></Col>
-                                <Col sm={24} md={12} lg={8} xl={4}>
-                                    <FilmCard /></Col>
-                                <Col sm={24} md={12} lg={8} xl={4}>
-                                    <FilmCard /></Col>
-                                <Col sm={24} md={12} lg={8} xl={4}>
-                                    <FilmCard /></Col>
-                                <Col sm={24} md={12} lg={8} xl={4}>
-                                    <FilmCard /></Col>
-                            </Row>
-                        </div>
+                        <Row gutter={[20, 20]}>
+                            <Col sm={24} md={24} lg={18} xl={18}>
+                                <div className="title">
+                                    <div className="title__start">
+                                        <div className="circle"></div>
+                                        <span style={{ color: "#fff ", fontSize: "20px", fontWeight: 600 }}>Phim đang chiếu</span>
+
+                                    </div>
+                                    <div className="title__end">
+                                        <Link href={"/movies"}>Xem tất cả</Link>
+                                    </div>
+                                </div>
+                                <div className="main">
+                                    <Row gutter={[20, 20]}>
+                                        <Col sm={24} md={12} lg={8} xl={6}>
+                                            <FilmCard /></Col>
+                                        <Col sm={24} md={12} lg={8} xl={6}>
+                                            <FilmCard /></Col>
+                                        <Col sm={24} md={12} lg={8} xl={6}>
+                                            <FilmCard /></Col>
+                                        <Col sm={24} md={12} lg={8} xl={6}>
+                                            <FilmCard /></Col>
+                                    </Row>
+                                </div>
+                            </Col>
+                            <Col sm={0} md={0} lg={6} xl={6}>
+                                <div className="title">
+                                    <div className="title__start">
+                                        <span style={{ color: "#fff ", fontSize: "20px", fontWeight: 600 }}>Khuyến mại</span>
+
+                                    </div>
+                                    <div className="title__end">
+                                        <Link href={"/movies"}>Xem tất cả</Link>
+                                    </div>
+                                </div>
+                                <div className="main">
+                                    <div className="promotion">
+                                        <img alt="Bo ga siu dang" src="/home/1.png" />
+                                    </div>
+                                    <div className="promotion">
+                                        <img alt="Bo ga siu dang" src="/home/1.png" />
+                                    </div>
+                                </div>
+                            </Col>
+                        </Row>
+
                     </div>
                     <div className="content__advertisement">
 
