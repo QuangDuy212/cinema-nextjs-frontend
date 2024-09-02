@@ -1,6 +1,12 @@
+import ContentMoviesPage from "src/components/movies/content.moviespage";
+
+
+
 const MoviePage = () => {
     return (
-        <>Movie page</>
+        <>
+            <ContentMoviesPage />
+        </>
     )
 }
 export default MoviePage;
