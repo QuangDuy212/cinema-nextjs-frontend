@@ -1,11 +1,11 @@
 import ContentMoviesPage from "src/components/movies/content.moviespage";
+import { callFetchAllFilms } from "src/util/api";
 
-
-
-const MoviePage = () => {
+const MoviePage = async () => {
+    const films = await callFetchAllFilms();
     return (
         <>
-            <ContentMoviesPage />
+            <ContentMoviesPage films={films?.data?.data?.result} />
         </>
     )
 }

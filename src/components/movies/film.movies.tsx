@@ -1,30 +1,47 @@
 'use client'
 import 'src/styles/movies/film.movies.scss';
 
-const FilmMovies = () => {
+interface IProps {
+    film: IFilm;
+}
+const FilmMovies = (props: IProps) => {
+    const { film } = props;
     return (
         <>
             <div className="movie">
                 <div className="movie__image">
-                    <img alt="Bo ga siu dang" src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/1725246694444-deadpool.png`} />
+                    <img alt={`${film.name}`}
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/${film.image}`} />
                 </div>
                 <div className="movie__info">
                     <div className="start">
-                        <span className="category">Hài, Tâm lý, tình cảm</span>
-                        <span className="duration">113 phút</span>
+                        <span className="category">
+                            {film.category.name}
+                        </span>
+                        <span className="duration">
+                            {film.duration} phút
+                        </span>
                     </div>
                     <div className="name">
-                        Làm giàu với MA
+                        <a>{film.name}</a>
                     </div>
                     <div className="detail">
-                        <div className="origin">Xuất xứ: </div>
-                        <div className="pre">Khởi chiếu: </div>
+                        <div className="origin">Xuất xứ: VietName</div>
+                        <div className="pre">Khởi chiếu: {film.premiere}</div>
                     </div>
                     <div className="certificate">
-                        T16 - Phim được phổ biến đến người xem từ đủ 16 tuổi trở lên (16+)
+                        {film.contentModeration}
                     </div>
                     <div className="calendar">
-                        <div className="item"> 11:00</div>
+                        <div className='title-cal'>Lịch chiếu</div>
+                        <div className='time'>
+                            <span className="item"> 11:00</span>
+                            <span className="item"> 12:00</span>
+                            <span className="item"> 13:00</span>
+                            <span className="item"> 14:00</span>
+                            <span className="item"> 15:00</span>
+                            <span className="item"> 15:00</span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,61 @@
 .movie-container {
+    padding         : 112px 0;
     background-color: #10151b;
+
+    .title {
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        gap            : 10px;
+
+        .circle {
+            width           : 16px;
+            height          : 16px;
+            border-radius   : 50%;
+            background-color: #EF4444;
+            z-index         : 1000;
+            display         : flex;
+            justify-content : center;
+            align-items     : center;
+        }
+    }
+
+    .button {
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        gap            : 15px;
+        margin-top     : 10px;
+
+        .item {
+            font-size       : 14px;
+            padding         : 6px 12px;
+            border-radius   : 5px;
+            border          : 1px solid #ccc;
+            background-color: inherit;
+            color           : #fff;
+
+            &.active {
+                background-color: #eb2630;
+                border          : none;
+
+                &:hover {
+                    background-color: #eb2630;
+                }
+            }
+
+            &:hover {
+                background-color: #1e293b;
+                cursor          : pointer;
+            }
+        }
+    }
+
+    .note {
+        color          : #F97316;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        margin         : 16px 0;
+    }
 }
