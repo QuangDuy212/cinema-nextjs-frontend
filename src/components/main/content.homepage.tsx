@@ -3,8 +3,18 @@ import { Col, Row } from "antd";
 import FilmCard from "./film.card";
 import 'src/styles/main/content.homepage.scss'
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { callFetchAllFilms } from "src/util/api";
 
-const ContentHomepage = () => {
+interface IProps {
+    data: IFilm[]
+}
+const ContentHomepage = (props: IProps) => {
+    const { data } = props;
+    const [films, setFilms] = useState({});
+    useEffect(() => {
+        console.log(">>> check data: ", data);
+    }, [])
     return (
         <div style={{ backgroundColor: "#10151b", padding: "40px 0" }}>
 
@@ -25,14 +35,12 @@ const ContentHomepage = () => {
                                 </div>
                                 <div className="main">
                                     <Row gutter={[20, 20]}>
-                                        <Col sm={24} md={12} lg={8} xl={6}>
-                                            <FilmCard /></Col>
-                                        <Col sm={24} md={12} lg={8} xl={6}>
-                                            <FilmCard /></Col>
-                                        <Col sm={24} md={12} lg={8} xl={6}>
-                                            <FilmCard /></Col>
-                                        <Col sm={24} md={12} lg={8} xl={6}>
-                                            <FilmCard /></Col>
+                                        {data?.map((item: IFilm) => {
+                                            return (
+                                                <Col sm={24} md={12} lg={8} xl={6} key={item.id}>
+                                                    <FilmCard film={item} /></Col>
+                                            )
+                                        })}
                                     </Row>
                                 </div>
                             </Col>
