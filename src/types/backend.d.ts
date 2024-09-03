@@ -49,4 +49,9 @@ declare global {
         }
     }
 
+    interface ITime {
+        id: number,
+        date: String,
+        films: IFilm[]
+    }
 }

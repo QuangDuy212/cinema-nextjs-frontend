@@ -7,9 +7,10 @@ import { callFetchAllFilms } from "src/util/api";
 import { use, useEffect } from "react";
 interface IProps {
     films: IFilm[];
+    times: ITime[];
 }
 const ContentMoviesPage = (props: IProps) => {
-    const { films } = props;
+    const { films, times } = props;
     useEffect(() => {
         console.log(">>> check films", films)
     }, [])
@@ -22,9 +23,12 @@ const ContentMoviesPage = (props: IProps) => {
                         <span style={{ color: "#fff ", fontSize: "20px", fontWeight: 600 }}>Phim đang chiếu</span>
                     </div>
                     <div className="button">
-                        <button className="item active">2-9-2024</button>
-                        <button className="item">2-9-2024</button>
-                        <button className="item">2-9-2024</button>
+                        {times?.map((time: ITime) => {
+                            return (
+                                <button className="item" key={time.id}>{time.date}</button>
+
+                            )
+                        })}
                     </div>
                     <div className="note">
                         <strong>Lưu ý</strong>: Khán giả dưới 13 tuổi chỉ chọn suất chiếu kết thúc trước 22h và Khán giả dưới 16 tuổi chỉ chọn suất chiếu kết thúc trước 23h.
