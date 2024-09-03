@@ -33,6 +33,16 @@ declare global {
         updatedBy: String,
         contentModeration: String,
         duration: number,
+        origin: String,
+        shows: [
+            {
+                id: number
+                zoomNumber: number,
+                time: String,
+                price: number,
+                active: true
+            }
+        ]
         category: {
             id: number,
             name: String

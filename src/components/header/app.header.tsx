@@ -30,7 +30,7 @@ const AppHeader = () => {
                         <img src='https://chieuphimquocgia.com.vn/_next/image?url=%2Fimages%2Flogo.png&w=96&q=75' style={{ height: "50px", width: "70px" }} />
                         <ActiveLink href="/">Trang chủ</ActiveLink>
                         <ActiveLink href="/movies" >Lịch chiếu</ActiveLink>
-                        <ActiveLink href="/news-list" >Khuyến mãi</ActiveLink>
+                        <ActiveLink href="/news-list" >Tin tức</ActiveLink>
                         <ActiveLink href="/promotions" >Khuyến mãi</ActiveLink>
                         <ActiveLink href="/ticket-price" >Giá vé</ActiveLink>
                         <ActiveLink href="/festivals" >Liên hoan phim</ActiveLink>

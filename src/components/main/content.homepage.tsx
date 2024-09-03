@@ -11,13 +11,10 @@ interface IProps {
 }
 const ContentHomepage = (props: IProps) => {
     const { data } = props;
-    const [films, setFilms] = useState({});
     useEffect(() => {
-        console.log(">>> check data: ", data);
     }, [])
     return (
-        <div style={{ backgroundColor: "#10151b", padding: "40px 0" }}>
-
+        <div style={{ backgroundColor: "#10151b", padding: "112px 0 40px" }}>
             <div className="container">
                 <div className="content">
                     <div className="content__main">

@@ -26,7 +26,7 @@ const FilmMovies = (props: IProps) => {
                         <a>{film.name}</a>
                     </div>
                     <div className="detail">
-                        <div className="origin">Xuất xứ: VietName</div>
+                        <div className="origin">Xuất xứ: {film.origin}</div>
                         <div className="pre">Khởi chiếu: {film.premiere}</div>
                     </div>
                     <div className="certificate">
@@ -35,12 +35,13 @@ const FilmMovies = (props: IProps) => {
                     <div className="calendar">
                         <div className='title-cal'>Lịch chiếu</div>
                         <div className='time'>
-                            <span className="item"> 11:00</span>
-                            <span className="item"> 12:00</span>
-                            <span className="item"> 13:00</span>
-                            <span className="item"> 14:00</span>
-                            <span className="item"> 15:00</span>
-                            <span className="item"> 15:00</span>
+                            {film?.shows?.map((show) => {
+                                return (
+                                    <span className="item" key={show.id}> {show.time}</span>
+
+                                )
+                            }
+                            )}
                         </div>
                     </div>
                 </div>
