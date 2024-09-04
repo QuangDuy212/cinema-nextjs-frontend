@@ -4,15 +4,17 @@ import { Col, Row } from "antd";
 import FilmMovies from "./film.movies";
 import 'src/styles/movies/content.moviespage.scss';
 import { callFetchAllFilms } from "src/util/api";
-import { use, useEffect } from "react";
+import { use, useEffect, useState } from "react";
 interface IProps {
     films: IFilm[];
     times: ITime[];
 }
 const ContentMoviesPage = (props: IProps) => {
     const { films, times } = props;
+    const [listFilms, setListFilms] = useState<IFilm[]>([]);
+    const [active, setActive] = useState<number>(times[0].id);
     useEffect(() => {
-        console.log(">>> check films", films)
+        setListFilms(times[0].films);
     }, [])
     return (
         <>
@@ -25,7 +27,12 @@ const ContentMoviesPage = (props: IProps) => {
                     <div className="button">
                         {times?.map((time: ITime) => {
                             return (
-                                <button className="item" key={time.id}>{time.date}</button>
+                                <button className={`${active === time.id ? "item active" : "item"} `} key={time.id}
+                                    onClick={() => {
+                                        setListFilms(time.films);
+                                        setActive(time.id)
+                                    }}
+                                >{time.date}</button>
 
                             )
                         })}
@@ -34,7 +41,7 @@ const ContentMoviesPage = (props: IProps) => {
                         <strong>Lưu ý</strong>: Khán giả dưới 13 tuổi chỉ chọn suất chiếu kết thúc trước 22h và Khán giả dưới 16 tuổi chỉ chọn suất chiếu kết thúc trước 23h.
                     </div>
                     <Row gutter={[20, 20]}>
-                        {films?.map((item) => {
+                        {listFilms?.map((item) => {
                             return (
                                 <Col sm={24} md={12} lg={12} xl={12} key={item.id}>
                                     <FilmMovies film={item} />
