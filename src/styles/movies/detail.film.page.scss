@@ -1,5 +1,6 @@
 .content {
-    width: 100vw;
+    width   : 100vw;
+    position: relative;
 
     .movie {
         width: 100%;
@@ -79,5 +80,13 @@
                 }
             }
         }
+    }
+
+    .trailer-modal {
+        position : absolute;
+        position : absolute;
+        left     : 50%;
+        top      : 50%;
+        transform: translate(-50%, -50%);
     }
 }

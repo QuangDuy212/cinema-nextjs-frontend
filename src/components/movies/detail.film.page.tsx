@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import 'src/styles/movies/detail.film.page.scss'
 import { callFetchFilmById } from "src/util/api";
 import { convertYoutubeToHTML } from "src/util/method";
-import "antd/dist/antd.css";
 
 
 interface IProps {
