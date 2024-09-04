@@ -1,0 +1,83 @@
+.content {
+    width: 100vw;
+
+    .movie {
+        width: 100%;
+
+        .info {
+            z-index         : 10;
+            background-color: #10151b;
+            display         : flex;
+            justify-content : center;
+            align-items     : center;
+            width           : 100vw;
+
+            .info-content {
+                max-width: 900px;
+                margin   : 0 auto;
+                padding  : 96px 0 28px;
+
+
+                .image-film {
+                    border-radius: 10px;
+                    overflow     : hidden;
+
+                    img {}
+                }
+
+                .text-film {
+                    color: #fff;
+
+                    .name {
+                        font-size  : 24px;
+                        font-weight: 700;
+                    }
+
+                    .basic-info {
+                        font-size : 14px;
+                        margin-top: 8px;
+
+                        .category {}
+
+                        .origin {
+                            margin-left: 10px;
+                        }
+
+                        .duration {
+                            margin-left: 10px;
+                        }
+
+                        .director {
+                            margin-left: 10px;
+                        }
+                    }
+
+                    .performer {
+                        font-size: 14px;
+                    }
+
+                    .pre {
+                        font-size: 14px;
+                    }
+
+                    .short-desc {
+                        font-size : 14px;
+                        margin-top: 20px;
+                    }
+
+                    .content-note {
+                        font-size : 14px;
+                        margin-top: 20px;
+                    }
+
+                    .info-btn {
+                        font-size : 14px;
+                        margin-top: 50px;
+                        display   : flex;
+                        gap       : 10px;
+                    }
+                }
+            }
+        }
+    }
+}

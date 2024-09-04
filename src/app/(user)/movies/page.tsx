@@ -1,6 +1,8 @@
 import ContentMoviesPage from "src/components/movies/content.moviespage";
 import { callFetchAllFilms, callFetchAllTimes } from "src/util/api";
 
+import "antd/dist/antd.css";
+
 const MoviePage = async () => {
     const films = await callFetchAllFilms();
     const times = await callFetchAllTimes();

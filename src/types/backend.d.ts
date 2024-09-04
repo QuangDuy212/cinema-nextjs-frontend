@@ -20,38 +20,38 @@ declare global {
     }
     interface IFilm {
         id: number,
-        name: String,
-        director: String,
-        image: String,
-        performer: String,
-        premiere: String,
-        shortDesc: String,
-        trailer: String,
+        name: string,
+        director: string,
+        image: string,
+        performer: string,
+        premiere: string,
+        shortDesc: string,
+        trailer: string,
         createdAt: Date,
-        createdBy: String,
+        createdBy: string,
         updatedAt: Date,
-        updatedBy: String,
-        contentModeration: String,
+        updatedBy: string,
+        contentModeration: string,
         duration: number,
-        origin: String,
+        origin: string,
         shows: [
             {
                 id: number
                 zoomNumber: number,
-                time: String,
+                time: string,
                 price: number,
                 active: true
             }
         ]
         category: {
             id: number,
-            name: String
+            name: string
         }
     }
 
     interface ITime {
         id: number,
-        date: String,
+        date: string,
         films: IFilm[]
     }
 }

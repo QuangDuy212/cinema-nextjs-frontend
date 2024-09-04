@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import AppHeader from "src/components/header/app.header";
 
 import AppFooter from "src/components/footer/app.footer";
+import "antd/dist/antd.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
