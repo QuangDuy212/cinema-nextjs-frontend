@@ -1,9 +1,7 @@
 .content {
-    width   : 100vw;
     position: relative;
 
     .movie {
-        width: 100%;
 
         .info {
             z-index         : 10;
@@ -11,7 +9,6 @@
             display         : flex;
             justify-content : center;
             align-items     : center;
-            width           : 100vw;
 
             .info-content {
                 max-width: 900px;

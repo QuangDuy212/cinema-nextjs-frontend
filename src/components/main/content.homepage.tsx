@@ -1,10 +1,9 @@
 'use client'
 import { Col, Row } from "antd";
 import FilmCard from "./film.card";
-import 'src/styles/main/content.homepage.scss'
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { callFetchAllFilms } from "src/util/api";
+import 'src/styles/main/content.homepage.scss'
 
 interface IProps {
     data: IFilm[]

@@ -1,7 +1,6 @@
 import DetailFilm from "src/components/movies/detail.film.page";
 import { callFetchFilmById } from "src/util/api";
 
-import "antd/dist/antd.css";
 
 const DetailFilmPage = async ({ params }: { params: { slug: string } }) => {
     const temp = params?.slug?.split(".html") ?? [];
