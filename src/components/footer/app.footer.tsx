@@ -21,10 +21,6 @@ const AppFooter = () => {
                     <div className='facebook'><FacebookOutlined /></div>
                     <div className='youtube'><YoutubeOutlined /></div>
                     <div className='instagram'><InstagramOutlined /></div>
-                    <div className='googleplay'><img src='home/googleplay.png' /></div>
-                    <div className='appstore'><img src='home/appstore.png' /></div>
-                    <div className='certification'><img src='home/certification.png' /></div>
-
                 </div>
                 <div className='footer__text'>
                     Copyright 2023. NCC All Rights Reservered. Dev by

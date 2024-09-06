@@ -1,11 +1,22 @@
 'use client'
+import { useEffect, useState } from 'react';
 import 'src/styles/movies/film.movies.scss';
+import { callFetchShowsByFilmAndDay } from 'src/util/api';
 
 interface IProps {
     film: IFilm;
+    dayId: number;
 }
 const FilmMovies = (props: IProps) => {
-    const { film } = props;
+    const { film, dayId } = props;
+    const [shows, setShows] = useState<IShow[]>();
+    useEffect(() => {
+        const fetchTimes = async () => {
+            const times = await callFetchShowsByFilmAndDay(film?.id, dayId);
+            setShows(times?.data?.data);
+        }
+        fetchTimes();
+    }, [dayId])
     return (
         <>
             <div className="movie">
@@ -35,7 +46,7 @@ const FilmMovies = (props: IProps) => {
                     <div className="calendar">
                         <div className='title-cal'>Lịch chiếu</div>
                         <div className='time'>
-                            {film?.shows?.map((show) => {
+                            {shows?.map((show) => {
                                 return (
                                     <span className="item" key={show.id}> {show.time}</span>
 

@@ -12,9 +12,14 @@ interface IProps {
 const ContentMoviesPage = (props: IProps) => {
     const { films, times } = props;
     const [listFilms, setListFilms] = useState<IFilm[]>([]);
-    const [active, setActive] = useState<number>(times[0].id);
+    const [active, setActive] = useState<number>(times[0]?.id);
     useEffect(() => {
-        setListFilms(times[0].films);
+        setListFilms(films)
+        // const fetchFilms = async () => {
+        //     const films = await callFetchAllFilms();
+        //     setListFilms(films?.data?.data?.result);
+        // }
+        // fetchFilms();
     }, [])
     return (
         <>
@@ -29,7 +34,6 @@ const ContentMoviesPage = (props: IProps) => {
                             return (
                                 <button className={`${active === time.id ? "item active" : "item"} `} key={time.id}
                                     onClick={() => {
-                                        setListFilms(time.films);
                                         setActive(time.id)
                                     }}
                                 >{time.date}</button>
@@ -44,7 +48,7 @@ const ContentMoviesPage = (props: IProps) => {
                         {listFilms?.map((item) => {
                             return (
                                 <Col sm={24} md={12} lg={12} xl={12} key={item.id}>
-                                    <FilmMovies film={item} />
+                                    <FilmMovies film={item} dayId={active} />
                                 </Col>
                             )
                         })}

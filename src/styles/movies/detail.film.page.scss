@@ -1,5 +1,4 @@
 .content {
-    position: relative;
 
     .movie {
 
@@ -79,11 +78,52 @@
         }
     }
 
-    .trailer-modal {
-        position : absolute;
-        position : absolute;
-        left     : 50%;
-        top      : 50%;
-        transform: translate(-50%, -50%);
+    .date {
+        background-color: #1a1d24;
+        height          : 50px;
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+
+        .item {
+            background-color: #dc2625;
+            color           : #fff;
+            height          : 100%;
+            display         : flex;
+            justify-content : center;
+            align-items     : center;
+            padding         : 0 20px;
+            font-weight     : 800;
+            font-size       : 16px;
+        }
+    }
+
+    .show {
+        background-color: #10151b;
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+        flex-direction  : column;
+        padding         : 24px 0;
+
+        .note {
+            color: #F97316;
+        }
+
+        .list-time {
+            display   : flex;
+            gap       : 20px;
+            margin-top: 10px;
+            max-width : 850px;
+
+            .item {
+                border-radius: 12px;
+                border       : 1px solid #fff;
+                padding      : 8px 32px;
+                color        : #fff;
+                font-weight  : 800;
+                font-size    : 14px;
+            }
+        }
     }
 }

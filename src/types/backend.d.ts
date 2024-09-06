@@ -46,12 +46,29 @@ declare global {
         category: {
             id: number,
             name: string
-        }
+        },
+        times: [
+            {
+                id: number,
+                date: string,
+            }
+        ]
     }
 
     interface ITime {
         id: number,
         date: string,
         films: IFilm[]
+    }
+
+    interface IShow {
+        "id": number;
+        "zoomNumber": number;
+        "price": number;
+        "time": string;
+        "day": {
+            "id": number;
+            "date": string;
+        }
     }
 }

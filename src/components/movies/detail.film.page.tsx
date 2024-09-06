@@ -15,7 +15,6 @@ const DetailFilm = (props: IProps) => {
 
     const [isOpenDes, setIsOpenDes] = useState<boolean>(false);
     const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false);
-    const videoRef = useRef(null);
 
     const showModal = () => {
         setIsOpenDes(true);
@@ -64,6 +63,23 @@ const DetailFilm = (props: IProps) => {
                         </div>
                     </div>
                 </div>
+                <div className="date">
+                    <div className="item">
+                        {data?.times[0]?.date}
+                    </div>
+                </div>
+                <div className="show">
+                    <div className="note">
+                        <strong>Lưu ý</strong>: Khán giả dưới 13 tuổi chỉ chọn suất chiếu kết thúc trước 22h và Khán giả dưới 16 tuổi chỉ chọn suất chiếu kết thúc trước 23h.
+                    </div>
+                    <div className="list-time">
+                        {data?.shows?.map((i) => {
+                            return (
+                                <div className="item" key={i.id}>{i.time}</div>
+                            )
+                        })}
+                    </div>
+                </div>
                 <Modal title="Chi tiết nội dung" open={isOpenDes} onCancel={() => setIsOpenDes(false)}
                     onOk={() => setIsOpenDes(false)}
                 >
@@ -77,7 +93,7 @@ const DetailFilm = (props: IProps) => {
                     width={700} title="Trailer" style={{ borderRadius: 20 }}
                 >
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <iframe height="377" width="670" id={`trailer-${data.id}`} ref={videoRef}
+                        <iframe height="377" width="670" id={`trailer-${data.id}`}
                             src={convertYoutubeToHTML(data.trailer)}>
                         </iframe>
                     </div>
