@@ -40,7 +40,8 @@ declare global {
                 zoomNumber: number,
                 time: string,
                 price: number,
-                active: true
+                active: true,
+                day: { id: number, date: string }
             }
         ]
         category: {

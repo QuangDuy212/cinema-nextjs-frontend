@@ -16,6 +16,9 @@ const DetailFilm = (props: IProps) => {
     const [isOpenDes, setIsOpenDes] = useState<boolean>(false);
     const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false);
 
+    useEffect(() => {
+        console.log(">> check data: ", data);
+    }, [])
     const showModal = () => {
         setIsOpenDes(true);
     };
@@ -64,9 +67,13 @@ const DetailFilm = (props: IProps) => {
                     </div>
                 </div>
                 <div className="date">
-                    <div className="item">
-                        {data?.times[0]?.date}
-                    </div>
+                    {data?.shows?.map((show) => {
+                        return (
+                            <div className="item" key={show?.id}>
+                                {show?.day?.date}
+                            </div>
+                        )
+                    })}
                 </div>
                 <div className="show">
                     <div className="note">
