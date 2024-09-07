@@ -11,6 +11,10 @@ export const callLogout = () => {
     return axios.post("http://localhost:8080/api/v1/auth/logout");
 }
 
+export const callFetchAccount = () => {
+    return axios.get("http://localhost:8080/api/v1/auth/account");
+}
+
 /**
  * Module FILM
  */
