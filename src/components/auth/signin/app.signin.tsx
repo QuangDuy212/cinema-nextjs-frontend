@@ -89,7 +89,7 @@ const AppSignin = () => {
                                     <Divider>Or</Divider>
                                     <p className="text text-normal">Chưa có tài khoản ?
                                         <span>
-                                            <Link href='/register' > Đăng Ký </Link>
+                                            <Link href='/auth/register' > Đăng Ký </Link>
                                         </span>
                                     </p>
                                 </Form>

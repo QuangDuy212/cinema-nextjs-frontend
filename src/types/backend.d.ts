@@ -92,4 +92,20 @@ declare global {
             }
         }
     }
+
+    interface IUser {
+        "id": number,
+        "email": string;
+        "fullName": string;
+        "phone": string;
+        "address": string;
+        "createdAt": string;
+        "updatedAt": string;
+        "createdBy": string;
+        "udpatedBy": string;
+        "role": {
+            "id": number;
+            "name": string;
+        }
+    }
 }
