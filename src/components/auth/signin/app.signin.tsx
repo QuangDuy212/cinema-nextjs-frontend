@@ -1,14 +1,44 @@
 "use client"
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from 'src/styles/auth/auth.module.scss';
 import "antd/dist/antd.css";
+import { callLogin, callRefreshToken } from 'src/util/api';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from 'src/redux/hook';
+import { useRouter } from 'next/navigation';
+import { setUserLoginInfo } from 'src/redux/slice/accountSlide';
 const AppSignin = () => {
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
 
-    const onFinish = () => {
-        console.log(">>>  finish")
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push('/');
+        }
+    }, [])
+
+    const onFinish = async (values: any) => {
+        const { username, password } = values;
+        setIsSubmit(true);
+        const res = await callLogin(username, password);
+        setIsSubmit(false);
+        // const token = await callRefreshToken();
+        if (res?.data?.data) {
+            localStorage.setItem('access_token', res?.data?.data.access_token);
+            dispatch(setUserLoginInfo(res?.data?.data?.user))
+            message.success('Đăng nhập tài khoản thành công!');
+        } else {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description:
+                    res.data.message && Array.isArray(res.data.message) ? res.data.message[0] : res.data.message,
+                duration: 5
+            })
+        }
     }
     return (
         <>
