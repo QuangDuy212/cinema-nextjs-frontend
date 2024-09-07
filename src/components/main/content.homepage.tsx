@@ -4,13 +4,17 @@ import FilmCard from "./film.card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import 'src/styles/main/content.homepage.scss'
+import { useAppDispatch, useAppSelector } from "src/redux/hook";
 
 interface IProps {
     data: IFilm[]
 }
 const ContentHomepage = (props: IProps) => {
     const { data } = props;
+    const count = useAppSelector((state) => state.counter.value)
+    const dispatch = useAppDispatch()
     useEffect(() => {
+        console.log(">>> check count: ", count);
     }, [])
     return (
         <div style={{ backgroundColor: "#10151b", padding: "112px 0 40px" }}>

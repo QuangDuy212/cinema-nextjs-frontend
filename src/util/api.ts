@@ -1,6 +1,17 @@
 import axios from "axios";
 
 /**
+ * Module Auth
+ */
+export const callLogin = (username: string, password: string) => {
+    return axios.post("http://localhost:8080/api/v1/auth/login", { username, password });
+}
+
+export const callLogout = () => {
+    return axios.post("http://localhost:8080/api/v1/auth/logout");
+}
+
+/**
  * Module FILM
  */
 export const callFetchAllFilms = () => {
