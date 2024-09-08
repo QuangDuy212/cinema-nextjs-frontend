@@ -10,7 +10,7 @@ const Home = async () => {
   return (
     <>
       <SwiperComponent />
-      <ContentHomepage data={films?.data?.data?.result} />
+      <ContentHomepage data={films?.data?.result} />
     </>
   )
 }

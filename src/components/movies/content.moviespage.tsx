@@ -15,11 +15,6 @@ const ContentMoviesPage = (props: IProps) => {
     const [active, setActive] = useState<number>(times[0]?.id);
     useEffect(() => {
         setListFilms(films)
-        // const fetchFilms = async () => {
-        //     const films = await callFetchAllFilms();
-        //     setListFilms(films?.data?.data?.result);
-        // }
-        // fetchFilms();
     }, [])
     return (
         <>

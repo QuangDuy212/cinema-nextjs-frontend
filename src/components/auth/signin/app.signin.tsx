@@ -27,18 +27,19 @@ const AppSignin = () => {
         const res = await callLogin(username, password);
         setIsSubmit(false);
         // const token = await callRefreshToken();
-        if (res?.data?.data) {
-            localStorage.setItem('access_token', res?.data?.data.access_token);
-            dispatch(setUserLoginInfo(res?.data?.data?.user))
+        console.log(">> check res: ", res)
+        if (res.data != null) {
+            localStorage.setItem('access_token', res?.data.access_token);
+            dispatch(setUserLoginInfo(res?.data?.user))
             message.success('Đăng nhập tài khoản thành công!');
             router.push('/');
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",
-                description:
-                    res.data.message && Array.isArray(res.data.message) ? res.data.message[0] : res.data.message,
+                description: "Tài khoản/ mật khẩu không đúng",
                 duration: 5
             })
+            console.log(">> bug")
         }
     }
 

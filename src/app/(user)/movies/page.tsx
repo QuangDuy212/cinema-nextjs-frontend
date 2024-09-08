@@ -7,7 +7,7 @@ const MoviePage = async () => {
     const times = await callFetchAllTimes();
     return (
         <>
-            <ContentMoviesPage films={films?.data?.data?.result} times={times?.data?.data?.result} />
+            <ContentMoviesPage films={films?.data?.result} times={times?.data?.result} />
         </>
     )
 }

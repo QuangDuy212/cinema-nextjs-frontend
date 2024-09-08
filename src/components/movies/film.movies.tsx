@@ -13,7 +13,7 @@ const FilmMovies = (props: IProps) => {
     useEffect(() => {
         const fetchTimes = async () => {
             const times = await callFetchShowsByFilmAndDay(film?.id, dayId);
-            setShows(times?.data?.data);
+            setShows(times?.data);
         }
         fetchTimes();
     }, [dayId])

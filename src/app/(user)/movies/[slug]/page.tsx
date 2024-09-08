@@ -9,7 +9,7 @@ const DetailFilmPage = async ({ params }: { params: { slug: string } }) => {
     const data = await callFetchFilmById(id);
     return (
         <>
-            <DetailFilm data={data?.data?.data} />
+            <DetailFilm data={data?.data} />
         </>
     )
 }
