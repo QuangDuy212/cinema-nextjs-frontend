@@ -4,25 +4,17 @@ import '../../app/page.module.css'
 import '../../styles/header/app.header.scss'
 import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
+import { Dropdown, message, Space } from 'antd';
 import "antd/dist/antd.css";
 import ActiveLink from './active.link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/store';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { callFetchAccount } from 'src/util/api';
+import { callFetchAccount, callLogout } from 'src/util/api';
+import { setLogoutAction } from 'src/redux/slice/accountSlide';
 
-const items: MenuProps['items'] = [
-    {
-        label: <a href="/profile">Thông tin cá nhân</a>,
-        key: '0',
-    },
-    {
-        label: <a href="/logout">Đăng xuất</a>,
-        key: '1',
-    },
-];
+
 
 const AppHeader = () => {
     // redux:
@@ -33,10 +25,28 @@ const AppHeader = () => {
     //lib:
     const router = useRouter();
 
-    useEffect(() => {
-        const fetch = async () => {
+    // dropdown
+    const items: MenuProps['items'] = [
+        {
+            label: <a href="/profile">Thông tin cá nhân</a>,
+            key: '0',
+        },
+        {
+            label: <span onClick={() => { handleLogout() }}>Đăng xuất</span>,
+            key: '1',
+        },
+    ];
+
+    const handleLogout = async () => {
+        const res = await callLogout();
+        if (res && res && +res?.statusCode === 200) {
+            dispatch(setLogoutAction({}));
+            message.success('Đăng xuất thành công');
+            router.push("/")
         }
-        fetch();
+    }
+
+    useEffect(() => {
     }, [])
     return (
         <>

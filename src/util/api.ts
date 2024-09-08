@@ -11,7 +11,7 @@ export const callLogin = (username: string | undefined, password: string | undef
 }
 
 export const callLogout = () => {
-    return axios.post("/api/v1/auth/logout");
+    return axios.post<IBackendRes<null>>("/api/v1/auth/logout");
 }
 
 export const callFetchAccount = () => {
