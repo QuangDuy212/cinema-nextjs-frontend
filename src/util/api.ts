@@ -3,7 +3,7 @@ import axios from "axios";
 /**
  * Module Auth
  */
-export const callLogin = (username: string, password: string) => {
+export const callLogin = (username: string | undefined, password: string | undefined) => {
     return axios.post("http://localhost:8080/api/v1/auth/login", { username, password });
 }
 

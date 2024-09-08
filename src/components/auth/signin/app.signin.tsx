@@ -31,6 +31,7 @@ const AppSignin = () => {
             localStorage.setItem('access_token', res?.data?.data.access_token);
             dispatch(setUserLoginInfo(res?.data?.data?.user))
             message.success('Đăng nhập tài khoản thành công!');
+            router.push('/');
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",
@@ -40,6 +41,7 @@ const AppSignin = () => {
             })
         }
     }
+
     return (
         <>
             <div>
