@@ -10,6 +10,8 @@ import ActiveLink from './active.link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/store';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { callFetchAccount } from 'src/util/api';
 
 const items: MenuProps['items'] = [
     {
@@ -31,7 +33,11 @@ const AppHeader = () => {
     //lib:
     const router = useRouter();
 
-
+    useEffect(() => {
+        const fetch = async () => {
+        }
+        fetch();
+    }, [])
     return (
         <>
             <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw" }}>
