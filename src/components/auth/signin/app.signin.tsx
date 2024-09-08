@@ -38,7 +38,6 @@ const AppSignin = () => {
                 description: "Tài khoản/ mật khẩu không đúng",
                 duration: 5
             })
-            console.log(">> bug")
         }
     }
 

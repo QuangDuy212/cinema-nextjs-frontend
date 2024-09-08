@@ -13,6 +13,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { callFetchAccount, callLogout } from 'src/util/api';
 import { setLogoutAction } from 'src/redux/slice/accountSlide';
+import Link from 'next/link';
 
 
 
@@ -28,7 +29,7 @@ const AppHeader = () => {
     // dropdown
     const items: MenuProps['items'] = [
         {
-            label: <a href="/profile">Thông tin cá nhân</a>,
+            label: <Link href="/profile">Thông tin cá nhân</Link>,
             key: '0',
         },
         {
@@ -77,7 +78,7 @@ const AppHeader = () => {
                                     style={{ color: "#fff" }}
                                 >
                                     <Space>
-                                        <span>{user.name ? user.name : "Người dùng"}</span>
+                                        <span>{user.fullName ? user.fullName : "Người dùng"}</span>
                                         <DownOutlined />
                                     </Space>
                                 </a>

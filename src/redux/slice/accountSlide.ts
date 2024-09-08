@@ -18,7 +18,9 @@ interface IState {
     user: {
         id: string;
         email: string;
-        name: string;
+        fullName: string;
+        address: string;
+        phone: string;
         role: {
             id?: string;
             name?: string;
@@ -42,7 +44,9 @@ const initialState: IState = {
     user: {
         id: "",
         email: "",
-        name: "",
+        fullName: "",
+        address: "",
+        phone: "",
         role: {
             id: "",
             name: "",
@@ -68,8 +72,10 @@ export const accountSlide = createSlice({
             state.isAuthenticated = true;
             state.isLoading = false;
             state.user.id = action?.payload?.id;
-            state.user.email = action.payload.email;
-            state.user.name = action.payload.name;
+            state.user.email = action.payload?.email;
+            state.user.fullName = action.payload?.fullName;
+            state.user.phone = action.payload?.phone;
+            state.user.address = action.payload?.address;
             state.user.role = action?.payload?.role;
 
             if (!action?.payload?.user?.role) state.user.role = {};
@@ -81,7 +87,9 @@ export const accountSlide = createSlice({
             state.user = {
                 id: "",
                 email: "",
-                name: "",
+                fullName: "",
+                address: "",
+                phone: "",
                 role: {
                     id: "",
                     name: "",
@@ -110,7 +118,9 @@ export const accountSlide = createSlice({
                 state.isLoading = false;
                 state.user.id = action?.payload?.user?.id;
                 state.user.email = action.payload.user?.email;
-                state.user.name = action.payload.user?.name;
+                state.user.fullName = action.payload.user?.fullName;
+                state.user.phone = action.payload.user?.phone;
+                state.user.address = action.payload.user?.address;
                 state.user.role = action?.payload?.user?.role;
                 if (!action?.payload?.user?.role) state.user.role = {};
                 state.user.role.permissions = action?.payload?.user?.role?.permissions ?? [];
