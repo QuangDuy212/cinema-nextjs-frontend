@@ -27,9 +27,8 @@ const AppSignin = () => {
         const res = await callLogin(username, password);
         setIsSubmit(false);
         // const token = await callRefreshToken();
-        console.log(">> check res: ", res)
         if (res.data != null) {
-            localStorage.setItem('access_token', res?.data.access_token);
+            localStorage.setItem('access_token', res?.data?.access_token);
             dispatch(setUserLoginInfo(res?.data?.user))
             message.success('Đăng nhập tài khoản thành công!');
             router.push('/');

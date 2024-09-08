@@ -6,15 +6,15 @@ import 'src/styles/movies/content.moviespage.scss';
 import { callFetchAllFilms } from "src/util/api";
 import { use, useEffect, useState } from "react";
 interface IProps {
-    films: IFilm[];
-    times: ITime[];
+    films: IFilm[] | undefined;
+    times: ITime[] | undefined;
 }
 const ContentMoviesPage = (props: IProps) => {
     const { films, times } = props;
     const [listFilms, setListFilms] = useState<IFilm[]>([]);
-    const [active, setActive] = useState<number>(times[0]?.id);
+    const [active, setActive] = useState<number>(times[0]?.id ?? 0);
     useEffect(() => {
-        setListFilms(films)
+        setListFilms(films ?? []);
     }, [])
     return (
         <>

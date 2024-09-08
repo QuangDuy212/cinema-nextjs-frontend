@@ -8,7 +8,7 @@ import { convertYoutubeToHTML } from "src/util/method";
 
 
 interface IProps {
-    data: IFilm;
+    data: IFilm | undefined;
 }
 const DetailFilm = (props: IProps) => {
     const { data } = props;
@@ -90,7 +90,7 @@ const DetailFilm = (props: IProps) => {
                 <Modal title="Chi tiết nội dung" open={isOpenDes} onCancel={() => setIsOpenDes(false)}
                     onOk={() => setIsOpenDes(false)}
                 >
-                    <p>{data.shortDesc}</p>
+                    <p>{data?.shortDesc}</p>
                 </Modal>
 
                 <Modal open={isOpenTrailer} footer={[<></>]} onCancel={() => {
@@ -100,8 +100,8 @@ const DetailFilm = (props: IProps) => {
                     width={700} title="Trailer" style={{ borderRadius: 20 }}
                 >
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <iframe height="377" width="670" id={`trailer-${data.id}`}
-                            src={convertYoutubeToHTML(data.trailer)}>
+                        <iframe height="377" width="670" id={`trailer-${data?.id}`}
+                            src={convertYoutubeToHTML(data?.trailer)}>
                         </iframe>
                     </div>
                 </Modal>

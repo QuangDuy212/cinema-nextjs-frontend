@@ -7,7 +7,7 @@ import axios from "src/config/axios-customize";
  * Module Auth
  */
 export const callLogin = (username: string | undefined, password: string | undefined) => {
-    return axios.post("/api/v1/auth/login", { username, password });
+    return axios.post<IBackendRes<IAccount>>("/api/v1/auth/login", { username, password });
 }
 
 export const callLogout = () => {

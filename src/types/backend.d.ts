@@ -25,7 +25,7 @@ declare global {
         image: string,
         performer: string,
         premiere: string,
-        shortDesc: string,
+        shortDesc: string | undefined,
         trailer: string,
         createdAt: Date,
         createdBy: string,
@@ -107,5 +107,15 @@ declare global {
             "id": number;
             "name": string;
         }
+    }
+
+    interface IRequest {
+        url: string;
+        method: string;
+        body?: { [key: string]: any };
+        queryParams?: any;
+        useCredentials?: boolean;
+        headers?: any;
+        nextOption?: any;
     }
 }

@@ -4,13 +4,16 @@ import FilmCard from "./film.card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import 'src/styles/main/content.homepage.scss'
+import { callFetchAllFilms } from "src/util/api";
 
-interface IProps {
-    data: IFilm[]
-}
-const ContentHomepage = (props: IProps) => {
-    const { data } = props;
+const ContentHomepage = () => {
+    const [data, setData] = useState<IFilm[]>([]);
     useEffect(() => {
+        const fetchData = async () => {
+            const films = await callFetchAllFilms();
+            setData(films?.data?.result);
+        }
+        fetchData()
     }, [])
     return (
         <div style={{ backgroundColor: "#10151b", padding: "112px 0 40px" }}>
