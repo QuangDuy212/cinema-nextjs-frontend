@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react'
 import { Provider } from 'react-redux'
 import { makeStore, AppStore } from '../redux/store'
+import { fetchAccount } from 'src/redux/slice/accountSlide'
 
 export default function StoreProvider({
     children,
