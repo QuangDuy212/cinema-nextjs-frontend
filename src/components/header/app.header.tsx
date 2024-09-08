@@ -7,19 +7,31 @@ import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import "antd/dist/antd.css";
 import ActiveLink from './active.link';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/redux/store';
+import { useRouter } from 'next/navigation';
 
 const items: MenuProps['items'] = [
     {
-        label: <a href="https://www.antgroup.com">Thông tin cá nhân</a>,
+        label: <a href="/profile">Thông tin cá nhân</a>,
         key: '0',
     },
     {
-        label: <a href="https://www.aliyun.com">Đăng xuất</a>,
+        label: <a href="/logout">Đăng xuất</a>,
         key: '1',
     },
 ];
 
 const AppHeader = () => {
+    // redux:
+    const user = useSelector((state: RootState) => state.account.user);
+    const isAuthenticated = useSelector((state: RootState) => state.account.isAuthenticated);
+    const dispatch = useDispatch()
+
+    //lib:
+    const router = useRouter();
+
+
     return (
         <>
             <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw" }}>
@@ -37,16 +49,25 @@ const AppHeader = () => {
                         <ActiveLink href="/about" >Giới thiệu</ActiveLink>
                     </div>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", fontSize: "16px" }}>
-                        <Dropdown menu={{ items }} trigger={['click']}>
-                            <a onClick={(e) => e.preventDefault()}
-                                style={{ color: "#fff" }}
-                            >
-                                <Space>
-                                    <span >Quang Duy</span>
-                                    <DownOutlined />
-                                </Space>
-                            </a>
-                        </Dropdown>
+                        {!isAuthenticated ?
+                            <span
+                                onClick={() => router.push("/auth/signin")}
+                                style={{ color: "#fff", cursor: "pointer" }}
+                            >Đăng nhập</span>
+                            :
+
+                            <Dropdown menu={{ items }} trigger={['click']}>
+                                <a onClick={(e) => e.preventDefault()}
+                                    style={{ color: "#fff" }}
+                                >
+                                    <Space>
+                                        <span>{user.name ? user.name : "Người dùng"}</span>
+                                        <DownOutlined />
+                                    </Space>
+                                </a>
+                            </Dropdown>
+                        }
+
                     </div>
                 </div>
             </div>
