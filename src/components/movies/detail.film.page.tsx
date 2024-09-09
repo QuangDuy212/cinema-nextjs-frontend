@@ -3,7 +3,7 @@
 import { Button, Col, Modal, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
 import 'src/styles/movies/detail.film.page.scss'
-import { callFetchFilmById } from "src/util/api";
+import { callFetchFilmById, callFetchShowsByFilmAndDay } from "src/util/api";
 import { convertYoutubeToHTML } from "src/util/method";
 
 
@@ -15,17 +15,23 @@ const DetailFilm = (props: IProps) => {
 
     const [isOpenDes, setIsOpenDes] = useState<boolean>(false);
     const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false);
+    const [activeTime, setActiveTime] = useState<number | undefined>(data?.shows[0]?.day?.id);
+    const [shows, setShows] = useState<IShow[]>();
 
     useEffect(() => {
-        console.log(">> check data: ", data);
-    }, [])
+        const fetchShow = async () => {
+            const res = await callFetchShowsByFilmAndDay(data?.id ?? 0, activeTime ?? 0);
+            setShows(res.data);
+        }
+        fetchShow();
+    }, [activeTime])
     const showModal = () => {
         setIsOpenDes(true);
     };
     return (
         <>
             <div className="content">
-                <div className="movie">
+                <div className="movie-detail-container">
                     <div className="info">
                         <div className="info-content">
                             <Row gutter={[10, 10]}>
@@ -69,7 +75,10 @@ const DetailFilm = (props: IProps) => {
                 <div className="date">
                     {data?.shows?.map((show) => {
                         return (
-                            <div className="item" key={show?.id}>
+                            <div className={`${activeTime == show?.day?.id ? "item active" : "item"}`}
+                                key={show?.day?.id}
+                                onClick={() => setActiveTime(show?.day?.id)}
+                            >
                                 {show?.day?.date}
                             </div>
                         )
@@ -80,7 +89,7 @@ const DetailFilm = (props: IProps) => {
                         <strong>Lưu ý</strong>: Khán giả dưới 13 tuổi chỉ chọn suất chiếu kết thúc trước 22h và Khán giả dưới 16 tuổi chỉ chọn suất chiếu kết thúc trước 23h.
                     </div>
                     <div className="list-time">
-                        {data?.shows?.map((i) => {
+                        {shows?.map((i) => {
                             return (
                                 <div className="item" key={i.id}>{i.time}</div>
                             )

@@ -3,7 +3,6 @@
 import { Col, Row } from "antd";
 import FilmMovies from "./film.movies";
 import 'src/styles/movies/content.moviespage.scss';
-import { callFetchAllFilms } from "src/util/api";
 import { use, useEffect, useState } from "react";
 interface IProps {
     films: IFilm[] | undefined;
@@ -12,7 +11,7 @@ interface IProps {
 const ContentMoviesPage = (props: IProps) => {
     const { films, times } = props;
     const [listFilms, setListFilms] = useState<IFilm[]>([]);
-    const [active, setActive] = useState<number>(times[0]?.id ?? 0);
+    const [active, setActive] = useState<number>(times ? times[0]?.id : 0);
     useEffect(() => {
         setListFilms(films ?? []);
     }, [])

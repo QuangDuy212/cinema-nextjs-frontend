@@ -30,7 +30,7 @@ const ProfileElement = () => {
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",
-                description: res.message,
+                description: res?.message,
                 duration: 5
             })
         }
