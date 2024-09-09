@@ -47,8 +47,13 @@ const SeatDetailFilm = (props: IProps) => {
                                         activeTempSeat.includes(i.id)
                                             ?
                                             <div className='seat-choosed' key={`${i.id}-choosed`}
-                                                onClick={() =>
-                                                    setActiveTempSeat(item => item.filter(v => v != i.id))}
+                                                onClick={() => {
+                                                    if (!seatBuyed.includes(i.name)) {
+                                                        setQuantity(i => i - 1);
+                                                        setActiveTempSeat(item => item.filter(v => v != i.id))
+                                                    }
+                                                }
+                                                }
                                             >
                                             </div>
                                             :
@@ -56,8 +61,10 @@ const SeatDetailFilm = (props: IProps) => {
                                                 className={`${seatBuyed.includes(i.name) ? "seat-buyed" : "item"}`}
                                                 key={i.id}
                                                 onClick={() => {
-                                                    if (!seatBuyed.includes(i.name))
+                                                    if (!seatBuyed.includes(i.name)) {
+                                                        setQuantity(i => i + 1);
                                                         setActiveTempSeat(item => [...item, i.id])
+                                                    }
                                                 }}
                                             >{seatBuyed.includes(i.name) ? "X" : i.name}</div>
                                     }
@@ -83,7 +90,7 @@ const SeatDetailFilm = (props: IProps) => {
                             <Col sm={24} md={24} xl={12} xxl={12}>
                                 <div className='list-seat-info__choosed'>
                                     <div className='list-seat-info__choosed--quantity'>Số lượng: <span>{quantity}</span></div>
-                                    <div className='list-seat-info__choosed--total'>Tổng tiền: <span>50.000đ</span></div>
+                                    <div className='list-seat-info__choosed--total'>Tổng tiền: <span>{quantity * (data?.price ?? 0)}</span></div>
                                 </div>
                             </Col>
                             <Col sm={24} md={24} xl={12} xxl={12}>
