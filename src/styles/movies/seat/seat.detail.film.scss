@@ -1,0 +1,145 @@
+.seat-container {
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    background-color: #10151b;
+    flex-direction  : column;
+    padding         : 20px 0 40px;
+
+    .seat-detail-film {
+        background-color: #10151b;
+        color           : #fff;
+        max-width       : 900px;
+        margin          : 0 auto;
+
+
+        .show-seat {
+            font-size    : 16px;
+            margin-bottom: 16px;
+
+            .time-seat {
+                font-weight: 700;
+            }
+        }
+
+        .title {
+            display        : flex;
+            justify-content: center;
+            margin-bottom  : 16px;
+            font-weight    : 800;
+            font-size      : 18px;
+        }
+
+        .list-seat {
+            display        : flex;
+            gap            : 6px;
+            flex-wrap      : wrap;
+            max-width      : 500px;
+            justify-content: center;
+
+            .item {
+                background-color: #252A31;
+                color           : #fff;
+                padding         : 10px 12px;
+                width           : 42px;
+                height          : 42px;
+                border-radius   : 5px;
+                display         : flex;
+                justify-content : center;
+                align-items     : center;
+                font-size       : 14px;
+                cursor          : pointer;
+            }
+        }
+    }
+
+    .note-seat {
+        display        : flex;
+        color          : #fff;
+        gap            : 10px;
+        margin-top     : 32px;
+        justify-content: center;
+
+        &__item {
+            display        : flex;
+            justify-content: center;
+            align-items    : center;
+            gap            : 8px;
+
+            &--buyed {
+                background-color: #252A31;
+                color           : #fff;
+                padding         : 10px 15px;
+                border-radius   : 5px;
+                display         : flex;
+                justify-content : center;
+                align-items     : center;
+                font-size       : 14px;
+
+            }
+
+            &--choosed {
+                background-color: #3982f9;
+                color           : #fff;
+                width           : 42px;
+                height          : 42px;
+                border-radius   : 5px;
+                display         : flex;
+                justify-content : center;
+                align-items     : center;
+                font-size       : 14px;
+            }
+
+            &--text {}
+        }
+    }
+
+    .list-seat-info {
+        color     : #fff;
+        width     : 100%;
+        display   : flex;
+        margin-top: 32px;
+
+        &__choosed {
+            &--quantity {}
+
+            &--total {}
+        }
+
+        &__btn {
+            text-align     : right;
+            display        : flex;
+            gap            : 15px;
+            width          : 100%;
+            justify-content: center;
+            align-items    : center;
+
+            .return-btn-seat {
+                border-radius: 12px;
+                border       : 1px solid #fff;
+                padding      : 8px 20px;
+                color        : #fff;
+                font-size    : 14px;
+
+                &:hover {
+                    background-color: #1e293b;
+                    cursor          : pointer;
+                }
+            }
+
+            .buy-btn-seat {
+                border-radius   : 12px;
+                padding         : 8px 20px;
+                color           : #fff;
+                background-color: #eb212b;
+                font-size       : 14px;
+                border          : none;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+}

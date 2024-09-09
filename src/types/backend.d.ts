@@ -118,4 +118,9 @@ declare global {
         headers?: any;
         nextOption?: any;
     }
+
+    interface ISeat {
+        id: number;
+        name: string;
+    }
 }

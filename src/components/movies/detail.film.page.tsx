@@ -3,8 +3,9 @@
 import { Button, Col, Modal, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
 import 'src/styles/movies/detail.film.page.scss'
-import { callFetchFilmById, callFetchShowsByFilmAndDay } from "src/util/api";
+import { callFetchAllSeatName, callFetchFilmById, callFetchShowsByFilmAndDay } from "src/util/api";
 import { convertYoutubeToHTML } from "src/util/method";
+import SeatDetailFilm from "./seat/seat.detail.film";
 
 
 interface IProps {
@@ -95,6 +96,9 @@ const DetailFilm = (props: IProps) => {
                             )
                         })}
                     </div>
+                </div>
+                <div>
+                    <SeatDetailFilm />
                 </div>
                 <Modal title="Chi tiết nội dung" open={isOpenDes} onCancel={() => setIsOpenDes(false)}
                     onOk={() => setIsOpenDes(false)}

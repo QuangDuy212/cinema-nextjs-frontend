@@ -51,10 +51,26 @@ export const callFetchShowsByFilmAndDay = (filmId: number, dayId: number) => {
         }
     )
 }
+
+
 /**
  * Module SHOW
  */
 
 export const callUpdateUser = (id: number | undefined, fullName: string | undefined, phone: string | undefined, address: string | undefined) => {
     return axios.put<IBackendRes<IUser>>("/api/v1/users", { id, fullName, phone, address })
+}
+
+
+/**
+ * Module SEATNAME
+ */
+
+export const callFetchAllSeatName = (page: number, size: number) => {
+    return axios.get("/api/v1/names", {
+        params: {
+            page: page,
+            size: size
+        }
+    });
 }
