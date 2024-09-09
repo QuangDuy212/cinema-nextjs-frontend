@@ -50,6 +50,32 @@
                 font-size       : 14px;
                 cursor          : pointer;
             }
+
+            .seat-choosed {
+                cursor: pointer;
+
+                background-color: #3982f9;
+                color           : #fff;
+                width           : 42px;
+                height          : 42px;
+                border-radius   : 5px;
+                display         : flex;
+                justify-content : center;
+                align-items     : center;
+                font-size       : 14px;
+            }
+
+            .seat-buyed {
+
+                background-color: #252A31;
+                color           : #fff;
+                padding         : 10px 15px;
+                border-radius   : 5px;
+                display         : flex;
+                justify-content : center;
+                align-items     : center;
+                font-size       : 14px;
+            }
         }
     }
 

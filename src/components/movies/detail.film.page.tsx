@@ -18,6 +18,8 @@ const DetailFilm = (props: IProps) => {
     const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false);
     const [activeTime, setActiveTime] = useState<number | undefined>(data?.shows[0]?.day?.id);
     const [shows, setShows] = useState<IShow[]>();
+    const [isShowSeat, setIsShowSeat] = useState<boolean>(false);
+    const [dataForSeat, setDataForSeat] = useState<IShow>();
 
     useEffect(() => {
         const fetchShow = async () => {
@@ -25,10 +27,16 @@ const DetailFilm = (props: IProps) => {
             setShows(res.data);
         }
         fetchShow();
+        console.log(">>> check data: ", data);
     }, [activeTime])
     const showModal = () => {
         setIsOpenDes(true);
     };
+
+    const handleOnClickSeatChoose = (data: IShow) => {
+        setIsShowSeat(true);
+        setDataForSeat(data);
+    }
     return (
         <>
             <div className="content">
@@ -78,7 +86,7 @@ const DetailFilm = (props: IProps) => {
                         return (
                             <div className={`${activeTime == show?.day?.id ? "item active" : "item"}`}
                                 key={show?.day?.id}
-                                onClick={() => setActiveTime(show?.day?.id)}
+                                onClick={() => { setActiveTime(show?.day?.id); setIsShowSeat(false) }}
                             >
                                 {show?.day?.date}
                             </div>
@@ -92,14 +100,23 @@ const DetailFilm = (props: IProps) => {
                     <div className="list-time">
                         {shows?.map((i) => {
                             return (
-                                <div className="item" key={i.id}>{i.time}</div>
+                                <div className="item" key={i.id}
+                                    onClick={() => handleOnClickSeatChoose(i)}
+                                >
+                                    {i.time}
+                                </div>
                             )
                         })}
                     </div>
                 </div>
-                <div>
-                    <SeatDetailFilm />
-                </div>
+                {isShowSeat &&
+                    <div>
+                        <SeatDetailFilm data={dataForSeat}
+                            isShowSeat={isShowSeat}
+                            setIsShowSeat={setIsShowSeat}
+                        />
+                    </div>
+                }
                 <Modal title="Chi tiết nội dung" open={isOpenDes} onCancel={() => setIsOpenDes(false)}
                     onOk={() => setIsOpenDes(false)}
                 >

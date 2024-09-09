@@ -54,7 +54,7 @@ export const callFetchShowsByFilmAndDay = (filmId: number, dayId: number) => {
 
 
 /**
- * Module SHOW
+ * Module USER
  */
 
 export const callUpdateUser = (id: number | undefined, fullName: string | undefined, phone: string | undefined, address: string | undefined) => {
@@ -71,6 +71,20 @@ export const callFetchAllSeatName = (page: number, size: number) => {
         params: {
             page: page,
             size: size
+        }
+    });
+}
+
+/**
+ * Module SEAT
+ */
+
+export const callFetchSeatByShow = (id: number | undefined, page: number | undefined, size: number | undefined) => {
+    return axios.get("/api/v1/seats/by-show", {
+        params: {
+            page: page,
+            size: size,
+            id: id
         }
     });
 }
