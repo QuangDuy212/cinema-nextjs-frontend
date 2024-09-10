@@ -3,17 +3,20 @@
 import { Button, Col, Modal, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
 import 'src/styles/movies/detail.film.page.scss'
-import { callFetchAllSeatName, callFetchFilmById, callFetchShowsByFilmAndDay } from "src/util/api";
+import { callFetchShowsByFilmAndDay } from "src/util/api";
 import { convertYoutubeToHTML } from "src/util/method";
 import SeatDetailFilm from "./seat/seat.detail.film";
+import { useRouter } from "next/router";
 
 
 interface IProps {
     data: IFilm | undefined;
 }
 const DetailFilm = (props: IProps) => {
+    //PROPS: 
     const { data } = props;
 
+    //STATE: 
     const [isOpenDes, setIsOpenDes] = useState<boolean>(false);
     const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false);
     const [activeTime, setActiveTime] = useState<number | undefined>(data?.shows[0]?.day?.id);
@@ -21,14 +24,16 @@ const DetailFilm = (props: IProps) => {
     const [isShowSeat, setIsShowSeat] = useState<boolean>(false);
     const [dataForSeat, setDataForSeat] = useState<IShow>();
 
+
     useEffect(() => {
         const fetchShow = async () => {
             const res = await callFetchShowsByFilmAndDay(data?.id ?? 0, activeTime ?? 0);
             setShows(res.data);
         }
         fetchShow();
-        console.log(">>> check data: ", data);
     }, [activeTime])
+
+
     const showModal = () => {
         setIsOpenDes(true);
     };
@@ -111,7 +116,8 @@ const DetailFilm = (props: IProps) => {
                 </div>
                 {isShowSeat &&
                     <div>
-                        <SeatDetailFilm data={dataForSeat}
+                        <SeatDetailFilm
+                            data={dataForSeat}
                             dataFilm={data}
                             isShowSeat={isShowSeat}
                             setIsShowSeat={setIsShowSeat}

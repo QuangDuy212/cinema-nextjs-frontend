@@ -1,5 +1,6 @@
 'use client'
 import { Button, Col, Row } from 'antd';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'src/redux/hook';
 import { setBill } from 'src/redux/slice/billSlide';
@@ -21,6 +22,7 @@ interface IPayload {
     zoomNumber: number | undefined;
     quantity: number | undefined;
     total: number | undefined;
+    showId: number | undefined;
 }
 const SeatDetailFilm = (props: IProps) => {
     //PROPS:
@@ -30,12 +32,13 @@ const SeatDetailFilm = (props: IProps) => {
     const [seatName, setSeatName] = useState<ISeat[]>([]);
     const [quantity, setQuantity] = useState<number>(0);
     const [activeTempSeatId, setActiveTempSeatId] = useState<number[]>([]);
-    const [seatChoosed, setSeatChoosed] = useState<ISeat[]>([]);
+    const [seatChoosed, setSeatChoosed] = useState<string[]>([]);
     const [seatBuyed, setSeatBuyed] = useState<string[]>([]);
     const [dataBill, setDataBill] = useState<IPayload>();
 
     // LIB: 
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
 
     useEffect(() => {
@@ -62,13 +65,15 @@ const SeatDetailFilm = (props: IProps) => {
             nameFilm: dataFilm?.name,
             show: data?.time,
             time: data?.day?.date,
-            seats: seatBuyed,
+            seats: seatChoosed,
             zoomNumber: data?.zoomNumber,
             quantity: quantity,
             total: quantity * (data?.price ?? 0),
+            showId: data?.id
         }
         setDataBill(payload);
         dispatch(setBill(payload));
+        router.push("/payment");
     }
     return (
         <>
@@ -88,7 +93,7 @@ const SeatDetailFilm = (props: IProps) => {
                                                     if (!seatBuyed.includes(i.name)) {
                                                         setQuantity(i => i - 1);
                                                         setActiveTempSeatId(item => item.filter(v => v != i.id))
-                                                        setSeatChoosed(item => item.filter(v => v.id != i.id))
+                                                        setSeatChoosed(item => item.filter(v => v != i.name))
                                                     }
                                                 }
                                                 }
@@ -102,7 +107,7 @@ const SeatDetailFilm = (props: IProps) => {
                                                     if (!seatBuyed.includes(i.name)) {
                                                         setQuantity(i => i + 1);
                                                         setActiveTempSeatId(item => [...item, i.id])
-                                                        setSeatChoosed(item => [...item, i])
+                                                        setSeatChoosed(item => [...item, i.name])
                                                     }
                                                 }}
                                             >{seatBuyed.includes(i.name) ? "X" : i.name}</div>

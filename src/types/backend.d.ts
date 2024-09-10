@@ -123,4 +123,10 @@ declare global {
         id: number;
         name: string;
     }
+
+    interface IBill {
+        total: number;
+        quantity: number;
+        status: string;
+    }
 }

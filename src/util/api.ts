@@ -88,3 +88,17 @@ export const callFetchSeatByShow = (id: number | undefined, page: number | undef
         }
     });
 }
+
+export const callCreateSeat = (name: string | undefined, showId: number | undefined, billId: number) => {
+    return axios.post("/api/v1/seats", {
+        name: name, active: true, show: { id: showId }, bill: { id: billId }
+    })
+}
+
+/**
+ * Module BILL
+ */
+
+export const callCreateBill = (data: IBill) => {
+    return axios.post("/api/v1/bills", data);
+}

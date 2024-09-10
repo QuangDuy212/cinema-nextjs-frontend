@@ -1,9 +1,48 @@
 "use client"
 
 import { Col, Row } from "antd";
+import { useRouter } from "next/navigation";
+import { resolve } from "node:path/win32";
+import { useAppDispatch, useAppSelector } from "src/redux/hook";
+import { setEmptyBill } from "src/redux/slice/billSlide";
 import 'src/styles/payment/app.payment.scss';
+import { callCreateBill, callCreateSeat } from "src/util/api";
 
 const AppPayment = () => {
+    //lib: 
+    const bill = useAppSelector(state => state.bill);
+    const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
+
+
+    const handleConfirm = async () => {
+        if (isAuthenticated) {
+            const seats = bill.seats;
+            const billReq: IBill = {
+                total: bill.total,
+                quantity: bill.quantity,
+                status: "PENDING"
+            }
+            const resBill = await callCreateBill(billReq);
+            console.log(">> check res Bill: ", resBill);
+            if (resBill && resBill?.data) {
+                seats.forEach(async i => {
+                    const res = await callCreateSeat(i, bill.showId, resBill.data.id);
+                    console.log(">>> check create seat : ", res);
+                })
+            }
+        } else {
+            router.push("/auth/signin");
+        }
+    }
+
+    const handleReturn = () => {
+        dispatch(setEmptyBill());
+        router.push("/movies")
+
+    }
     return (
         <>
             <div className="payment-container">
@@ -14,18 +53,33 @@ const AppPayment = () => {
                                 <div className="payment__info--title">Thông tin phim</div>
                                 <div className="payment__info--film">
                                     <div>Phim</div>
-                                    <div>LÀM GIÀU VỚI MA-T16</div>
+                                    <div>{bill?.nameFilm ?? 0}</div>
                                 </div>
                                 <div className="payment__info--show">
                                     <div style={{ width: "50%" }}>
                                         <div>Ngày giờ chiếu</div>
                                         <div style={{ fontWeight: "700" }}>
-                                            <span style={{ color: "#F97316" }}>9:00</span> - 10/09/2024
+                                            <span style={{ color: "#F97316" }}>{bill?.show ?? 0}</span> - {bill?.time ?? 0}
                                         </div>
                                     </div>
                                     <div style={{ width: "50%" }}>
                                         <div>Ghế</div>
-                                        <div style={{ fontWeight: "700" }}>K17,K16,K15</div>
+                                        <div style={{ fontWeight: "700" }}>
+                                            {bill?.seats?.map((i, index) => {
+                                                if (index !== bill?.seats?.length - 1)
+                                                    return (
+                                                        <span key={i}>{i},</span>
+                                                    );
+                                                else {
+                                                    return (
+                                                        <span key={i}>{i}</span>
+                                                    )
+
+                                                }
+
+                                            }) ?? []}
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="payment__info--zoom">
@@ -35,7 +89,7 @@ const AppPayment = () => {
                                     </div>
                                     <div style={{ width: "50%" }}>
                                         <div>Phòng chiếu</div>
-                                        <div style={{ fontWeight: "700" }}>5</div>
+                                        <div style={{ fontWeight: "700" }}>{bill?.zoomNumber ?? 0}</div>
                                     </div>
                                 </div>
                             </div>
@@ -43,18 +97,33 @@ const AppPayment = () => {
                             <div className="payment__bonus">
                                 <div className="payment__bonus--title">Thông tin thanh toán</div>
                                 <div className="payment__bonus--table">
-                                    <table>
-                                        <tr>
-                                            <th>Danh mục</th>
-                                            <th>Số lượng</th>
-                                            <th>Tổng tiền</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Ghế (K17,K16,K15)</td>
-                                            <td>3</td>
-                                            <td>150.000đ</td>
-                                        </tr>
-                                    </table>
+                                    {
+                                        bill?.seats?.length > 0 &&
+                                        <table>
+                                            <tr>
+                                                <th>Danh mục</th>
+                                                <th>Số lượng</th>
+                                                <th>Tổng tiền</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Ghế ({bill?.seats?.map((i, index) => {
+                                                    if (index !== bill?.seats?.length - 1)
+                                                        return (
+                                                            <span key={i}>{i},</span>
+                                                        );
+                                                    else {
+                                                        return (
+                                                            <span key={i}>{i}</span>
+                                                        )
+
+                                                    }
+
+                                                }) ?? []})</td>
+                                                <td>{bill?.quantity ?? 0}</td>
+                                                <td>{bill?.total ?? 0}</td>
+                                            </tr>
+                                        </table>
+                                    }
                                 </div>
                             </div>
                         </Col>
@@ -66,7 +135,7 @@ const AppPayment = () => {
                                     <div className="buy__expense--content">
                                         <div className="pay-content">
                                             <div >Thanh toán</div>
-                                            <div>50.000đ</div>
+                                            <div>{bill?.total ?? 0}đ</div>
                                         </div>
                                         <div className="pay-content">
                                             <div>Phí</div>
@@ -74,12 +143,16 @@ const AppPayment = () => {
                                         </div>
                                         <div className="pay-content">
                                             <div>Tổng cộng</div>
-                                            <div>50.000đ</div>
+                                            <div>{bill?.total ?? 0}đ</div>
                                         </div>
                                     </div>
                                     <div className="buy__expense--btn">
-                                        <div className="pay-btn__confirm">Thanh toán</div>
-                                        <div className="pay-btn__return">Quay lại</div>
+                                        <div className="pay-btn__confirm"
+                                            onClick={() => handleConfirm()}
+                                        >Thanh toán</div>
+                                        <div className="pay-btn__return"
+                                            onClick={() => handleReturn()}
+                                        >Quay lại</div>
                                     </div>
                                 </div>
                                 <div className="buy__note">

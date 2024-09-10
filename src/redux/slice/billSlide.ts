@@ -8,6 +8,7 @@ interface IState {
     zoomNumber: number;
     quantity: number;
     total: number;
+    showId: number;
 }
 
 const initialState: IState = {
@@ -17,7 +18,8 @@ const initialState: IState = {
     seats: [],
     zoomNumber: 0,
     quantity: 0,
-    total: 0
+    total: 0,
+    showId: 0,
 };
 
 
@@ -33,16 +35,18 @@ export const billSlide = createSlice({
                 state.seats = action.payload?.seats,
                 state.zoomNumber = action.payload?.zoomNumber,
                 state.quantity = action.payload?.quantity,
-                state.total = action.payload?.total
+                state.total = action.payload?.total,
+                state.showId = action.payload?.showId;
         },
-        setEmptyBill: (state, action) => {
+        setEmptyBill: (state) => {
             state.nameFilm = "",
                 state.show = "",
                 state.time = "",
                 state.seats = [],
                 state.zoomNumber = 0,
                 state.quantity = 0,
-                state.total = 0
+                state.total = 0,
+                state.showId = 0
         }
     },
     extraReducers: (builder) => {
