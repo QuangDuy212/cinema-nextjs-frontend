@@ -1,20 +1,42 @@
 'use client'
 import { Button, Col, Row } from 'antd';
 import { useEffect, useState } from 'react';
+import { useAppDispatch } from 'src/redux/hook';
+import { setBill } from 'src/redux/slice/billSlide';
 import 'src/styles/movies/seat/seat.detail.film.scss';
 import { callFetchAllSeatName, callFetchSeatByShow } from 'src/util/api';
 
 interface IProps {
+    dataFilm: IFilm | undefined;
     data: IShow | undefined;
     isShowSeat: boolean;
     setIsShowSeat: (v: boolean) => void;
 }
+
+interface IPayload {
+    nameFilm: string | undefined;
+    show: string | undefined;
+    time: string | undefined;
+    seats: string[] | undefined;
+    zoomNumber: number | undefined;
+    quantity: number | undefined;
+    total: number | undefined;
+}
 const SeatDetailFilm = (props: IProps) => {
-    const { data, isShowSeat, setIsShowSeat } = props;
+    //PROPS:
+    const { dataFilm, data, isShowSeat, setIsShowSeat } = props;
+
+    // STATE: 
     const [seatName, setSeatName] = useState<ISeat[]>([]);
     const [quantity, setQuantity] = useState<number>(0);
-    const [activeTempSeat, setActiveTempSeat] = useState<number[]>([]);
+    const [activeTempSeatId, setActiveTempSeatId] = useState<number[]>([]);
+    const [seatChoosed, setSeatChoosed] = useState<ISeat[]>([]);
     const [seatBuyed, setSeatBuyed] = useState<string[]>([]);
+    const [dataBill, setDataBill] = useState<IPayload>();
+
+    // LIB: 
+    const dispatch = useAppDispatch();
+
 
     useEffect(() => {
         const fetchSeatName = async () => {
@@ -33,6 +55,21 @@ const SeatDetailFilm = (props: IProps) => {
         fetchSeatName();
         fetchSeatBuyed();
     }, [])
+
+
+    const handleOnClickBuy = () => {
+        const payload = {
+            nameFilm: dataFilm?.name,
+            show: data?.time,
+            time: data?.day?.date,
+            seats: seatBuyed,
+            zoomNumber: data?.zoomNumber,
+            quantity: quantity,
+            total: quantity * (data?.price ?? 0),
+        }
+        setDataBill(payload);
+        dispatch(setBill(payload));
+    }
     return (
         <>
             <div className='seat-container'>
@@ -44,13 +81,14 @@ const SeatDetailFilm = (props: IProps) => {
                             return (
                                 <>
                                     {
-                                        activeTempSeat.includes(i.id)
+                                        activeTempSeatId.includes(i.id)
                                             ?
                                             <div className='seat-choosed' key={`${i.id}-choosed`}
                                                 onClick={() => {
                                                     if (!seatBuyed.includes(i.name)) {
                                                         setQuantity(i => i - 1);
-                                                        setActiveTempSeat(item => item.filter(v => v != i.id))
+                                                        setActiveTempSeatId(item => item.filter(v => v != i.id))
+                                                        setSeatChoosed(item => item.filter(v => v.id != i.id))
                                                     }
                                                 }
                                                 }
@@ -63,7 +101,8 @@ const SeatDetailFilm = (props: IProps) => {
                                                 onClick={() => {
                                                     if (!seatBuyed.includes(i.name)) {
                                                         setQuantity(i => i + 1);
-                                                        setActiveTempSeat(item => [...item, i.id])
+                                                        setActiveTempSeatId(item => [...item, i.id])
+                                                        setSeatChoosed(item => [...item, i])
                                                     }
                                                 }}
                                             >{seatBuyed.includes(i.name) ? "X" : i.name}</div>
@@ -98,7 +137,9 @@ const SeatDetailFilm = (props: IProps) => {
                                     <div className='return-btn-seat'
                                         onClick={() => setIsShowSeat(false)}
                                     >Quay lại</div>
-                                    <button className='buy-btn-seat'>Thanh toán</button>
+                                    <button className='buy-btn-seat'
+                                        onClick={() => handleOnClickBuy()}
+                                    >Thanh toán</button>
                                 </div>
                             </Col>
                         </Row>

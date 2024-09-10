@@ -112,6 +112,7 @@ const DetailFilm = (props: IProps) => {
                 {isShowSeat &&
                     <div>
                         <SeatDetailFilm data={dataForSeat}
+                            dataFilm={data}
                             isShowSeat={isShowSeat}
                             setIsShowSeat={setIsShowSeat}
                         />

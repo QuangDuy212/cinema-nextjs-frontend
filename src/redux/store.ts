@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import accountSlide from './slice/accountSlide'
+import billSlide from './slice/billSlide'
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
-            account: accountSlide
+            account: accountSlide,
+            bill: billSlide
         }
     })
 }

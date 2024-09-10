@@ -1,0 +1,125 @@
+.payment-container {
+    background-color: #10151b;
+    padding         : 96px 0 80px;
+    color           : #fff;
+
+    .payment {
+        &__info {
+            background-color: #1a1d24;
+            border-radius   : 10px;
+            padding         : 24px;
+
+            &--title {
+                font-size  : 16px;
+                font-weight: 700;
+            }
+
+            &--film {
+                font-size : 16px;
+                margin-top: 24px;
+            }
+
+            &--show {
+                font-size : 16px;
+                display   : flex;
+                margin-top: 24px;
+            }
+
+            &--zoom {
+                font-size : 16px;
+                display   : flex;
+                margin-top: 24px;
+            }
+        }
+
+        &__bonus {
+            background-color: #1a1d24;
+            border-radius   : 10px;
+            padding         : 24px;
+            margin-top      : 20px;
+
+            &--title {
+                font-size  : 16px;
+                font-weight: 700;
+            }
+
+            &--table {
+                margin-top: 20px;
+
+                table {
+                    font-family    : arial, sans-serif;
+                    border-collapse: collapse;
+                    width          : 100%;
+                }
+
+                td,
+                th {
+                    border       : 1px solid #ccc;
+                    border-radius: 10px;
+                    text-align   : left;
+                    padding      : 8px;
+                }
+            }
+        }
+    }
+
+    .buy {
+
+        background-color: #1a1d24;
+        border-radius   : 10px;
+        padding         : 24px;
+
+        &__expense {
+            &--title {
+                font-size  : 16px;
+                font-weight: 700;
+            }
+
+            &--content {
+                margin-top: 20px;
+
+                .pay-content {
+                    font-size      : 16px;
+                    display        : flex;
+                    justify-content: space-between;
+                }
+            }
+
+            &--btn {
+                .pay-btn__confirm {
+                    width           : 100%;
+                    background-color: #ea1f28;
+                    border-radius   : 20px;
+                    padding         : 8px 32px;
+                    display         : flex;
+                    justify-content : center;
+                    align-items     : center;
+                    font-size       : 14px;
+                    cursor          : pointer;
+                    margin-top      : 12px;
+                }
+
+                .pay-btn__return {
+                    width           : 100%;
+                    background-color: inherit;
+                    border-radius   : 20px;
+                    padding         : 8px 32px;
+                    display         : flex;
+                    justify-content : center;
+                    align-items     : center;
+                    font-size       : 14px;
+                    cursor          : pointer;
+                    margin-top      : 12px;
+
+                    &:hover {
+                        background-color: #1e293b;
+                    }
+                }
+            }
+        }
+
+        &__note {
+            color: #F97316;
+        }
+    }
+}
