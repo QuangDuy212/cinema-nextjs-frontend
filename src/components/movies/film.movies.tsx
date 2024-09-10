@@ -61,7 +61,9 @@ const FilmMovies = (props: IProps) => {
                         <div className='time'>
                             {shows?.map((show) => {
                                 return (
-                                    <span className="item" key={show.id}> {show.time}</span>
+                                    <span className="item" key={show.id}
+                                        onClick={() => router.push(`/movies/${convertSlugUrl(film.name)}-${film.id}.html`)}
+                                    > {show.time}</span>
 
                                 )
                             }

@@ -4,24 +4,12 @@ import { Button, Tabs } from "antd";
 import 'src/styles/profile/app.profile.scss';
 import type { TabsProps } from 'antd';
 import ProfileElement from "./profile.element";
+import HistoryElement from "./history.element";
+import { useState } from "react";
 
 const AppProfile = () => {
-    const items: TabsProps['items'] = [
-        {
-            key: '1',
-            label: <span style={{ fontSize: "16px", fontWeight: 500 }}>Tài khoản của tôi</span>,
-            children: <ProfileElement />,
-        },
-        {
-            key: '2',
-            label: <span style={{ fontSize: "16px", fontWeight: 500 }}>Lịch sử mua vé</span>,
-            children: 'Content of Tab Pane 2',
-        },
-    ];
-
-    const onChange = (key: string) => {
-        console.log(key);
-    };
+    //STATE: 
+    const [active, setActive] = useState<string>("profile");
     return (
         <>
             <div className="profile">
@@ -31,12 +19,18 @@ const AppProfile = () => {
                     </div>
 
                     <div className="profile__nav">
-                        <Tabs defaultActiveKey="1" items={items} onChange={onChange}
-                            style={{
-                                color: "#fff",
-                                width: "100%",
-                                display: "flex", justifyContent: "center", alignItems: "center"
-                            }} />
+                        <div className={`${active === "profile" ? "item-btn active" : "item-btn"}`}
+                            onClick={() => setActive("profile")}
+                        >Tài khoản của tôi</div>
+                        <div className={`${active === "history" ? "item-btn active" : "item-btn"}`}
+                            onClick={() => setActive("history")}
+                        >Lịch sử mua vé</div>
+                    </div>
+
+                    <div className="profile__content">
+                        {active === "profile" && <ProfileElement />}
+                        {active === "history" && <HistoryElement />}
+
                     </div>
                 </div>
             </div>

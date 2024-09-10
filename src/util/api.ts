@@ -102,3 +102,9 @@ export const callCreateSeat = (name: string | undefined, showId: number | undefi
 export const callCreateBill = (data: IBill) => {
     return axios.post("/api/v1/bills", data);
 }
+
+export const callFetchAllBillByUser = (page: number, size: number) => {
+    return axios.get("/api/v1/bills", {
+        params: { page, size }
+    })
+}

@@ -1,0 +1,23 @@
+.history-container {
+    width        : 100%;
+    color        : #fff;
+    border       : 1px solid #fff;
+    border-radius: 10px;
+
+    table {
+        text-indent    : 0;
+        border-color   : inherit;
+        border-collapse: collapse;
+        width          : 100%;
+    }
+
+    th {
+        font-weight: 600;
+    }
+
+    td,
+    th {
+        text-align: left;
+        padding   : 14px 12px 14px 24px;
+    }
+}

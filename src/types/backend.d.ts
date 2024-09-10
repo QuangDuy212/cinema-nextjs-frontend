@@ -129,4 +129,24 @@ declare global {
         quantity: number;
         status: string;
     }
+
+    interface IHistory {
+        "id": number;
+        "total": number;
+        "quantity": number;
+        "status": string;
+        "user": {
+            "email": string;
+        },
+        "nameFilm": string;
+        "seats": {
+            "id": number;
+            "name": string;
+        }[]
+        ,
+        "createdAt": string;
+        "updatedAt": string;
+        "createdBy": string;
+        "updatedBy": string;
+    }
 }
