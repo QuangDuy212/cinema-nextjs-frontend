@@ -1,4 +1,4 @@
-import AppThank from "src/components/thank/app.thank";
+import AppThank from "src/components/user/thank/app.thank";
 
 const ThankPage = () => {
     return (
