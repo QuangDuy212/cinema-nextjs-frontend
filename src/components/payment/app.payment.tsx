@@ -33,6 +33,9 @@ const AppPayment = () => {
                     console.log(">>> check create seat : ", res);
                 })
             }
+            dispatch(setEmptyBill());
+            router.push("/thank")
+
         } else {
             router.push("/auth/signin");
         }

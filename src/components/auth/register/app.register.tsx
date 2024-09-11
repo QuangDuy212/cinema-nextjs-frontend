@@ -7,27 +7,38 @@ import { useState } from 'react';
 import styles from 'src/styles/auth/auth.module.scss';
 const { Option } = Select;
 import "antd/dist/antd.css";
+import { callRegister } from 'src/util/api';
+
+interface IValue {
+    fullName: string;
+    email: string;
+    password: string;
+    address: string;
+    phone: string;
+}
 
 const AppRegister = () => {
     const [isSubmit, setIsSubmit] = useState(false);
     const router = useRouter();
 
     const onFinish = async (values: any) => {
-        // const { name, email, password, age, gender, address } = values;
-        // setIsSubmit(true);
-        // const res = await callRegister(name, email, password as string, +age, gender, address);
-        // setIsSubmit(false);
-        // if (res?.data?.id) {
-        //     message.success('Đăng ký tài khoản thành công!');
-        //     router.push('/auth/signin')
-        // } else {
-        //     notification.error({
-        //         message: "Có lỗi xảy ra",
-        //         description:
-        //             res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-        //         duration: 5
-        //     })
-        // }
+        const { fullName, email, password, address, phone } = values;
+        setIsSubmit(true);
+        const data = { fullName, email, password, phone, address };
+        const res = await callRegister(data);
+        console.log(">>> check res: ", res);
+        setIsSubmit(false);
+        if (res?.data?.id) {
+            message.success('Đăng ký tài khoản thành công!');
+            router.push('/auth/signin')
+        } else {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description:
+                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+                duration: 5
+            })
+        }
     };
 
 
@@ -50,7 +61,7 @@ const AppRegister = () => {
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column
                                 label="Họ tên"
-                                name="name"
+                                name="fullName"
                                 rules={[{ required: true, message: 'Họ tên không được để trống!' }]}
                             >
                                 <Input style={{ borderRadius: "5px" }} />
@@ -77,30 +88,11 @@ const AppRegister = () => {
                             </Form.Item>
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column
-                                label="Tuổi"
-                                name="age"
-                                rules={[{ required: true, message: 'Tuổi không được để trống!' }]}
+                                label="Điện thoại"
+                                name="phone"
+                                rules={[{ required: true, message: 'Số điện thoại không được để trống!' }]}
                             >
                                 <Input type='number' style={{ borderRadius: "5px" }} />
-                            </Form.Item>
-
-
-                            <Form.Item
-                                labelCol={{ span: 24 }} //whole column
-                                name="gender"
-                                label="Giới tính"
-                                rules={[{ required: true, message: 'Giới tính không được để trống!' }]}
-                            >
-                                <Select
-                                    // placeholder="Select a option and change input text above"
-                                    // onChange={onGenderChange}
-                                    allowClear
-                                    style={{ borderRadius: "5px" }}
-                                >
-                                    <Option value="MALE">Nam</Option>
-                                    <Option value="FEMALE">Nữ</Option>
-                                    <Option value="OTHER">Khác</Option>
-                                </Select>
                             </Form.Item>
 
 

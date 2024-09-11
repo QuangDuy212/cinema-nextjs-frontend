@@ -149,4 +149,12 @@ declare global {
         "createdBy": string;
         "updatedBy": string;
     }
+
+    interface IReqRegister {
+        fullName: string;
+        email: string;
+        password: string;
+        address: string;
+        phone: string;
+    }
 }

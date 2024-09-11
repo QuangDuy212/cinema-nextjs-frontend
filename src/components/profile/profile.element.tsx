@@ -30,6 +30,7 @@ const ProfileElement = () => {
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",
+                //@ts-ignore
                 description: res?.message,
                 duration: 5
             })
@@ -46,7 +47,7 @@ const ProfileElement = () => {
         <>
             <div style={{
                 maxWidth: "900px", display: "flex", justifyContent: "center", alignItems: "center"
-            }}>
+            }} className='profile-ele-container'>
                 <Form
                     name="basic"
                     form={form}

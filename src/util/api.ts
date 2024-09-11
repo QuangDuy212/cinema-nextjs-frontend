@@ -7,11 +7,15 @@ import axios from "src/config/axios-customize";
  * Module Auth
  */
 export const callLogin = (username: string | undefined, password: string | undefined) => {
-    return axios.post<IBackendRes<IAccount>>("/api/v1/auth/login", { username, password });
+    return axios.post("/api/v1/auth/login", { username, password });
 }
 
 export const callLogout = () => {
-    return axios.post<IBackendRes<null>>("/api/v1/auth/logout");
+    return axios.post("/api/v1/auth/logout");
+}
+
+export const callRegister = (data: IReqRegister) => {
+    return axios.post("/api/v1/auth/register", data);
 }
 
 export const callFetchAccount = () => {
@@ -58,7 +62,7 @@ export const callFetchShowsByFilmAndDay = (filmId: number, dayId: number) => {
  */
 
 export const callUpdateUser = (id: number | undefined, fullName: string | undefined, phone: string | undefined, address: string | undefined) => {
-    return axios.put<IBackendRes<IUser>>("/api/v1/users", { id, fullName, phone, address })
+    return axios.put("/api/v1/users", { id, fullName, phone, address })
 }
 
 

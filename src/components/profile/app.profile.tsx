@@ -5,11 +5,23 @@ import 'src/styles/profile/app.profile.scss';
 import type { TabsProps } from 'antd';
 import ProfileElement from "./profile.element";
 import HistoryElement from "./history.element";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAppSelector } from "src/redux/hook";
 
 const AppProfile = () => {
     //STATE: 
     const [active, setActive] = useState<string>("profile");
+
+    //LIB:
+    const router = useRouter();
+    const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push("/auth/signin")
+        }
+    }, [])
     return (
         <>
             <div className="profile">
