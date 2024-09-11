@@ -41,7 +41,7 @@ const LayoutAdmin = ({ children }: Readonly<{
     const router = useRouter();
 
     useEffect(() => {
-        const ACL_ENABLE = process.env.VITE_ACL_ENABLE;
+        const ACL_ENABLE = process.env.NEXT_ACL_ENABLE;
         if (permissions?.length || ACL_ENABLE === 'false') {
 
             const viewCompany = permissions?.find(item =>
