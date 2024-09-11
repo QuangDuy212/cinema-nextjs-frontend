@@ -1,4 +1,4 @@
-import AppProfile from "src/components/profile/app.profile";
+import AppProfile from "src/components/user/profile/app.profile";
 
 const ProfilePage = () => {
     return (

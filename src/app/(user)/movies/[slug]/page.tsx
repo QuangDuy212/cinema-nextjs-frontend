@@ -1,4 +1,4 @@
-import DetailFilm from "src/components/movies/detail.film.page";
+import DetailFilm from "src/components/user/movies/detail.film.page";
 import { callFetchFilmById } from "src/util/api";
 import { sendRequest } from "src/util/method";
 

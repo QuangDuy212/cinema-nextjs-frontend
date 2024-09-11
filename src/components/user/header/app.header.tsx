@@ -1,7 +1,7 @@
 'use client'
 
-import '../../app/page.module.css'
-import '../../styles/header/app.header.scss'
+import 'src/app/page.module.css'
+import 'src/styles/header/app.header.scss'
 import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, message, Space } from 'antd';

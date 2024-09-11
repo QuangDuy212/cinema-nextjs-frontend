@@ -1,4 +1,4 @@
-import AppPayment from "src/components/payment/app.payment";
+import AppPayment from "src/components/user/payment/app.payment";
 
 const PaymentPage = () => {
     return (

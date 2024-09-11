@@ -1,5 +1,5 @@
-import ContentHomepage from "src/components/main/content.homepage";
-import SwiperComponent from "src/components/swiper-slide/swiper.slide";
+import ContentHomepage from "src/components/user/main/content.homepage";
+import SwiperComponent from "src/components/user/swiper-slide/swiper.slide";
 import { callFetchAllFilms } from "src/util/api";
 
 
