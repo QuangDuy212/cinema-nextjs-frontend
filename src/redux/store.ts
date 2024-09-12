@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import accountSlide from './slice/accountSlide'
 import billSlide from './slice/billSlide'
+import userSlide from './slice/userSlide'
+import permissionSlide from './slice/permissionSlide'
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             account: accountSlide,
-            bill: billSlide
+            bill: billSlide,
+            user: userSlide,
+            permission: permissionSlide
         }
     })
 }

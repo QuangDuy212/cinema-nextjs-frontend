@@ -65,6 +65,45 @@ export const callUpdateUser = (id: number | undefined, fullName: string | undefi
     return axios.put("/api/v1/users", { id, fullName, phone, address })
 }
 
+export const callCreateUser = (email: string, fullName: string, phone: string, password: string, address: string) => {
+    return axios.post("/api/v1/users", { email, fullName, phone, password, address });
+}
+
+export const callDeleteUser = (id: number) => {
+    return axios.delete(`/api/v1/users/${id}`);
+}
+
+export const callFetchAllUsers = (query: string) => {
+    return axios.get(`/api/v1/users?${query}`);
+}
+
+export const callFetchUserById = (id: number) => {
+    return axios.get(`/api/v1/users/${id}`);
+}
+
+/**
+ * Module PERMISSION
+ */
+
+export const callCreatePermission = (permission: IPermission) => {
+    return axios.post('/api/v1/permissions', { ...permission })
+}
+
+export const callUpdatePermission = (permission: IPermission, id: string) => {
+    return axios.put(`/api/v1/permissions`, { id, ...permission })
+}
+
+export const callDeletePermission = (id: string) => {
+    return axios.delete(`/api/v1/permissions/${id}`);
+}
+
+export const callFetchPermission = (query: string) => {
+    return axios.get(`/api/v1/permissions?${query}`);
+}
+
+export const callFetchPermissionById = (id: string) => {
+    return axios.get(`/api/v1/permissions/${id}`);
+}
 
 /**
  * Module SEATNAME

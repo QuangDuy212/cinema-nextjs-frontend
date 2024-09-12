@@ -157,4 +157,20 @@ declare global {
         address: string;
         phone: string;
     }
+
+    export interface IPermission {
+        id?: string;
+        name?: string;
+        apiPath?: string;
+        method?: string;
+        module?: string;
+
+        createdBy?: string;
+        isDeleted?: boolean;
+        deletedAt?: boolean | null;
+        createdAt?: string;
+        updatedAt?: string;
+
+    }
+
 }

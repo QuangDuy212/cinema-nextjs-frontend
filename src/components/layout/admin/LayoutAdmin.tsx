@@ -74,48 +74,58 @@ const LayoutAdmin = ({ children }: Readonly<{
                 && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
             )
 
+            // const full = [
+            //     {
+            //         label: <Link href='/admin'>Dashboard</Link>,
+            //         key: '/admin',
+            //         icon: <AppstoreOutlined />
+            //     },
+            //     ...(viewCompany || ACL_ENABLE === 'false' ? [{
+            //         label: <Link href='/admin/company'>Company</Link>,
+            //         key: '/admin/company',
+            //         icon: <BankOutlined />,
+            //     }] : []),
+
+            //     ...(viewUser || ACL_ENABLE === 'false' ? [{
+            //         label: <Link href='/admin/user'>User</Link>,
+            //         key: '/admin/user',
+            //         icon: <UserOutlined />
+            //     }] : []),
+            //     ...(viewJob || ACL_ENABLE === 'false' ? [{
+            //         label: <Link href='/admin/job'>Job</Link>,
+            //         key: '/admin/job',
+            //         icon: <ScheduleOutlined />
+            //     }] : []),
+
+            //     ...(viewResume || ACL_ENABLE === 'false' ? [{
+            //         label: <Link href='/admin/resume'>Resume</Link>,
+            //         key: '/admin/resume',
+            //         icon: <AliwangwangOutlined />
+            //     }] : []),
+            //     ...(viewPermission || ACL_ENABLE === 'false' ? [{
+            //         label: <Link href='/admin/permission'>Permission</Link>,
+            //         key: '/admin/permission',
+            //         icon: <ApiOutlined />
+            //     }] : []),
+            //     ...(viewRole || ACL_ENABLE === 'false' ? [{
+            //         label: <Link href='/admin/role'>Role</Link>,
+            //         key: '/admin/role',
+            //         icon: <ExceptionOutlined />
+            //     }] : []),
+            // ];
+
             const full = [
                 {
                     label: <Link href='/admin'>Dashboard</Link>,
                     key: '/admin',
                     icon: <AppstoreOutlined />
                 },
-                ...(viewCompany || ACL_ENABLE === 'false' ? [{
-                    label: <Link href='/admin/company'>Company</Link>,
-                    key: '/admin/company',
-                    icon: <BankOutlined />,
-                }] : []),
-
-                ...(viewUser || ACL_ENABLE === 'false' ? [{
+                {
                     label: <Link href='/admin/user'>User</Link>,
                     key: '/admin/user',
                     icon: <UserOutlined />
-                }] : []),
-                ...(viewJob || ACL_ENABLE === 'false' ? [{
-                    label: <Link href='/admin/job'>Job</Link>,
-                    key: '/admin/job',
-                    icon: <ScheduleOutlined />
-                }] : []),
-
-                ...(viewResume || ACL_ENABLE === 'false' ? [{
-                    label: <Link href='/admin/resume'>Resume</Link>,
-                    key: '/admin/resume',
-                    icon: <AliwangwangOutlined />
-                }] : []),
-                ...(viewPermission || ACL_ENABLE === 'false' ? [{
-                    label: <Link href='/admin/permission'>Permission</Link>,
-                    key: '/admin/permission',
-                    icon: <ApiOutlined />
-                }] : []),
-                ...(viewRole || ACL_ENABLE === 'false' ? [{
-                    label: <Link href='/admin/role'>Role</Link>,
-                    key: '/admin/role',
-                    icon: <ExceptionOutlined />
-                }] : []),
-
-
-
-            ];
+                },
+            ]
 
             setMenuItems(full);
         }
@@ -124,6 +134,7 @@ const LayoutAdmin = ({ children }: Readonly<{
 
     useEffect(() => {
         setActiveMenu(location.pathname)
+        console.log(">>> check location path: ", location.pathname)
     }, [location])
 
     const handleLogout = async () => {
