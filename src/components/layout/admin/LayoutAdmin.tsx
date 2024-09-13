@@ -2,15 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import {
     AppstoreOutlined,
-    ExceptionOutlined,
-    ApiOutlined,
     UserOutlined,
-    BankOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    AliwangwangOutlined,
     BugOutlined,
-    ScheduleOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Dropdown, Space, message, Avatar, Button } from 'antd';
 import { isMobile } from 'react-device-detect';
@@ -23,6 +18,7 @@ import { setLogoutAction } from 'src/redux/slice/accountSlide';
 import { useRouter } from 'next/navigation';
 import "antd/dist/antd.css";
 import "antd/dist/antd.min.css";
+import { FaFilm } from 'react-icons/fa';
 
 const { Content, Sider } = Layout;
 
@@ -124,6 +120,12 @@ const LayoutAdmin = ({ children }: Readonly<{
                     label: <Link href='/admin/user'>User</Link>,
                     key: '/admin/user',
                     icon: <UserOutlined />
+                },
+
+                {
+                    label: <Link href='/admin/film'>Film</Link>,
+                    key: '/admin/Film',
+                    icon: <FaFilm />
                 },
             ]
 

@@ -1,12 +1,17 @@
 "use client"
 
-import { Button, ConfigProvider, Popover, Table } from "antd";
+import { Button, ConfigProvider, message, notification, Popconfirm, Popover, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { LuPenLine } from "react-icons/lu";
 import { MdDelete, MdInfoOutline } from "react-icons/md";
-import { callFetchAllUsers } from "src/util/api";
+import { callDeleteUser, callFetchAllUsers } from "src/util/api";
 import 'src/styles/admin/user/app.admin.user.scss'
+import Access from "src/components/share/access";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { ALL_PERMISSIONS } from "src/config/permissions";
+import { IoAddCircleOutline } from "react-icons/io5";
+import ModalCreateUser from "./modal/modal.create.user";
 
 const AppAdminUser = () => {
 
@@ -16,13 +21,21 @@ const AppAdminUser = () => {
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(2);
     const [total, setTotal] = useState<number>(0);
+
     const [isSearch, setIsSearch] = useState<boolean>(false);
+
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openModalNewUser, setOpenModalNewUser] = useState<boolean>(false);
+    const [openUserDetail, setIsOpenUserDetail] = useState<boolean>(false);
+    const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
+    const [dataInit, setDataInit] = useState<IUser | null>(null);
+
+    const [sortQuery, setSortQuery] = useState<string>("");
 
 
     // EFFECT:
     useEffect(() => {
         fetchUser();
-        console.log(">> check data: ", data)
     }, [page, size]);
 
     const titleDelete = (
@@ -33,7 +46,20 @@ const AppAdminUser = () => {
         </>
     )
 
-    const columns = [
+    const columns: any = [
+        {
+            title: 'STT',
+            key: 'index',
+            width: "5%",
+            align: "center",
+            render: (text: any, record: any, index: any) => {
+                return (
+                    <>
+                        {(index + 1) + (page - 1) * (size)}
+                    </>)
+            },
+            hideInSearch: true,
+        },
         {
             title: 'ID',
             dataIndex: 'id',
@@ -72,47 +98,61 @@ const AppAdminUser = () => {
 
         {
             title: 'Action',
-            width: "25%",
+            width: "20%",
             key: "action",
-            render: (text: string, record: any, index: number) => {
-                return (
-                    <>
-                        <div className='action'>
-                            <ConfigProvider>
-                                <Popover
-                                    placement="rightTop"
-                                    title={titleDelete}
-                                    trigger={"click"}
-                                    content={
-                                        <div className='del-content'>
-                                            <Button
-                                                type='primary'
-                                                className='confirm'
-                                            // onClick={() => handleDelete(record._id)}
-                                            >Xác nhận</Button>
-                                        </div>
-                                    }
-                                >
-                                    <span className='del-btn'>
-                                        <MdDelete />
-                                    </span>
-                                </Popover>
-                            </ConfigProvider>
-                            <span className='view-btn'
-                            // onClick={() => handleOnView(record)}
-                            >
-                                <FaEye />
-                            </span>
-                            <span
-                                className='update-btn'
-                            // onClick={() => handleUpdate(record)}
-                            >
-                                <LuPenLine />
-                            </span>
-                        </div>
-                    </>
-                )
-            }
+            render: (_value: any, entity: any, _index: any, _action: any) => (
+                <Space>
+                    {/* < Access
+                        permission={ALL_PERMISSIONS.USERS.UPDATE}
+                        hideChildren
+                    > */}
+                    <EditOutlined
+                        style={{
+                            fontSize: 20,
+                            color: '#ffa500',
+                            cursor: "pointer"
+                        }}
+                        type=""
+                    // onClick={() => {
+                    //     setOpenModal(true);
+                    //     setDataInit(entity);
+                    // }}
+                    />
+                    {/* </Access > */}
+
+                    {/* <Access
+                        permission={ALL_PERMISSIONS.USERS.DELETE}
+                        hideChildren
+                    > */}
+                    <Popconfirm
+                        placement="leftTop"
+                        title={"Xác nhận xóa user"}
+                        description={"Bạn có chắc chắn muốn xóa user này ?"}
+                        onConfirm={() => handleDeleteUser(entity.id)}
+                        okText="Xác nhận"
+                        cancelText="Hủy"
+                    >
+                        <span style={{ cursor: "pointer", margin: "0 10px" }}>
+                            <DeleteOutlined
+                                style={{
+                                    fontSize: 20,
+                                    color: '#ff4d4f',
+                                    cursor: "pointer"
+                                }}
+                            />
+                        </span>
+                    </Popconfirm>
+                    {/* </Access> */}
+                    <FaEye style={{
+                        fontSize: 20,
+                        color: '#ccc',
+                        cursor: "pointer"
+                    }}
+                        onClick={() => handleOnView(entity)}
+                    />
+                </Space >
+            ),
+
         }
 
     ];
@@ -125,9 +165,9 @@ const AppAdminUser = () => {
         //     query += querySearch;
         // }
 
-        // if (sortQuery) {
-        //     query += sortQuery;
-        // }
+        if (sortQuery) {
+            query += sortQuery;
+        }
 
 
         const res = await callFetchAllUsers(query);
@@ -152,21 +192,53 @@ const AppAdminUser = () => {
             setData([]);
         }
 
-        // if (sorter && sorter.field) {
-        //     if (sorter.order == 'ascend') {
-        //         setSortQuery(`&sort=${sorter.field}`)
-        //     }
+        if (sorter && sorter.field) {
+            if (sorter.order == 'ascend') {
+                setSortQuery(`&sort=${sorter.field}`)
+            }
 
-        //     if (sorter.order == 'descend') {
-        //         setSortQuery(`&sort=-${sorter.field}`)
-        //     }
-        // }
+            if (sorter.order == 'descend') {
+                setSortQuery(`&sort=-${sorter.field}`)
+            }
+        }
     };
+
+    const handleDeleteUser = async (id: number | undefined) => {
+        if (id) {
+            const res = await callDeleteUser(id);
+            console.log(".>> check res: ", res);
+            if (+res.statusCode === 200) {
+                message.success('Xóa User thành công');
+                fetchUser();
+            } else {
+                notification.error({
+                    message: 'Có lỗi xảy ra',
+                    description: res.message
+                });
+            }
+        }
+    }
+
+    const handleNewUser = () => {
+        setOpenModalNewUser(true);
+    }
+
+    const handleOnView = (data: IUser) => {
+        setOpenViewDetail(true);
+        setDataInit(data);
+    }
 
     return (
         <>
+            <div style={{ marginBottom: "10px" }}>
+                <Button type='primary'
+                    icon={<IoAddCircleOutline />}
+                    onClick={() => handleNewUser()}>
+                    <> </>Thêm mới
+                </Button>
+            </div>
             <Table
-                dataSource={data}
+                dataSource={data ?? []}
                 columns={columns}
                 pagination={{
                     current: page,
@@ -178,6 +250,11 @@ const AppAdminUser = () => {
                 }}
                 loading={loading}
                 onChange={handleTableChange}
+            />
+            <ModalCreateUser
+                openModalNewUser={openModalNewUser}
+                setOpenModalNewUser={setOpenModalNewUser}
+                fetchData={fetchUser}
             />
         </>
     )

@@ -1,6 +1,6 @@
 import DashboardPage from "src/components/admin/dashboard/dashboard";
 
-const AdminPage = () => {
+const AdminPage = async () => {
     return (
         <><DashboardPage /></>
     )
