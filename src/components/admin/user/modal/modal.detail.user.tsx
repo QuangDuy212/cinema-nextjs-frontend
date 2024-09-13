@@ -5,7 +5,7 @@ import moment from "moment";
 interface IProps {
     openViewDetail: boolean;
     setOpenViewDetail: (v: boolean) => void;
-    data: IUser;
+    data: IUser | null;
 }
 const ModalDetailUser = (props: IProps) => {
     const { data, openViewDetail, setOpenViewDetail } = props;

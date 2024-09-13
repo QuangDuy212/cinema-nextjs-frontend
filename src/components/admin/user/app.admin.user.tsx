@@ -13,6 +13,7 @@ import { ALL_PERMISSIONS } from "src/config/permissions";
 import { IoAddCircleOutline } from "react-icons/io5";
 import ModalCreateUser from "./modal/modal.create.user";
 import ModalDetailUser from "./modal/modal.detail.user";
+import ModalUpdateUser from "./modal/modal.update.user";
 
 const AppAdminUser = () => {
 
@@ -25,9 +26,9 @@ const AppAdminUser = () => {
 
     const [isSearch, setIsSearch] = useState<boolean>(false);
 
-    const [openModal, setOpenModal] = useState<boolean>(false);
     const [openModalNewUser, setOpenModalNewUser] = useState<boolean>(false);
     const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
+    const [openModaUpdate, setOpenModalUpdate] = useState<boolean>(false);
     const [dataInit, setDataInit] = useState<IUser | null>(null);
 
     const [sortQuery, setSortQuery] = useState<string>("");
@@ -113,10 +114,10 @@ const AppAdminUser = () => {
                             cursor: "pointer"
                         }}
                         type=""
-                    // onClick={() => {
-                    //     setOpenModal(true);
-                    //     setDataInit(entity);
-                    // }}
+                        onClick={() => {
+                            setOpenModalUpdate(true);
+                            setDataInit(entity);
+                        }}
                     />
                     {/* </Access > */}
 
@@ -259,6 +260,12 @@ const AppAdminUser = () => {
             <ModalDetailUser
                 openViewDetail={openViewDetail}
                 setOpenViewDetail={setOpenViewDetail}
+                data={dataInit}
+            />
+            <ModalUpdateUser
+                openModaUpdate={openModaUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                fetchUser={fetchUser}
                 data={dataInit}
             />
         </>
