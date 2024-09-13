@@ -12,6 +12,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { ALL_PERMISSIONS } from "src/config/permissions";
 import { IoAddCircleOutline } from "react-icons/io5";
 import ModalCreateUser from "./modal/modal.create.user";
+import ModalDetailUser from "./modal/modal.detail.user";
 
 const AppAdminUser = () => {
 
@@ -26,7 +27,6 @@ const AppAdminUser = () => {
 
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [openModalNewUser, setOpenModalNewUser] = useState<boolean>(false);
-    const [openUserDetail, setIsOpenUserDetail] = useState<boolean>(false);
     const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
     const [dataInit, setDataInit] = useState<IUser | null>(null);
 
@@ -255,6 +255,11 @@ const AppAdminUser = () => {
                 openModalNewUser={openModalNewUser}
                 setOpenModalNewUser={setOpenModalNewUser}
                 fetchData={fetchUser}
+            />
+            <ModalDetailUser
+                openViewDetail={openViewDetail}
+                setOpenViewDetail={setOpenViewDetail}
+                data={dataInit}
             />
         </>
     )
