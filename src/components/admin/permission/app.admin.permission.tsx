@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callFetchAllPermissions } from "src/util/api";
+import ModalCreatePer from "./modal/modal.create.per";
 
 const AdminPermission = () => {
     // STATE: 
@@ -17,6 +18,9 @@ const AdminPermission = () => {
 
     const [sortQuery, setSortQuery] = useState<string>("");
 
+    const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
+
+    // VARIABLE: 
     const columns: any = [
         {
             title: 'ID',
@@ -25,7 +29,7 @@ const AdminPermission = () => {
             key: 'id',
         },
         {
-            title: 'Tên',
+            title: 'Name',
             dataIndex: 'name',
             sorter: true,
             width: "10%",
@@ -115,6 +119,8 @@ const AdminPermission = () => {
 
     ];
 
+
+    //METHODS: 
     const handleTableChange = (pagination: { pageSize: number, current: number }, filters: any, sorter: any, extra: any) => {
         if (pagination && pagination.current !== page)
             setPage(pagination.current);
@@ -160,16 +166,22 @@ const AdminPermission = () => {
         }
     };
 
+    const handleCreate = () => {
+        setOpenModalCreate(true);
+    }
+
     // EFFECT:
     useEffect(() => {
         fetchPer();
     }, [page, size]);
+
+
     return (
         <>
             <div style={{ marginBottom: "10px" }}>
                 <Button type='primary'
                     icon={<IoAddCircleOutline />}
-                // onClick={() => handleNewUser()}
+                    onClick={() => handleCreate()}
                 >
                     <> </>Thêm mới
                 </Button>
@@ -187,6 +199,11 @@ const AdminPermission = () => {
                 }}
                 loading={loading}
                 onChange={handleTableChange}
+            />
+            <ModalCreatePer
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
+                fetchData={fetchPer}
             />
         </>
     )
