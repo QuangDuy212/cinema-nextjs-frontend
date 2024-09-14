@@ -10,7 +10,7 @@ const ContentHomepage = () => {
     const [data, setData] = useState<IFilm[]>([]);
     useEffect(() => {
         const fetchData = async () => {
-            const films = await callFetchAllFilms();
+            const films = await callFetchAllFilms("?page=1&size=100");
             setData(films?.data?.result);
         }
         fetchData()

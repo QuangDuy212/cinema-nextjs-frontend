@@ -164,7 +164,6 @@ declare global {
         apiPath?: string;
         method?: string;
         module?: string;
-
         createdBy?: string;
         isDeleted?: boolean;
         deletedAt?: boolean | null;

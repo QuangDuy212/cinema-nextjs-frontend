@@ -127,6 +127,11 @@ const LayoutAdmin = ({ children }: Readonly<{
                     key: '/admin/film',
                     icon: <FaFilm />
                 },
+                {
+                    label: <Link href='/admin/permission'>Permission</Link>,
+                    key: '/admin/permission',
+                    icon: <FaFilm />
+                },
             ]
 
             setMenuItems(full);

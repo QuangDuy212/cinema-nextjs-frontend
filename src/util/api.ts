@@ -97,7 +97,7 @@ export const callDeletePermission = (id: string) => {
     return axios.delete(`/api/v1/permissions/${id}`);
 }
 
-export const callFetchPermission = (query: string) => {
+export const callFetchAllPermissions = (query: string) => {
     return axios.get(`/api/v1/permissions?${query}`);
 }
 
