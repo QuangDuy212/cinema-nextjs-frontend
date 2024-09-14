@@ -169,7 +169,18 @@ declare global {
         deletedAt?: boolean | null;
         createdAt?: string;
         updatedAt?: string;
+    }
 
+    interface IRole {
+        "id"?: number;
+        "name"?: string;
+        "description"?: string;
+        "active"?: boolean;
+        "createdAt"?: string;
+        "createdBy"?: string;
+        "updatedAt"?: string;
+        "updatedBy"?: string;
+        "permissions"?: IPermission[]
     }
 
 }

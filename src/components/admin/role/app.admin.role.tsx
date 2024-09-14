@@ -1,18 +1,15 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, Popconfirm, Space, Table, notification } from "antd";
+import { Button, message, notification, Popconfirm, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { callDeletePermission, callFetchAllPermissions } from "src/util/api";
-import ModalCreatePer from "./modal/modal.create.per";
-import ModalUpdatePer from "./modal/modal.update.per";
-import ModalViewPer from "./modal/modal.view.per";
+import { callDeleteRoleById, callFetchAllRoles } from "src/util/api";
 
-const AdminPermission = () => {
+const AdminRole = () => {
     // STATE: 
-    const [data, setData] = useState<IPermission[]>();
+    const [data, setData] = useState<IRole[]>();
     const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(2);
@@ -24,7 +21,7 @@ const AdminPermission = () => {
     const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
     const [openModalView, setOpenModalView] = useState<boolean>(false);
 
-    const [dataInit, setDataInit] = useState<IPermission | undefined>();
+    const [dataInit, setDataInit] = useState<IRole | undefined>();
 
     // VARIABLE: 
     const columns: any = [
@@ -42,26 +39,23 @@ const AdminPermission = () => {
             key: "name"
         },
         {
-            title: 'API path',
-            dataIndex: 'apiPath',
+            title: 'Description',
+            dataIndex: 'description',
             sorter: true,
             width: "20%",
-            key: "apiPath"
+            key: "description"
 
         },
         {
-            title: 'Method',
-            dataIndex: 'method',
+            title: 'Active',
+            dataIndex: 'active',
             sorter: true,
             width: "20%",
-            key: "method"
-        },
-        {
-            title: 'Module',
-            dataIndex: "module",
-            sorter: true,
-            width: "20%",
-            key: "module",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <>{record?.active?.toString()}</>
+                )
+            },
         },
 
         {
@@ -122,7 +116,6 @@ const AdminPermission = () => {
 
     ];
 
-
     //METHODS: 
     const handleTableChange = (pagination: { pageSize: number, current: number }, filters: any, sorter: any, extra: any) => {
         if (pagination && pagination.current !== page)
@@ -148,7 +141,7 @@ const AdminPermission = () => {
         }
     };
 
-    const fetchPer = async () => {
+    const fetchRole = async () => {
         setLoading(true);
         let query = `?page=${page}&size=${size}`;
 
@@ -161,7 +154,7 @@ const AdminPermission = () => {
         }
 
 
-        const res = await callFetchAllPermissions(query);
+        const res = await callFetchAllRoles(query);
         if (res && res?.data) {
             setData(res.data.result);
             setLoading(false);
@@ -173,19 +166,19 @@ const AdminPermission = () => {
         setOpenModalCreate(true);
     }
 
-    const handleUpdate = (per: IPermission) => {
-        setDataInit(per);
+    const handleUpdate = (role: IRole) => {
+        setDataInit(role);
         setOpenModalUpdate(true);
     }
 
-    const handleView = (per: IPermission) => {
-        setDataInit(per);
+    const handleView = (role: IRole) => {
+        setDataInit(role);
         setOpenModalView(true);
     }
 
     const handleDelete = async (id: number | undefined) => {
         if (id) {
-            const res = await callDeletePermission(id);
+            const res = await callDeleteRoleById(id);
             if (+res.statusCode === 200) {
                 message.success('Xóa User thành công');
                 fetchPer();
@@ -200,10 +193,8 @@ const AdminPermission = () => {
 
     // EFFECT:
     useEffect(() => {
-        fetchPer();
+        fetchRole();
     }, [page, size]);
-
-
     return (
         <>
             <div style={{ marginBottom: "10px" }}>
@@ -228,24 +219,7 @@ const AdminPermission = () => {
                 loading={loading}
                 onChange={handleTableChange}
             />
-            <ModalCreatePer
-                openModalCreate={openModalCreate}
-                setOpenModalCreate={setOpenModalCreate}
-                fetchData={fetchPer}
-            />
-            <ModalUpdatePer
-                openModalUpdate={openModalUpdate}
-                setOpenModalUpdate={setOpenModalUpdate}
-                fetchData={fetchPer}
-                data={dataInit}
-            />
-            <ModalViewPer
-                openModalView={openModalView}
-                setOpenModalView={setOpenModalView}
-                fetchData={fetchPer}
-                data={dataInit}
-            />
         </>
     )
 }
-export default AdminPermission;
+export default AdminRole;

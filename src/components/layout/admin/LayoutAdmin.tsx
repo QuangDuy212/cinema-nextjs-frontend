@@ -19,6 +19,8 @@ import { useRouter } from 'next/navigation';
 import "antd/dist/antd.css";
 import "antd/dist/antd.min.css";
 import { FaFilm } from 'react-icons/fa';
+import { FaUserShield } from "react-icons/fa6";
+import { FiUsers } from "react-icons/fi";
 
 const { Content, Sider } = Layout;
 
@@ -121,15 +123,20 @@ const LayoutAdmin = ({ children }: Readonly<{
                     key: '/admin/user',
                     icon: <UserOutlined />
                 },
+                {
+                    label: <Link href='/admin/permission'>Permission</Link>,
+                    key: '/admin/permission',
+                    icon: <FaUserShield />
+                },
+                {
+                    label: <Link href='/admin/role'>Role</Link>,
+                    key: '/admin/role',
+                    icon: <FiUsers />
+                },
 
                 {
                     label: <Link href='/admin/film'>Film</Link>,
                     key: '/admin/film',
-                    icon: <FaFilm />
-                },
-                {
-                    label: <Link href='/admin/permission'>Permission</Link>,
-                    key: '/admin/permission',
                     icon: <FaFilm />
                 },
             ]

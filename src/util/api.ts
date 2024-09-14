@@ -151,3 +151,27 @@ export const callFetchAllBillByUser = (page: number, size: number) => {
         params: { page, size }
     })
 }
+
+/**
+ * Module ROLE
+ */
+
+export const callFetchAllRoles = (query: string) => {
+    return axios.get(`/api/v1/roles${query}`);
+}
+
+export const callFetchRoleById = (id: number) => {
+    return axios.get(`/api/v1/roles/${id}`);
+}
+
+export const callCreateRole = (role: IRole) => {
+    return axios.post("/api/v1/roles", { ...role })
+}
+
+export const callUpdateRole = (role: IRole, id: number) => {
+    return axios.put("/api/v1/roles", { id, ...role });
+}
+
+export const callDeleteRoleById = (id: number) => {
+    return axios.delete(`/api/v1/roles/${id}`);
+}
