@@ -49,19 +49,6 @@ const AppAdminUser = () => {
 
     const columns: any = [
         {
-            title: 'STT',
-            key: 'index',
-            width: "5%",
-            align: "center",
-            render: (text: any, record: any, index: any) => {
-                return (
-                    <>
-                        {(index + 1) + (page - 1) * (size)}
-                    </>)
-            },
-            hideInSearch: true,
-        },
-        {
             title: 'ID',
             dataIndex: 'id',
             width: "5%",
@@ -79,7 +66,7 @@ const AppAdminUser = () => {
             dataIndex: 'email',
             sorter: true,
             width: "20%",
-            key: "fullName"
+            key: "email"
 
         },
         {
@@ -172,7 +159,6 @@ const AppAdminUser = () => {
 
 
         const res = await callFetchAllUsers(query);
-        console.log(">> check res: ", res)
         if (res && res?.data) {
             setData(res.data.result);
             setLoading(false);
@@ -180,16 +166,16 @@ const AppAdminUser = () => {
         }
     };
 
-    const handleTableChange = (pagination: { size: number, page: number }, filters: any, sorter: any, extra: any) => {
-        if (pagination && pagination.page !== page)
-            setPage(pagination.page);
-        if (pagination && pagination.size !== size) {
+    const handleTableChange = (pagination: { pageSize: number, current: number }, filters: any, sorter: any, extra: any) => {
+        if (pagination && pagination.current !== page)
+            setPage(pagination.current);
+        if (pagination && pagination.pageSize !== size) {
             setPage(1);
-            setSize(pagination.size);
+            setSize(pagination.pageSize);
         }
 
         // `dataSource` is useless since `pageSize` changed
-        if (pagination.size !== size) {
+        if (pagination.pageSize !== size) {
             setData([]);
         }
 
@@ -199,7 +185,7 @@ const AppAdminUser = () => {
             }
 
             if (sorter.order == 'descend') {
-                setSortQuery(`&sort=-${sorter.field}`)
+                setSortQuery(`&sort=${sorter.field},desc`)
             }
         }
     };

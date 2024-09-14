@@ -124,7 +124,7 @@ const LayoutAdmin = ({ children }: Readonly<{
 
                 {
                     label: <Link href='/admin/film'>Film</Link>,
-                    key: '/admin/Film',
+                    key: '/admin/film',
                     icon: <FaFilm />
                 },
             ]
@@ -136,7 +136,6 @@ const LayoutAdmin = ({ children }: Readonly<{
 
     useEffect(() => {
         setActiveMenu(location.pathname)
-        console.log(">>> check location path: ", location.pathname)
     }, [location])
 
     const handleLogout = async () => {

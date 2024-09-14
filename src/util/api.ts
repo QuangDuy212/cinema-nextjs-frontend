@@ -29,8 +29,8 @@ export const callRefreshToken = () => {
 /**
  * Module FILM
  */
-export const callFetchAllFilms = () => {
-    return axios.get("/api/v1/films?page=1&size=100");
+export const callFetchAllFilms = (query: string) => {
+    return axios.get(`/api/v1/films${query}`);
 }
 
 export const callFetchFilmById = (id: String) => {
@@ -74,7 +74,7 @@ export const callDeleteUser = (id: number) => {
 }
 
 export const callFetchAllUsers = (query: string) => {
-    return axios.get(`/api/v1/users?${query}`);
+    return axios.get(`/api/v1/users${query}`);
 }
 
 export const callFetchUserById = (id: number) => {
