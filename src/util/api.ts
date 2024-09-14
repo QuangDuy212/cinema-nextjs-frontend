@@ -89,11 +89,11 @@ export const callCreatePermission = (permission: IPermission) => {
     return axios.post('/api/v1/permissions', { ...permission })
 }
 
-export const callUpdatePermission = (permission: IPermission, id: string) => {
+export const callUpdatePermission = (permission: IPermission, id: number) => {
     return axios.put(`/api/v1/permissions`, { id, ...permission })
 }
 
-export const callDeletePermission = (id: string) => {
+export const callDeletePermission = (id: number) => {
     return axios.delete(`/api/v1/permissions/${id}`);
 }
 
@@ -101,7 +101,7 @@ export const callFetchAllPermissions = (query: string) => {
     return axios.get(`/api/v1/permissions?${query}`);
 }
 
-export const callFetchPermissionById = (id: string) => {
+export const callFetchPermissionById = (id: number) => {
     return axios.get(`/api/v1/permissions/${id}`);
 }
 

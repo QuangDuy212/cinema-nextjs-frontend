@@ -2,40 +2,47 @@
 
 import { Form, Input, Modal, notification } from "antd";
 import { useEffect, useState } from "react";
-import { callUpdateUser } from "src/util/api";
+import { callUpdatePermission } from "src/util/api";
+
 interface IProps {
     openModalUpdate: boolean;
     setOpenModalUpdate: (v: boolean) => void;
-    fetchUser: () => void;
-    data: IUser | null;
+    fetchData: () => void;
+    data: IPermission | undefined;
 }
-const ModalUpdateUser = (props: IProps) => {
-    //PROPS:
-    const { fetchUser, openModalUpdate, setOpenModalUpdate, data } = props;
-
+const ModalUpdatePer = (props: IProps) => {
+    //PROPS: 
+    const { openModalUpdate, setOpenModalUpdate, fetchData, data } = props;
     //STATE: 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
     const [form] = Form.useForm();
 
-    //METHOD: 
+    //METHODS: 
     useEffect(() => {
         if (data)
             form.setFieldsValue(data)
     }, [data])
 
-    const onFinish = async (values: { id: number | undefined, fullName: string | undefined, phone: string | undefined, address: string | undefined }) => {
-        const { id, fullName, phone, address } = values;
-        const res = await callUpdateUser(id, fullName, phone, address);
+    const onFinish = async (values: {
+        id: number;
+        name: string;
+        apiPath: string;
+        method: string;
+        module: string;
+    }) => {
+        const { id, name, apiPath, method, module } = values;
+        const per = { name, apiPath, method, module };
+        const res = await callUpdatePermission(per, id);
         if (res && res?.data) {
             notification.success({
-                message: "Cập nhật tài khoản thành công!",
+                message: "Cập nhật permission thành công!",
                 duration: 1
             });
-            await fetchUser();
+            await fetchData();
             setOpenModalUpdate(false);
         } else {
             notification.error({
-                message: "Cập nhật tài khoản có lỗi xảy ra!",
+                message: "Cập nhật permission có lỗi xảy ra!",
                 duration: 1
             });
         }
@@ -82,41 +89,41 @@ const ModalUpdateUser = (props: IProps) => {
                         hidden
                         label='ID'
                         name="id"
-                        rules={[{ required: true, message: 'Please input your fullName!' }]}
+                        rules={[{ required: true, message: 'Please input your id!' }]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         labelCol={{ span: 24 }}
-                        label='Full name'
-                        name="fullName"
-                        rules={[{ required: true, message: 'Please input your fullName!' }]}
+                        label='Name'
+                        name="name"
+                        rules={[{ required: true, message: 'Please input your name!' }]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
                         labelCol={{ span: 24 }}
-                        label='Email'
-                        name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
-                    >
-                        <Input disabled />
-                    </Form.Item>
-
-                    <Form.Item
-                        labelCol={{ span: 24 }}
-                        label='Phone number'
-                        name="phone"
-                        rules={[{ required: true, message: 'Please input your phone!' }]}
+                        label='API path'
+                        name="apiPath"
+                        rules={[{ required: true, message: 'Please input your apiPath!' }]}
                     >
                         <Input />
                     </Form.Item>
 
                     <Form.Item
                         labelCol={{ span: 24 }}
-                        label='Address'
-                        name="address"
-                        rules={[{ required: true, message: 'Please input your phone!' }]}
+                        label='Method'
+                        name="method"
+                        rules={[{ required: true, message: 'Please input your method!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        labelCol={{ span: 24 }}
+                        label='Module'
+                        name="module"
+                        rules={[{ required: true, message: 'Please input your module!' }]}
                     >
                         <Input />
                     </Form.Item>
@@ -125,4 +132,4 @@ const ModalUpdateUser = (props: IProps) => {
         </>
     );
 }
-export default ModalUpdateUser;
+export default ModalUpdatePer;

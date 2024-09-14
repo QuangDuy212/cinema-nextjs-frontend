@@ -1,12 +1,13 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, Space, Table } from "antd";
+import { Button, message, Popconfirm, Space, Table, notification } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { callFetchAllPermissions } from "src/util/api";
+import { callDeletePermission, callFetchAllPermissions } from "src/util/api";
 import ModalCreatePer from "./modal/modal.create.per";
+import ModalUpdatePer from "./modal/modal.update.per";
 
 const AdminPermission = () => {
     // STATE: 
@@ -19,6 +20,10 @@ const AdminPermission = () => {
     const [sortQuery, setSortQuery] = useState<string>("");
 
     const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
+    const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
+    const [openModalView, setOpenModalView] = useState<boolean>(false);
+
+    const [dataInit, setDataInit] = useState<IPermission | undefined>();
 
     // VARIABLE: 
     const columns: any = [
@@ -75,10 +80,7 @@ const AdminPermission = () => {
                             cursor: "pointer"
                         }}
                         type=""
-                    // onClick={() => {
-                    //     setOpenModalUpdate(true);
-                    //     setDataInit(entity);
-                    // }}
+                        onClick={() => handleUpdate(entity)}
                     />
                     {/* </Access > */}
 
@@ -90,7 +92,7 @@ const AdminPermission = () => {
                         placement="leftTop"
                         title={"Xác nhận xóa user"}
                         description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        // onConfirm={() => handleDeleteUser(entity.id)}
+                        onConfirm={() => handleDelete(entity.id)}
                         okText="Xác nhận"
                         cancelText="Hủy"
                     >
@@ -170,6 +172,31 @@ const AdminPermission = () => {
         setOpenModalCreate(true);
     }
 
+    const handleUpdate = (per: IPermission) => {
+        setDataInit(per);
+        setOpenModalUpdate(true);
+    }
+
+    const handleView = (per: IPermission) => {
+        setDataInit(per);
+        setOpenModalView(true);
+    }
+
+    const handleDelete = async (id: number | undefined) => {
+        if (id) {
+            const res = await callDeletePermission(id);
+            if (+res.statusCode === 200) {
+                message.success('Xóa User thành công');
+                fetchPer();
+            } else {
+                notification.error({
+                    message: 'Có lỗi xảy ra',
+                    description: res.message
+                });
+            }
+        }
+    }
+
     // EFFECT:
     useEffect(() => {
         fetchPer();
@@ -204,6 +231,12 @@ const AdminPermission = () => {
                 openModalCreate={openModalCreate}
                 setOpenModalCreate={setOpenModalCreate}
                 fetchData={fetchPer}
+            />
+            <ModalUpdatePer
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                fetchData={fetchPer}
+                data={dataInit}
             />
         </>
     )

@@ -28,7 +28,7 @@ const AppAdminUser = () => {
 
     const [openModalNewUser, setOpenModalNewUser] = useState<boolean>(false);
     const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
-    const [openModaUpdate, setOpenModalUpdate] = useState<boolean>(false);
+    const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
     const [dataInit, setDataInit] = useState<IUser | null>(null);
 
     const [sortQuery, setSortQuery] = useState<string>("");
@@ -249,7 +249,7 @@ const AppAdminUser = () => {
                 data={dataInit}
             />
             <ModalUpdateUser
-                openModaUpdate={openModaUpdate}
+                openModalUpdate={openModalUpdate}
                 setOpenModalUpdate={setOpenModalUpdate}
                 fetchUser={fetchUser}
                 data={dataInit}
