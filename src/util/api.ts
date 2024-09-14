@@ -164,7 +164,12 @@ export const callFetchRoleById = (id: number) => {
     return axios.get(`/api/v1/roles/${id}`);
 }
 
-export const callCreateRole = (role: IRole) => {
+export const callCreateRole = (role: {
+    name: string | undefined;
+    description: string | undefined;
+    active: boolean;
+    permissions: { id: number }[] | undefined
+}) => {
     return axios.post("/api/v1/roles", { ...role })
 }
 

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteRoleById, callFetchAllRoles } from "src/util/api";
+import ModalCreateRole from "./modal/modal.create.role";
 
 const AdminRole = () => {
     // STATE: 
@@ -218,6 +219,12 @@ const AdminRole = () => {
                 }}
                 loading={loading}
                 onChange={handleTableChange}
+            />
+
+            <ModalCreateRole
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
+                fetchData={fetchRole}
             />
         </>
     )
