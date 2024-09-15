@@ -7,6 +7,8 @@ import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteRoleById, callFetchAllRoles } from "src/util/api";
 import ModalCreateRole from "./modal/modal.create.role";
+import ModalViewRole from "./modal/modal.view.role";
+import ModalUpdateRole from "./modal/modal.update.role";
 
 const AdminRole = () => {
     // STATE: 
@@ -225,6 +227,20 @@ const AdminRole = () => {
                 openModalCreate={openModalCreate}
                 setOpenModalCreate={setOpenModalCreate}
                 fetchData={fetchRole}
+            />
+
+            <ModalViewRole
+                openModalView={openModalView}
+                setOpenModalView={setOpenModalView}
+                fetchData={fetchRole}
+                data={dataInit}
+            />
+
+            <ModalUpdateRole
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                fetchData={fetchRole}
+                data={dataInit}
             />
         </>
     )
