@@ -1,18 +1,15 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, notification, Popconfirm, SelectProps, Space, Table } from "antd";
+import { Button, message, notification, Popconfirm, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { callDeleteRoleById, callFetchAllPermissions, callFetchAllRoles } from "src/util/api";
-import ModalCreateRole from "./modal/modal.create.role";
-import ModalViewRole from "./modal/modal.view.role";
-import ModalUpdateRole from "./modal/modal.update.role";
+import { callFetchAllCategories, callFetchCategoryById } from "src/util/api";
 
-const AdminRole = () => {
+const AdminCategory = () => {
     // STATE: 
-    const [data, setData] = useState<IRole[]>();
+    const [data, setData] = useState<ICategory[]>();
     const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(2);
@@ -24,8 +21,7 @@ const AdminRole = () => {
     const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
     const [openModalView, setOpenModalView] = useState<boolean>(false);
 
-    const [dataInit, setDataInit] = useState<IRole | undefined>();
-    const [listPer, setListPer] = useState<IPermission[]>([]);
+    const [dataInit, setDataInit] = useState<ICategory | undefined>();
 
     // VARIABLE: 
     const columns: any = [
@@ -39,16 +35,8 @@ const AdminRole = () => {
             title: 'Name',
             dataIndex: 'name',
             sorter: true,
-            width: "10%",
+            width: "60%",
             key: "name"
-        },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            sorter: true,
-            width: "20%",
-            key: "description"
-
         },
         {
             title: 'Active',
@@ -146,7 +134,7 @@ const AdminRole = () => {
         }
     };
 
-    const fetchRole = async () => {
+    const fetchCategory = async () => {
         setLoading(true);
         let query = `?page=${page}&size=${size}`;
 
@@ -159,7 +147,7 @@ const AdminRole = () => {
         }
 
 
-        const res = await callFetchAllRoles(query);
+        const res = await callFetchAllCategories(query);
         if (res && res?.data) {
             setData(res.data.result);
             setLoading(false);
@@ -171,23 +159,23 @@ const AdminRole = () => {
         setOpenModalCreate(true);
     }
 
-    const handleUpdate = (role: IRole) => {
-        setDataInit(role);
+    const handleUpdate = (cate: ICategory) => {
+        setDataInit(cate);
         setOpenModalUpdate(true);
     }
 
-    const handleView = (role: IRole) => {
-        setDataInit(role);
+    const handleView = (cate: ICategory) => {
+        setDataInit(cate);
         setOpenModalView(true);
     }
 
     const handleDelete = async (id: number | undefined) => {
         if (id) {
-            const res = await callDeleteRoleById(id);
+            const res = await callFetchCategoryById(id);
             //@ts-ignore
             if (+res.statusCode === 200) {
                 message.success('Xóa User thành công');
-                fetchRole();
+                fetchCategory();
             } else {
                 notification.error({
                     message: 'Có lỗi xảy ra',
@@ -198,40 +186,11 @@ const AdminRole = () => {
         }
     }
 
-
-
-    //SELECT: 
-    const options: SelectProps['options'] = listPer?.map((i: IPermission) => {
-        return {
-            value: i?.id,
-            label: i?.name,
-        }
-    });
-
-    const fetchPer = async () => {
-        const res = await callFetchAllPermissions("?page=1&size=100");
-        if (res && res?.data) {
-            const data = res?.data?.result;
-            // data?.map((i: IPermission) => {
-            //     options.push({
-            //         value: i?.id,
-            //         label: i?.name,
-            //     });
-            // })
-            setListPer(data);
-        }
-
-    }
-
     // EFFECT:
     useEffect(() => {
-        fetchRole();
+        fetchCategory();
     }, [page, size]);
 
-    //EFFECT :
-    useEffect(() => {
-        fetchPer();
-    }, [])
     return (
         <>
             <div style={{ marginBottom: "10px" }}>
@@ -257,29 +216,7 @@ const AdminRole = () => {
                 //@ts-ignore
                 onChange={handleTableChange}
             />
-
-            <ModalCreateRole
-                openModalCreate={openModalCreate}
-                setOpenModalCreate={setOpenModalCreate}
-                fetchData={fetchRole}
-                options={options}
-            />
-
-            <ModalViewRole
-                openModalView={openModalView}
-                setOpenModalView={setOpenModalView}
-                fetchData={fetchRole}
-                data={dataInit}
-            />
-
-            <ModalUpdateRole
-                openModalUpdate={openModalUpdate}
-                setOpenModalUpdate={setOpenModalUpdate}
-                fetchData={fetchRole}
-                data={dataInit}
-                options={options}
-            />
         </>
     )
 }
-export default AdminRole;
+export default AdminCategory;

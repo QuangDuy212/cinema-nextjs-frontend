@@ -183,4 +183,8 @@ declare global {
         "permissions"?: IPermission[]
     }
 
+    interface ICategory {
+        id: number;
+        name: string;
+    }
 }

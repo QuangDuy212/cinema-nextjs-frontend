@@ -21,6 +21,7 @@ import "antd/dist/antd.min.css";
 import { FaFilm } from 'react-icons/fa';
 import { FaUserShield } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
+import { BiCategoryAlt } from "react-icons/bi";
 
 const { Content, Sider } = Layout;
 
@@ -133,11 +134,15 @@ const LayoutAdmin = ({ children }: Readonly<{
                     key: '/admin/role',
                     icon: <FiUsers />
                 },
-
                 {
                     label: <Link href='/admin/film'>Film</Link>,
                     key: '/admin/film',
                     icon: <FaFilm />
+                },
+                {
+                    label: <Link href='/admin/category'>Category</Link>,
+                    key: '/admin/category',
+                    icon: <BiCategoryAlt />
                 },
             ]
 
@@ -152,6 +157,7 @@ const LayoutAdmin = ({ children }: Readonly<{
 
     const handleLogout = async () => {
         const res = await callLogout();
+        //@ts-ignore
         if (res && +res.statusCode === 200) {
             dispatch(setLogoutAction({}));
             message.success('Đăng xuất thành công');

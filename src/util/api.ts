@@ -37,6 +37,31 @@ export const callFetchFilmById = (id: String) => {
     return axios.get(`/api/v1/films/${id}`);
 };
 
+
+/**
+ * Module CATEGORY
+ */
+
+export const callFetchAllCategories = (query: string) => {
+    return axios.get(`/api/v1/categories${query}`);
+}
+
+export const callFetchCategoryById = (id: number) => {
+    return axios.get(`/api/v1/categories/${id}`);
+}
+
+export const callCreateCategory = (name: string) => {
+    return axios.post("/api/v1/categories", { name: name });
+}
+
+export const callUpdateCategory = (id: number, name: string) => {
+    return axios.put("/api/v1/categories", { id: id, name: name });
+}
+
+export const callDeleteCategoryById = (id: number) => {
+    return axios.delete(`/api/v1/categories/${id}`);
+}
+
 /**
  * Module TIME
  */
