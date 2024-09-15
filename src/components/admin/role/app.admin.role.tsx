@@ -1,11 +1,11 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, notification, Popconfirm, Space, Table } from "antd";
+import { Button, message, notification, Popconfirm, SelectProps, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { callDeleteRoleById, callFetchAllRoles } from "src/util/api";
+import { callDeleteRoleById, callFetchAllPermissions, callFetchAllRoles } from "src/util/api";
 import ModalCreateRole from "./modal/modal.create.role";
 import ModalViewRole from "./modal/modal.view.role";
 import ModalUpdateRole from "./modal/modal.update.role";
@@ -25,6 +25,7 @@ const AdminRole = () => {
     const [openModalView, setOpenModalView] = useState<boolean>(false);
 
     const [dataInit, setDataInit] = useState<IRole | undefined>();
+    const [listPer, setListPer] = useState<IPermission[]>([]);
 
     // VARIABLE: 
     const columns: any = [
@@ -89,6 +90,7 @@ const AdminRole = () => {
                     <Popconfirm
                         placement="leftTop"
                         title={"Xác nhận xóa user"}
+                        //@ts-ignore
                         description={"Bạn có chắc chắn muốn xóa user này ?"}
                         onConfirm={() => handleDelete(entity.id)}
                         okText="Xác nhận"
@@ -182,22 +184,54 @@ const AdminRole = () => {
     const handleDelete = async (id: number | undefined) => {
         if (id) {
             const res = await callDeleteRoleById(id);
+            //@ts-ignore
             if (+res.statusCode === 200) {
                 message.success('Xóa User thành công');
                 fetchPer();
             } else {
                 notification.error({
                     message: 'Có lỗi xảy ra',
+                    //@ts-ignore
                     description: res.message
                 });
             }
         }
     }
 
+
+
+    //SELECT: 
+    const options: SelectProps['options'] = listPer?.map((i: IPermission) => {
+        return {
+            value: i?.id,
+            label: i?.name,
+        }
+    });
+
+    const fetchPer = async () => {
+        const res = await callFetchAllPermissions("?page=1&size=100");
+        if (res && res?.data) {
+            const data = res?.data?.result;
+            // data?.map((i: IPermission) => {
+            //     options.push({
+            //         value: i?.id,
+            //         label: i?.name,
+            //     });
+            // })
+            setListPer(data);
+        }
+
+    }
+
     // EFFECT:
     useEffect(() => {
         fetchRole();
     }, [page, size]);
+
+    //EFFECT :
+    useEffect(() => {
+        fetchPer();
+    }, [])
     return (
         <>
             <div style={{ marginBottom: "10px" }}>
@@ -220,6 +254,7 @@ const AdminRole = () => {
                         <div>{range[0]} - {range[1]} trên {total} dòng</div>
                 }}
                 loading={loading}
+                //@ts-ignore
                 onChange={handleTableChange}
             />
 
@@ -227,6 +262,7 @@ const AdminRole = () => {
                 openModalCreate={openModalCreate}
                 setOpenModalCreate={setOpenModalCreate}
                 fetchData={fetchRole}
+                options={options}
             />
 
             <ModalViewRole
@@ -241,6 +277,7 @@ const AdminRole = () => {
                 setOpenModalUpdate={setOpenModalUpdate}
                 fetchData={fetchRole}
                 data={dataInit}
+                options={options}
             />
         </>
     )

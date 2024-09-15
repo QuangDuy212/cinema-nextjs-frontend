@@ -173,7 +173,12 @@ export const callCreateRole = (role: {
     return axios.post("/api/v1/roles", { ...role })
 }
 
-export const callUpdateRole = (role: IRole, id: number) => {
+export const callUpdateRole = (role: {
+    "name"?: string | undefined;
+    "description"?: string | undefined;
+    "permissions": { id: number }[] | undefined;
+    "active"?: boolean | undefined;
+}, id: number | undefined) => {
     return axios.put("/api/v1/roles", { id, ...role });
 }
 

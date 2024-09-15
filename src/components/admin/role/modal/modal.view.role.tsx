@@ -39,7 +39,7 @@ const ModalViewRole = (props: IProps) => {
                     </Descriptions.Item>
                     <Descriptions.Item label="Permissions" span={24}>
                         {data?.permissions?.map((i, index) =>
-                            <span key={i.id}>{i.name} {index % 2 == 0 ? "," : ""}</span>
+                            <span key={i.id}>{i.name} {index + 1 !== data?.permissions?.length ? "," : ""}</span>
                         )}
                     </Descriptions.Item>
                     <Descriptions.Item label="Created at ">

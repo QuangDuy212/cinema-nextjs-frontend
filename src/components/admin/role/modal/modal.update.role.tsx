@@ -1,6 +1,7 @@
 "use client"
 
-import { Form, Input, Modal, notification, Select, SelectProps } from "antd";
+import { Form, Input, message, Modal, notification, Select, SelectProps } from "antd";
+import { permission } from "process";
 import { useEffect, useState } from "react";
 import { callFetchAllPermissions, callUpdateRole } from "src/util/api";
 
@@ -9,13 +10,13 @@ interface IProps {
     setOpenModalUpdate: (v: boolean) => void;
     fetchData: () => void;
     data: IRole | undefined;
+    options: SelectProps['options'];
 }
 const ModalUpdateRole = (props: IProps) => {
     //PROPS: 
-    const { openModalUpdate, setOpenModalUpdate, fetchData, data } = props;
+    const { openModalUpdate, setOpenModalUpdate, fetchData, data, options } = props;
     //STATE: 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
-    const [listPer, setListPer] = useState<IPermission[]>([]);
 
     //LIB: 
     const [form] = Form.useForm();
@@ -23,62 +24,42 @@ const ModalUpdateRole = (props: IProps) => {
 
     //METHODS: 
     useEffect(() => {
-        if (data)
-            form.setFieldsValue(data)
+        if (data) {
+            const per = data?.permissions?.map(i => i.id);
+            const updateData = { ...data, permissions: per };
+            form.setFieldsValue(updateData)
+        }
     }, [data])
 
-    //EFFECT :
-    useEffect(() => {
-        fetchPer();
-    }, [])
-
-    //SELECT: 
-    const options: SelectProps['options'] = listPer?.map((i: IPermission) => {
-        return {
-            value: i?.id,
-            label: i?.name,
-        }
-    });
-
-    const fetchPer = async () => {
-        const res = await callFetchAllPermissions("?page=1&size=100");
-        if (res && res?.data) {
-            const data = res?.data?.result;
-            // data?.map((i: IPermission) => {
-            //     options.push({
-            //         value: i?.id,
-            //         label: i?.name,
-            //     });
-            // })
-            setListPer(data);
-        }
-
-    }
-
     const onFinish = async (values: {
-        id: number;
-        name: string;
-        apiPath: string;
-        method: string;
-        module: string;
+        "id"?: number;
+        "name"?: string;
+        "description"?: string;
+        "permissions"?: number[];
+        "active"?: boolean;
     }) => {
-        const { id, name, apiPath, method, module } = values;
-        const per = { name, apiPath, method, module };
-        const res = await callUpdateRole(per, id);
-        if (res && res?.data) {
-            notification.success({
-                message: "Cập nhật permission thành công!",
-                duration: 1
-            });
+        const { id, name, description, permissions } = values;
+        const newPer = permissions?.map(i => { return { "id": i } });
+        const role = { name, description, permissions: newPer, active: true };
+        setIsSubmit(true);
+        const res = await callUpdateRole(role, id)
+        setIsSubmit(false);
+        if (res?.data && res) {
+            message.success("Thêm mới permission thành công!");
             await fetchData();
             setOpenModalUpdate(false);
+            form.resetFields();
         } else {
             notification.error({
-                message: "Cập nhật permission có lỗi xảy ra!",
-                duration: 1
-            });
+                message: "Có lỗi xảy ra",
+                description:
+                    //@ts-ignore
+                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+                duration: 5
+            })
         }
-    }
+    };
+
 
     const onFinishFailed = (error: any) => {
         console.log(">>> check error: ", error)
@@ -95,6 +76,8 @@ const ModalUpdateRole = (props: IProps) => {
     const handleCancel = () => {
         setOpenModalUpdate(false);
     };
+
+
 
     return (
         <>

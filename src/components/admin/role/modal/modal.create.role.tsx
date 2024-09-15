@@ -8,44 +8,18 @@ interface IProps {
     openModalCreate: boolean;
     setOpenModalCreate: (v: boolean) => void;
     fetchData: () => void;
+    options: SelectProps['options'];
 }
 const ModalCreateRole = (props: IProps) => {
     //PROPS: 
-    const { openModalCreate, setOpenModalCreate, fetchData } = props;
+    const { openModalCreate, setOpenModalCreate, fetchData, options } = props;
     //STATE: 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
-    const [listPer, setListPer] = useState<IPermission[]>([]);
 
     //LIBRARY: 
     const [form] = Form.useForm();
 
-    //EFFECT :
-    useEffect(() => {
-        fetchPer();
-    }, [])
 
-    //SELECT: 
-    const options: SelectProps['options'] = listPer?.map((i: IPermission) => {
-        return {
-            value: i?.id,
-            label: i?.name,
-        }
-    });
-
-    const fetchPer = async () => {
-        const res = await callFetchAllPermissions("?page=1&size=100");
-        if (res && res?.data) {
-            const data = res?.data?.result;
-            // data?.map((i: IPermission) => {
-            //     options.push({
-            //         value: i?.id,
-            //         label: i?.name,
-            //     });
-            // })
-            setListPer(data);
-        }
-
-    }
 
 
     const handleChange = (value: string) => {
@@ -76,7 +50,6 @@ const ModalCreateRole = (props: IProps) => {
     }) => {
         const { name, description, permissions } = values;
         const newPer = permissions?.map(i => { return { "id": i } });
-        console.log(">>> check newPer: ", newPer)
         const role = { name, description, permissions: newPer, active: true };
         setIsSubmit(true);
         const res = await callCreateRole(role)
@@ -90,6 +63,7 @@ const ModalCreateRole = (props: IProps) => {
             notification.error({
                 message: "Có lỗi xảy ra",
                 description:
+                    //@ts-ignore
                     res.message && Array.isArray(res.message) ? res.message[0] : res.message,
                 duration: 5
             })
