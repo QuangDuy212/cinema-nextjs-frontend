@@ -7,6 +7,8 @@ import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callFetchAllCategories, callFetchCategoryById } from "src/util/api";
 import ModalCreateCate from "./modal/modal.create.cate";
+import ModalViewCate from "./modal/modal.view.cate";
+import ModalUpdateCate from "./modal/moda.update.cate";
 
 const AdminCategory = () => {
     // STATE: 
@@ -222,6 +224,20 @@ const AdminCategory = () => {
                 openModalCreate={openModalCreate}
                 setOpenModalCreate={setOpenModalCreate}
                 fetchData={fetchCategory}
+            />
+
+            <ModalViewCate
+                openModalView={openModalView}
+                setOpenModalView={setOpenModalView}
+                data={dataInit}
+                fetchData={fetchCategory}
+            />
+
+            <ModalUpdateCate
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                fetchData={fetchCategory}
+                data={dataInit}
             />
         </>
     )

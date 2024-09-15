@@ -35,6 +35,7 @@ const ModalCreateCate = (props: IProps) => {
 
     const handleCancel = () => {
         setOpenModalCreate(false);
+        form.resetFields();
     };
 
     const onFinish = async (values: {
