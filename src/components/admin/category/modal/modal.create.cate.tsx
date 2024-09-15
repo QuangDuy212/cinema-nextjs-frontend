@@ -2,14 +2,14 @@
 
 import { Form, Input, message, Modal, notification } from "antd";
 import { useState } from "react";
-import { callCreatePermission } from "src/util/api";
+import { callCreateCategory } from "src/util/api";
 
 interface IProps {
     openModalCreate: boolean;
     setOpenModalCreate: (v: boolean) => void;
     fetchData: () => void;
 }
-const ModalCreatePer = (props: IProps) => {
+const ModalCreateCate = (props: IProps) => {
     //PROPS: 
     const { openModalCreate, setOpenModalCreate, fetchData } = props;
 
@@ -39,17 +39,13 @@ const ModalCreatePer = (props: IProps) => {
 
     const onFinish = async (values: {
         name: string;
-        apiPath: string;
-        method: string;
-        module: string;
     }) => {
-        const { name, apiPath, method, module } = values;
-        const per = { name, apiPath, method, module };
+        const { name } = values;
         setIsSubmit(true);
-        const res = await callCreatePermission(per)
+        const res = await callCreateCategory(name)
         setIsSubmit(false);
         if (res?.data && res) {
-            message.success("Thêm mới permission thành công!");
+            message.success("Thêm mới Category thành công!");
             await fetchData();
             setOpenModalCreate(false);
             form.resetFields();
@@ -68,7 +64,7 @@ const ModalCreatePer = (props: IProps) => {
     return (
         <>
             <Modal
-                title="Thêm mới permission"
+                title="Thêm mới Category"
                 open={openModalCreate}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -97,35 +93,9 @@ const ModalCreatePer = (props: IProps) => {
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item
-                        labelCol={{ span: 24 }}
-                        label='API path'
-                        name="apiPath"
-                        rules={[{ required: true, message: 'Please input your apiPath!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        labelCol={{ span: 24 }}
-                        label='Method'
-                        name="method"
-                        rules={[{ required: true, message: 'Please input your method!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        labelCol={{ span: 24 }}
-                        label='Module'
-                        name="module"
-                        rules={[{ required: true, message: 'Please input your module!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
                 </Form>
             </Modal >
         </>
     )
 }
-export default ModalCreatePer;
+export default ModalCreateCate;

@@ -55,7 +55,7 @@ const ModalCreateRole = (props: IProps) => {
         const res = await callCreateRole(role)
         setIsSubmit(false);
         if (res?.data && res) {
-            message.success("Thêm mới permission thành công!");
+            message.success("Thêm mới Role thành công!");
             await fetchData();
             setOpenModalCreate(false);
             form.resetFields();
@@ -73,7 +73,7 @@ const ModalCreateRole = (props: IProps) => {
     return (
         <>
             <Modal
-                title="Thêm mới permission"
+                title="Thêm mới Role"
                 open={openModalCreate}
                 onOk={handleOk}
                 onCancel={handleCancel}

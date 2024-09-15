@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callFetchAllCategories, callFetchCategoryById } from "src/util/api";
+import ModalCreateCate from "./modal/modal.create.cate";
 
 const AdminCategory = () => {
     // STATE: 
@@ -215,6 +216,12 @@ const AdminCategory = () => {
                 loading={loading}
                 //@ts-ignore
                 onChange={handleTableChange}
+            />
+
+            <ModalCreateCate
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
+                fetchData={fetchCategory}
             />
         </>
     )

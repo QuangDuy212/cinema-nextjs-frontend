@@ -45,7 +45,7 @@ const ModalUpdateRole = (props: IProps) => {
         const res = await callUpdateRole(role, id)
         setIsSubmit(false);
         if (res?.data && res) {
-            message.success("Thêm mới permission thành công!");
+            message.success("Thêm mới Role thành công!");
             await fetchData();
             setOpenModalUpdate(false);
             form.resetFields();
