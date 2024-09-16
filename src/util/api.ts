@@ -65,8 +65,24 @@ export const callDeleteCategoryById = (id: number) => {
 /**
  * Module TIME
  */
-export const callFetchAllTimes = () => {
-    return axios.get("/api/v1/times?page=1&size=3");
+export const callFetchAllTimes = (query: string) => {
+    return axios.get(`/api/v1/times${query}`);
+}
+
+export const callFetchTimeById = (id: number) => {
+    return axios.get(`/api/v1/times/${id}`);
+}
+
+export const callCreateTime = (data: { date: string }) => {
+    return axios.post(`/api/v1/times`, data);
+}
+
+export const callUpdateTime = (data: { id: number, date: string }) => {
+    return axios.put(`/api/v1/times`, data);
+}
+
+export const callDeleteTime = (id: number) => {
+    return axios.delete(`/api/v1/times/${id}`);
 }
 
 /**
@@ -94,8 +110,8 @@ export const callCreateShow = (data: {
     "time": string;
     "active": boolean;
     "price": number;
-    "day": { "id": number }[];
-    "film": { "id": number }[]
+    "day": { "id": number };
+    "film": { "id": number }
 }) => {
     return axios.post(`/api/v1/shows`, data);
 }

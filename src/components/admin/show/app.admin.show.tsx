@@ -1,14 +1,15 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, notification, Popconfirm, Space, Table } from "antd";
+import { Button, message, notification, Popconfirm, SelectProps, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { render } from "sass";
-import { callDeleteShow, callFetchAllShows } from "src/util/api";
+import { callDeleteShow, callFetchAllFilms, callFetchAllShows, callFetchAllTimes } from "src/util/api";
 import { formatter } from "src/util/method";
 import ModalViewShow from "./modal/moda.view.show";
+import ModalCreateShow from "./modal/modal.create.show";
 
 const AdminShow = () => {
     // STATE: 
@@ -25,6 +26,8 @@ const AdminShow = () => {
     const [openModalView, setOpenModalView] = useState<boolean>(false);
 
     const [dataInit, setDataInit] = useState<IShow | undefined>();
+    const [days, setDays] = useState<ITime[] | undefined>([]);
+    const [films, setFilms] = useState<IFilm[] | undefined>([]);
 
     // VARIABLE: 
     const columns: any = [
@@ -206,10 +209,47 @@ const AdminShow = () => {
         }
     }
 
+    //SELECT: 
+    const daysOptions: SelectProps['options'] = days?.map((i: ITime) => {
+        return {
+            value: i?.id,
+            label: i?.date,
+        }
+    });
+
+    const filmsOptions: SelectProps['options'] = films?.map((i: IFilm) => {
+        return {
+            value: i?.id,
+            label: i?.name,
+        }
+    });
+
+    const fetchDaysOptions = async () => {
+        const res = await callFetchAllTimes("?page=1&size=100");
+        if (res && res?.data) {
+            const data = res?.data?.result;
+            setDays(data);
+        }
+
+    }
+
+    const fetchFilmsOptions = async () => {
+        const resFilms = await callFetchAllFilms("?page=1&size=100");
+        if (resFilms && resFilms?.data) {
+            const data = resFilms?.data?.result;
+            setFilms(data);
+        }
+    }
+
     // EFFECT:
     useEffect(() => {
         fetchShow();
     }, [page, size]);
+
+    useEffect(() => {
+        fetchDaysOptions();
+        fetchFilmsOptions();
+    }, [])
 
 
     return (
@@ -242,6 +282,13 @@ const AdminShow = () => {
                 setOpenModalView={setOpenModalView}
                 data={dataInit}
                 fetchData={fetchShow}
+            />
+            <ModalCreateShow
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
+                fetchData={fetchShow}
+                daysOptions={daysOptions}
+                filmsOptions={filmsOptions}
             />
         </>
     )
