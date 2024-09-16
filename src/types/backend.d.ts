@@ -71,6 +71,10 @@ declare global {
             "id": number;
             "date": string;
         }
+        "film": {
+            "id": number;
+            "name": string;
+        }
     }
 
     interface IAccount {

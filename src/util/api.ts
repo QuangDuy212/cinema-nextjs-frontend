@@ -122,8 +122,8 @@ export const callUpdateShow = (data: {
     "time": string;
     "active": boolean;
     "price": number;
-    "day": { "id": number }[];
-    "film": { "id": number }[]
+    "day": { "id": number };
+    "film": { "id": number }
 }) => {
     return axios.put(`/api/v1/shows`, data);
 }

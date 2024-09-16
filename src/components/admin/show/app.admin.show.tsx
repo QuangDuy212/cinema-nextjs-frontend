@@ -8,8 +8,9 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { render } from "sass";
 import { callDeleteShow, callFetchAllFilms, callFetchAllShows, callFetchAllTimes } from "src/util/api";
 import { formatter } from "src/util/method";
-import ModalViewShow from "./modal/moda.view.show";
+import ModalViewShow from "./modal/modal.view.show";
 import ModalCreateShow from "./modal/modal.create.show";
+import ModalUpdateShow from "./modal/modal.update.show";
 
 const AdminShow = () => {
     // STATE: 
@@ -48,14 +49,14 @@ const AdminShow = () => {
             title: 'Time',
             dataIndex: 'time',
             sorter: true,
-            width: "15%",
+            width: "10%",
             key: "time"
         },
         {
             title: 'Price',
             dataIndex: 'price',
             sorter: true,
-            width: "30%",
+            width: "10%",
             render: (text: any, record: any, index: any, action: any) => {
                 return (
                     <>{formatter.format(record?.price)}</>
@@ -64,12 +65,23 @@ const AdminShow = () => {
         },
         {
             title: 'Day',
-            dataIndex: "day.date",
+            dataIndex: "day",
             sorter: true,
-            width: "20%",
+            width: "10%",
             render: (text: any, record: any, index: any, action: any) => {
                 return (
                     <>{record?.day?.date}</>
+                )
+            },
+        },
+        {
+            title: 'Film',
+            dataIndex: "film",
+            sorter: true,
+            width: "35%",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <>{record?.film?.name}</>
                 )
             },
         },
@@ -289,6 +301,14 @@ const AdminShow = () => {
                 fetchData={fetchShow}
                 daysOptions={daysOptions}
                 filmsOptions={filmsOptions}
+            />
+            <ModalUpdateShow
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                fetchData={fetchShow}
+                daysOptions={daysOptions}
+                filmsOptions={filmsOptions}
+                data={dataInit}
             />
         </>
     )
