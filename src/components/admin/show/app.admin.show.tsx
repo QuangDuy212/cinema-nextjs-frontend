@@ -7,6 +7,8 @@ import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { render } from "sass";
 import { callDeleteShow, callFetchAllShows } from "src/util/api";
+import { formatter } from "src/util/method";
+import ModalViewShow from "./modal/moda.view.show";
 
 const AdminShow = () => {
     // STATE: 
@@ -36,16 +38,26 @@ const AdminShow = () => {
             title: 'Zoom number',
             dataIndex: 'zoomNumber',
             sorter: true,
-            width: "10%",
+            width: "15%",
             key: "zoomNumber"
+        },
+        {
+            title: 'Time',
+            dataIndex: 'time',
+            sorter: true,
+            width: "15%",
+            key: "time"
         },
         {
             title: 'Price',
             dataIndex: 'price',
             sorter: true,
-            width: "20%",
-            key: "price"
-
+            width: "30%",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <>{formatter.format(record?.price)}</>
+                )
+            },
         },
         {
             title: 'Day',
@@ -87,6 +99,7 @@ const AdminShow = () => {
                     <Popconfirm
                         placement="leftTop"
                         title={"Xác nhận xóa user"}
+                        //@ts-ignore
                         description={"Bạn có chắc chắn muốn xóa user này ?"}
                         onConfirm={() => handleDelete(entity.id)}
                         okText="Xác nhận"
@@ -223,6 +236,12 @@ const AdminShow = () => {
                 loading={loading}
                 //@ts-ignore
                 onChange={handleTableChange}
+            />
+            <ModalViewShow
+                openModalView={openModalView}
+                setOpenModalView={setOpenModalView}
+                data={dataInit}
+                fetchData={fetchShow}
             />
         </>
     )
