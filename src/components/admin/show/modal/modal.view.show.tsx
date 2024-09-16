@@ -1,6 +1,6 @@
 "use client"
 
-import { Descriptions, Drawer } from "antd";
+import { Badge, Descriptions, Drawer } from "antd";
 import moment from "moment";
 import { formatter } from "src/util/method";
 
@@ -35,6 +35,10 @@ const ModalViewShow = (props: IProps) => {
                     <Descriptions.Item label="ID">{data?.id}</Descriptions.Item>
                     <Descriptions.Item label="Zoom number">{data?.zoomNumber}</Descriptions.Item>
                     <Descriptions.Item label="Time">{data?.time}</Descriptions.Item>
+                    <Descriptions.Item label="Active">
+                        <Badge status="processing" text={data?.active?.toString()} />
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Film" span={24}>{data?.film?.name}</Descriptions.Item>
                     <Descriptions.Item label="Price">{formatter.format(data?.price ?? 0)}</Descriptions.Item>
                     <Descriptions.Item label="Day">{data?.day?.date}</Descriptions.Item>
                 </Descriptions>

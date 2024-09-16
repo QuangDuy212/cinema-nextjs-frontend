@@ -212,12 +212,6 @@ const AdminRole = () => {
         const res = await callFetchAllPermissions("?page=1&size=100");
         if (res && res?.data) {
             const data = res?.data?.result;
-            // data?.map((i: IPermission) => {
-            //     options.push({
-            //         value: i?.id,
-            //         label: i?.name,
-            //     });
-            // })
             setListPer(data);
         }
 

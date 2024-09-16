@@ -80,8 +80,19 @@ const AppAdminUser = () => {
             title: 'Address',
             dataIndex: "address",
             sorter: true,
-            width: "20%",
+            width: "10%",
             key: "address",
+        },
+        {
+            title: 'Active',
+            dataIndex: "active",
+            sorter: true,
+            width: "10%",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <>{record?.active?.toString()}</>
+                )
+            },
         },
 
         {
@@ -115,6 +126,7 @@ const AppAdminUser = () => {
                     <Popconfirm
                         placement="leftTop"
                         title={"Xác nhận xóa user"}
+                        //@ts-ignore
                         description={"Bạn có chắc chắn muốn xóa user này ?"}
                         onConfirm={() => handleDeleteUser(entity.id)}
                         okText="Xác nhận"
@@ -193,14 +205,15 @@ const AppAdminUser = () => {
     const handleDeleteUser = async (id: number | undefined) => {
         if (id) {
             const res = await callDeleteUser(id);
-            console.log(".>> check res: ", res);
+            //@ts-ignore
             if (+res.statusCode === 200) {
                 message.success('Xóa User thành công');
                 fetchUser();
             } else {
                 notification.error({
                     message: 'Có lỗi xảy ra',
-                    description: res.message
+                    //@ts-ignore
+                    description: res?.message
                 });
             }
         }
@@ -236,6 +249,7 @@ const AppAdminUser = () => {
                         <div>{range[0]} - {range[1]} trên {total} dòng</div>
                 }}
                 loading={loading}
+                //@ts-ignore
                 onChange={handleTableChange}
             />
             <ModalCreateUser

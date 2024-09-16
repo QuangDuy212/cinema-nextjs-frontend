@@ -67,6 +67,7 @@ declare global {
         "zoomNumber": number;
         "price": number;
         "time": string;
+        "active": boolean;
         "day": {
             "id": number;
             "date": string;
