@@ -22,6 +22,7 @@ import { FaFilm } from 'react-icons/fa';
 import { FaUserShield } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
 import { BiCategoryAlt } from "react-icons/bi";
+import { PiSlideshowLight } from "react-icons/pi";
 
 const { Content, Sider } = Layout;
 
@@ -143,6 +144,11 @@ const LayoutAdmin = ({ children }: Readonly<{
                     label: <Link href='/admin/category'>Category</Link>,
                     key: '/admin/category',
                     icon: <BiCategoryAlt />
+                },
+                {
+                    label: <Link href='/admin/show'>Show</Link>,
+                    key: '/admin/show',
+                    icon: <PiSlideshowLight />
                 },
             ]
 

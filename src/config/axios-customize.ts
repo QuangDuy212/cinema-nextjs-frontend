@@ -46,10 +46,11 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(
     (res) => res.data,
     async (error) => {
-        if (error.config && error.response
-            && +error.response.status === 401
-            && error.config.url !== '/api/v1/auth/login'
-            && !error.config.headers[NO_RETRY_HEADER]
+        console.log(">>> check error: ", error)
+        if (error?.config && error?.response
+            && +error?.response?.status === 401
+            && error?.config?.url !== '/api/v1/auth/login'
+            && !error?.config?.headers[NO_RETRY_HEADER]
         ) {
             const access_token = await handleRefreshToken();
             error.config.headers[NO_RETRY_HEADER] = 'true'
@@ -61,9 +62,9 @@ instance.interceptors.response.use(
         }
 
         if (
-            error.config && error.response
-            && +error.response.status === 400
-            && error.config.url === '/api/v1/auth/refresh'
+            error?.config && error?.response
+            && +error?.response?.status === 400
+            && error?.config?.url === '/api/v1/auth/refresh'
             && location.pathname.startsWith("/admin")
         ) {
             const message = error?.response?.data?.error ?? "Có lỗi xảy ra, vui lòng login.";
@@ -71,7 +72,7 @@ instance.interceptors.response.use(
             makeStore.dispatch(setRefreshTokenAction({ status: true, message }));
         }
 
-        if (+error.response.status === 403) {
+        if (+error?.response?.status === 403) {
             notification.error({
                 message: error?.response?.data?.message ?? "",
                 description: error?.response?.data?.error ?? ""

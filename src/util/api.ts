@@ -81,6 +81,41 @@ export const callFetchShowsByFilmAndDay = (filmId: number, dayId: number) => {
     )
 }
 
+export const callFetchAllShows = (query: string) => {
+    return axios.get(`/api/v1/shows${query}`);
+}
+
+export const callFetchShowById = (id: number) => {
+    return axios.get(`/api/v1/shows${id}`);
+}
+
+export const callCreateShow = (data: {
+    "zoomNumber": number;
+    "time": string;
+    "active": boolean;
+    "price": number;
+    "day": { "id": number }[];
+    "film": { "id": number }[]
+}) => {
+    return axios.post(`/api/v1/shows`, data);
+}
+
+export const callUpdateShow = (data: {
+    "id": number;
+    "zoomNumber": number;
+    "time": string;
+    "active": boolean;
+    "price": number;
+    "day": { "id": number }[];
+    "film": { "id": number }[]
+}) => {
+    return axios.put(`/api/v1/shows`, data);
+}
+
+export const callDeleteShow = (id: number) => {
+    return axios.delete(`/api/v1/shows${id}`);
+}
+
 
 /**
  * Module USER

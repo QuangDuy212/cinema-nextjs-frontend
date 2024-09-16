@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { callFetchPermission } from 'src/util/api';
+import { callFetchAllPermissions } from 'src/util/api';
 
 interface IState {
     isFetching: boolean;
@@ -15,7 +15,7 @@ interface IState {
 export const fetchPermission = createAsyncThunk(
     'permission/fetchPermission',
     async ({ query }: { query: string }) => {
-        const response = await callFetchPermission(query);
+        const response = await callFetchAllPermissions(query);
         return response;
     }
 )
