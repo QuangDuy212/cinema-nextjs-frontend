@@ -261,3 +261,20 @@ export const callUpdateRole = (role: {
 export const callDeleteRoleById = (id: number) => {
     return axios.delete(`/api/v1/roles/${id}`);
 }
+
+/**
+ * Module BILL
+ */
+
+export const callFetchAllBill = (query: string) => {
+    return axios.get(`/api/v1/bills${query}`);
+}
+export const callFetchBillById = (id: number) => {
+    return axios.get(`/api/v1/bills/${id}`);
+}
+export const callUpdateBill = (data: { id: number; status: string }) => {
+    return axios.put(`/api/v1/bills`, data);
+}
+export const callDeleteBillById = (id: number) => {
+    return axios.delete(`/api/v1/bills/${id}`);
+}

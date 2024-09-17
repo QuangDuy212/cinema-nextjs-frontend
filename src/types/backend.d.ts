@@ -202,4 +202,25 @@ declare global {
             time: string;
         }[]
     }
+
+    interface IBill {
+        "id": number;
+        "total": number;
+        "quantity": number;
+        "status": string;
+        "user": {
+            "email": string;
+        },
+        "seats": [
+            {
+                "id": number;
+                "name": string;
+            }
+        ],
+        "nameFilm": string;
+        "createdAt": string;
+        "updatedAt": string;
+        "createdBy": string;
+        "updatedBy": string;
+    }
 }

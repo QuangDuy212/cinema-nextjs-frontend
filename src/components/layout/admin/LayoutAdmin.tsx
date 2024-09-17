@@ -24,6 +24,7 @@ import { FiUsers } from "react-icons/fi";
 import { BiCategoryAlt } from "react-icons/bi";
 import { PiSlideshowLight } from "react-icons/pi";
 import { BsCalendarDate } from "react-icons/bs";
+import { RiBillLine } from "react-icons/ri";
 
 const { Content, Sider } = Layout;
 
@@ -135,6 +136,11 @@ const LayoutAdmin = ({ children }: Readonly<{
                     label: <Link href='/admin/role'>Role</Link>,
                     key: '/admin/role',
                     icon: <FiUsers />
+                },
+                {
+                    label: <Link href='/admin/bill'>Bill</Link>,
+                    key: '/admin/bill',
+                    icon: <RiBillLine />
                 },
                 {
                     label: <Link href='/admin/film'>Film</Link>,
