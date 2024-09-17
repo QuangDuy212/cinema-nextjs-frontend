@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteBillById, callFetchAllBill } from "src/util/api";
+import ModalViewBill from "./modal/modal.view.bill";
 
 const AdminBill = () => {
     // STATE: 
@@ -149,7 +150,7 @@ const AdminBill = () => {
         }
     };
 
-    const fetchRole = async () => {
+    const fetchBill = async () => {
         setLoading(true);
         let query = `?page=${page}&size=${size}`;
 
@@ -190,7 +191,7 @@ const AdminBill = () => {
             //@ts-ignore
             if (+res.statusCode === 200) {
                 message.success('Xóa Delete thành công');
-                fetchRole();
+                fetchBill();
             } else {
                 notification.error({
                     message: 'Có lỗi xảy ra',
@@ -207,19 +208,11 @@ const AdminBill = () => {
 
     // EFFECT:
     useEffect(() => {
-        fetchRole();
+        fetchBill();
     }, [page, size]);
 
     return (
         <>
-            <div style={{ marginBottom: "10px" }}>
-                <Button type='primary'
-                    icon={<IoAddCircleOutline />}
-                    onClick={() => handleCreate()}
-                >
-                    <> </>Thêm mới
-                </Button>
-            </div>
             <Table
                 dataSource={data ?? []}
                 columns={columns}
@@ -234,6 +227,12 @@ const AdminBill = () => {
                 loading={loading}
                 //@ts-ignore
                 onChange={handleTableChange}
+            />
+            <ModalViewBill
+                openModalView={openModalView}
+                setOpenModalView={setOpenModalView}
+                data={dataInit}
+                fetchData={fetchBill}
             />
         </>
     )

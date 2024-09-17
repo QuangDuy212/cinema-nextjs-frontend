@@ -205,6 +205,9 @@ declare global {
 
     interface IBill {
         "id": number;
+        "date": string;
+        "zoomNumber": string;
+        "show": string;
         "total": number;
         "quantity": number;
         "status": string;
