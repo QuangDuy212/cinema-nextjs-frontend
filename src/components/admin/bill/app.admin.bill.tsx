@@ -1,12 +1,13 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, notification, Popconfirm, SelectProps, Space, Table } from "antd";
+import { Button, message, notification, Popconfirm, SelectProps, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteBillById, callFetchAllBill } from "src/util/api";
 import ModalViewBill from "./modal/modal.view.bill";
+import ModalUpdateBill from "./modal/moda.update.bill";
 
 const AdminBill = () => {
     // STATE: 
@@ -62,8 +63,16 @@ const AdminBill = () => {
             dataIndex: 'status',
             sorter: true,
             width: "10%",
-            key: "status"
-
+            key: "status",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <>
+                        <Tag color={record?.status === "PENDING" ? "volcano" : "green"} >
+                            {record?.status}
+                        </Tag>
+                    </>
+                )
+            },
         },
 
         {
@@ -231,6 +240,12 @@ const AdminBill = () => {
             <ModalViewBill
                 openModalView={openModalView}
                 setOpenModalView={setOpenModalView}
+                data={dataInit}
+                fetchData={fetchBill}
+            />
+            <ModalUpdateBill
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
                 data={dataInit}
                 fetchData={fetchBill}
             />
