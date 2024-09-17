@@ -81,7 +81,7 @@ export const callUpdateTime = (data: { id: number, date: string }) => {
     return axios.put(`/api/v1/times`, data);
 }
 
-export const callDeleteTime = (id: number) => {
+export const callDeleteTimeById = (id: number) => {
     return axios.delete(`/api/v1/times/${id}`);
 }
 

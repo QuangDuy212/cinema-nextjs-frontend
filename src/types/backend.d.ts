@@ -192,4 +192,14 @@ declare global {
         id: number;
         name: string;
     }
+
+    interface ITime {
+        id: number;
+        date: string;
+        active: boolean;
+        shows: {
+            id: number;
+            time: string;
+        }[]
+    }
 }

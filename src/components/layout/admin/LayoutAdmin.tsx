@@ -23,6 +23,7 @@ import { FaUserShield } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
 import { BiCategoryAlt } from "react-icons/bi";
 import { PiSlideshowLight } from "react-icons/pi";
+import { BsCalendarDate } from "react-icons/bs";
 
 const { Content, Sider } = Layout;
 
@@ -149,6 +150,11 @@ const LayoutAdmin = ({ children }: Readonly<{
                     label: <Link href='/admin/show'>Show</Link>,
                     key: '/admin/show',
                     icon: <PiSlideshowLight />
+                },
+                {
+                    label: <Link href='/admin/time'>Date</Link>,
+                    key: '/admin/time',
+                    icon: <BsCalendarDate />
                 },
             ]
 
