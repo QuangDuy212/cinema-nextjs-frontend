@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteTimeById, callFetchAllShows, callFetchAllTimes } from "src/util/api";
+import ModalCreateDate from "./modal/moda.create.date";
 
 const AdminDate = () => {
     // STATE: 
@@ -22,8 +23,6 @@ const AdminDate = () => {
     const [openModalView, setOpenModalView] = useState<boolean>(false);
 
     const [dataInit, setDataInit] = useState<ITime | undefined>();
-
-    const [listShows, setListShows] = useState<IShow[] | undefined>([]);
 
     // VARIABLE: 
     const columns: any = [
@@ -210,32 +209,13 @@ const AdminDate = () => {
 
 
 
-    //SELECT: 
-    const options: SelectProps['options'] = listShows?.map((i: IShow) => {
-        return {
-            value: i?.id,
-            label: i?.time,
-        }
-    });
-
-    const fetchShow = async () => {
-        const res = await callFetchAllShows("?page=1&size=100");
-        if (res && res?.data) {
-            const data = res?.data?.result;
-            setListShows(data);
-        }
-
-    }
 
     // EFFECT:
     useEffect(() => {
         fetchTime();
     }, [page, size]);
 
-    //EFFECT :
-    useEffect(() => {
-        fetchShow();
-    }, [])
+
     return (
         <>
             <div style={{ marginBottom: "10px" }}>
@@ -260,6 +240,11 @@ const AdminDate = () => {
                 loading={loading}
                 //@ts-ignore
                 onChange={handleTableChange}
+            />
+            <ModalCreateDate
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
+                fetchData={fetchTime}
             />
         </>
     )
