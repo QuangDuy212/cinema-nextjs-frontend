@@ -7,7 +7,8 @@ import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteTimeById, callFetchAllShows, callFetchAllTimes } from "src/util/api";
 import ModalCreateDate from "./modal/moda.create.date";
-import ModalUpdateDate from "./modal/modal.update.data";
+import ModalUpdateDate from "./modal/modal.update.date";
+import ModalViewDate from "./modal/modal.view.date";
 
 const AdminDate = () => {
     // STATE: 
@@ -251,6 +252,12 @@ const AdminDate = () => {
             <ModalUpdateDate
                 openModalUpdate={openModalUpdate}
                 setOpenModalUpdate={setOpenModalUpdate}
+                fetchData={fetchTime}
+                data={dataInit}
+            />
+            <ModalViewDate
+                openModalView={openModalView}
+                setOpenModalView={setOpenModalView}
                 fetchData={fetchTime}
                 data={dataInit}
             />
