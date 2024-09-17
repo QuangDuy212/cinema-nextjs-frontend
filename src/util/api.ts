@@ -77,7 +77,7 @@ export const callCreateTime = (data: { date: string }) => {
     return axios.post(`/api/v1/times`, data);
 }
 
-export const callUpdateTime = (data: { id: number, date: string }) => {
+export const callUpdateTime = (data: { id: number, date: string, active: boolean }) => {
     return axios.put(`/api/v1/times`, data);
 }
 

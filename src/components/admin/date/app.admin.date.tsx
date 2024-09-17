@@ -7,6 +7,7 @@ import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteTimeById, callFetchAllShows, callFetchAllTimes } from "src/util/api";
 import ModalCreateDate from "./modal/moda.create.date";
+import ModalUpdateDate from "./modal/modal.update.data";
 
 const AdminDate = () => {
     // STATE: 
@@ -65,6 +66,7 @@ const AdminDate = () => {
             dataIndex: 'active',
             sorter: true,
             width: "10%",
+            key: "active",
             render: (text: any, record: any, index: any, action: any) => {
                 return (
                     <>{record?.active?.toString()}</>
@@ -245,6 +247,12 @@ const AdminDate = () => {
                 openModalCreate={openModalCreate}
                 setOpenModalCreate={setOpenModalCreate}
                 fetchData={fetchTime}
+            />
+            <ModalUpdateDate
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                fetchData={fetchTime}
+                data={dataInit}
             />
         </>
     )
