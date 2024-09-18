@@ -1,7 +1,7 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, notification, Popconfirm, SelectProps, Space, Table } from "antd";
+import { Button, message, notification, Popconfirm, SelectProps, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -70,7 +70,11 @@ const AdminDate = () => {
             key: "active",
             render: (text: any, record: any, index: any, action: any) => {
                 return (
-                    <>{record?.active?.toString()}</>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Tag color={!record?.active ? "volcano" : "green"} >
+                            {record?.active?.toString()}
+                        </Tag>
+                    </div>
                 )
             },
         },
