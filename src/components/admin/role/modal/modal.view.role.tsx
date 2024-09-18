@@ -38,9 +38,13 @@ const ModalViewRole = (props: IProps) => {
                         <Badge status="processing" text={data?.active?.toString()} />
                     </Descriptions.Item>
                     <Descriptions.Item label="Permissions" span={24}>
-                        {data?.permissions?.map((i, index) =>
-                            <span key={i.id}>{i.name} {index + 1 !== data?.permissions?.length ? "," : ""}</span>
-                        )}
+                        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                            {data?.permissions?.map((i, index) =>
+                                <div key={i?.id} style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "4px" }}>
+                                    {i?.name}
+                                </div>
+                            )}
+                        </div>
                     </Descriptions.Item>
                     <Descriptions.Item label="Created at ">
                         {moment(data?.createdAt).format('DD-MM-YYYY HH:mm:ss')}
