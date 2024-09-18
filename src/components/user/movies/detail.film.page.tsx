@@ -63,7 +63,7 @@ const DetailFilm = (props: IProps) => {
                                         </div>
                                         <div className="basic-info">
                                             <span className="category">{data?.category?.name}</span>
-                                            <span className="origin">{data?.name}</span>
+                                            <span className="origin">{data?.origin}</span>
                                             <span className="duration">{data?.duration} phút</span>
                                             <span className="director">Đạo diễn: {data?.director}</span>
                                         </div>

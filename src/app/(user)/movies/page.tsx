@@ -10,7 +10,7 @@ const MoviePage = async () => {
     });
 
     const times = await sendRequest<IBackendRes<IModelPaginate<ITime>>>({
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/times`,
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/times?page=1&size=3`,
         method: "GET",
     });
     return (

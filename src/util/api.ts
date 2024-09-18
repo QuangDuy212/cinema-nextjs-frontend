@@ -37,6 +37,17 @@ export const callFetchFilmById = (id: String) => {
     return axios.get(`/api/v1/films/${id}`);
 };
 
+export const callCreateFilm = (film: IFilmReqCreate) => {
+    return axios.post(`/api/v1/films`, film);
+}
+export const callUpdateFilm = (film: IFilmReqUpdate) => {
+    return axios.put(`/api/v1/films`, film);
+}
+
+export const callDeleteFilmById = (id: number) => {
+    return axios.delete(`/api/v1/films/${id}`);
+}
+
 
 /**
  * Module CATEGORY
@@ -285,4 +296,22 @@ export const callUpdateBill = (data: { id: number; status: string }) => {
 }
 export const callDeleteBillById = (id: number) => {
     return axios.delete(`/api/v1/bills/${id}`);
+}
+
+/**
+ * Module FILE
+ */
+
+export const callUploadSingleFile = (file: File, folder: string) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('file', file);
+    bodyFormData.append('folder', folder);
+    return axios({
+        method: 'post',
+        url: '/api/v1/files',
+        data: bodyFormData,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
 }

@@ -38,7 +38,7 @@ const AppAdminUser = () => {
     // EFFECT:
     useEffect(() => {
         fetchUser();
-    }, [page, size]);
+    }, [page, size, sortQuery]);
 
     useEffect(() => {
         fetchRole();
@@ -178,7 +178,6 @@ const AppAdminUser = () => {
             query += sortQuery;
         }
 
-
         const res = await callFetchAllUsers(query);
         if (res && res?.data) {
             setData(res.data.result);
@@ -217,7 +216,7 @@ const AppAdminUser = () => {
             setData([]);
         }
 
-        if (sorter && sorter.field) {
+        if (sorter) {
             if (sorter.order == 'ascend') {
                 setSortQuery(`&sort=${sorter.field}`)
             }

@@ -57,6 +57,41 @@ declare global {
         ]
     }
 
+    interface IFilmReqCreate {
+        "name": string;
+        "director": string;
+        "image": string;
+        "performer": string;
+        "premiere": string;
+        "shortDesc": string;
+        "contentModeration": string;
+        "duration": number;
+        "trailer": string;
+        "category": {
+            "id": number;
+        },
+        "origin": string;
+        // "shows": { "id": number; }[]
+    }
+
+    interface IFilmReqUpdate {
+        "id": number;
+        "name"?: string;
+        "director"?: string;
+        "image"?: string;
+        "performer"?: string;
+        "premiere"?: string;
+        "shortDesc"?: string;
+        "contentModeration"?: string;
+        "duration"?: number;
+        "trailer"?: string;
+        "category"?: {
+            "id": number;
+        },
+        "origin"?: string;
+        // "shows": { "id": number; }[]
+    }
+
     interface ITime {
         id: number,
         date: string,

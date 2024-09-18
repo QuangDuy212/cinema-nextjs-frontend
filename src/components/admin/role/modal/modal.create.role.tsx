@@ -22,11 +22,11 @@ const ModalCreateRole = (props: IProps) => {
 
 
 
+    //METHODS: 
     const handleChange = (value: string) => {
     };
 
 
-    //METHODS: 
     const onFinishFailed = (values: any) => {
     }
 

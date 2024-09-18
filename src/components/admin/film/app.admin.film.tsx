@@ -1,11 +1,12 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, Space, Table, Tag } from "antd";
+import { Button, message, notification, Popconfirm, SelectProps, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { callFetchAllFilms } from "src/util/api";
+import { callDeleteFilmById, callFetchAllCategories, callFetchAllFilms } from "src/util/api";
+import ModalCreateFilm from "./modal/modal.create.film";
 
 const AdminFilm = () => {
     // STATE: 
@@ -15,6 +16,13 @@ const AdminFilm = () => {
     const [size, setSize] = useState<number>(2);
     const [total, setTotal] = useState<number>(0);
     const [sortQuery, setSortQuery] = useState<string>("");
+
+    const [openModalCreate, setOpenModalCreate] = useState<boolean>(false);
+    const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
+    const [openModalView, setOpenModalView] = useState<boolean>(false);
+
+    const [dataInit, setDataInit] = useState<IRole | undefined>();
+    const [cateOptions, setCateOptions] = useState<ICategory[] | undefined>([]);
 
     const columns: any = [
         {
@@ -78,8 +86,7 @@ const AdminFilm = () => {
                             cursor: "pointer"
                         }}
                         type=""
-                        onClick={() => {
-                        }}
+                        onClick={() => handleUpdate(entity)}
                     />
                     {/* </Access > */}
 
@@ -89,10 +96,10 @@ const AdminFilm = () => {
                     > */}
                     <Popconfirm
                         placement="leftTop"
-                        title={"Xác nhận xóa film"}
+                        title={"Xác nhận xóa user"}
                         //@ts-ignore
                         description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        // onConfirm={() => handleDeleteUser(entity.id)}
+                        onConfirm={() => handleDelete(entity.id)}
                         okText="Xác nhận"
                         cancelText="Hủy"
                     >
@@ -112,7 +119,7 @@ const AdminFilm = () => {
                         color: '#ccc',
                         cursor: "pointer"
                     }}
-                    // onClick={() => handleOnView(entity)}
+                        onClick={() => handleView(entity)}
                     />
                 </Space >
             ),
@@ -166,16 +173,68 @@ const AdminFilm = () => {
         }
     };
 
+    const fetchCategoryOptions = async () => {
+        const res = await callFetchAllCategories("?page=1&size=1000");
+        if (res && res?.data && res?.data?.result) {
+            setCateOptions(res?.data?.result);
+        }
+    }
+
+    //SELECT: 
+    const categoriesOptions: SelectProps['options'] = cateOptions?.map((i: ICategory) => {
+        return {
+            value: i?.id,
+            label: i?.name,
+        }
+    });
+
+    const handleCreate = () => {
+        setOpenModalCreate(true);
+    }
+
+    const handleUpdate = (role: IRole) => {
+        setDataInit(role);
+        setOpenModalUpdate(true);
+    }
+
+    const handleView = (role: IRole) => {
+        setDataInit(role);
+        setOpenModalView(true);
+    }
+
+    const handleDelete = async (id: number | undefined) => {
+        if (id) {
+            const res = await callDeleteFilmById(id);
+            //@ts-ignore
+            if (+res.statusCode === 200) {
+                message.success('Xóa User thành công');
+                fetchFilm();
+            } else {
+                notification.error({
+                    message: 'Có lỗi xảy ra',
+                    //@ts-ignore
+                    description: res.message
+                });
+            }
+        }
+    }
+
     // EFFECT:
     useEffect(() => {
         fetchFilm();
     }, [page, size]);
+
+    useEffect(() => {
+        fetchCategoryOptions();
+    }, []);
+
+
     return (
         <>
             <div style={{ marginBottom: "10px" }}>
                 <Button type='primary'
                     icon={<IoAddCircleOutline />}
-                // onClick={() => handleNewUser()}
+                    onClick={() => handleCreate()}
                 >
                     <> </>Thêm mới
                 </Button>
@@ -194,6 +253,12 @@ const AdminFilm = () => {
                 loading={loading}
                 //@ts-ignore
                 onChange={handleTableChange}
+            />
+            <ModalCreateFilm
+                openModalCreate={openModalCreate}
+                setOpenModalCreate={setOpenModalCreate}
+                fetchData={fetchFilm}
+                categoriesOptions={categoriesOptions}
             />
         </>
     )
