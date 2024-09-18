@@ -1,7 +1,7 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, notification, Popconfirm, SelectProps, Space, Table } from "antd";
+import { Button, message, notification, Popconfirm, SelectProps, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -46,18 +46,41 @@ const AdminRole = () => {
             title: 'Description',
             dataIndex: 'description',
             sorter: true,
-            width: "20%",
+            width: "15%",
             key: "description"
-
+        },
+        {
+            title: 'Permission',
+            dataIndex: 'permissions',
+            sorter: true,
+            width: "50%",
+            key: "permissions",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                        {record?.permissions?.map((p: IPermission) => {
+                            return (
+                                <div key={p?.id} style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "4px" }}>
+                                    {p?.name}
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            },
         },
         {
             title: 'Active',
             dataIndex: 'active',
             sorter: true,
-            width: "20%",
+            width: "5%",
             render: (text: any, record: any, index: any, action: any) => {
                 return (
-                    <>{record?.active?.toString()}</>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Tag color={!record?.active ? "volcano" : "green"} >
+                            {record?.active?.toString()}
+                        </Tag>
+                    </div>
                 )
             },
         },

@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, ConfigProvider, message, notification, Popconfirm, Popover, SelectProps, Space, Table } from "antd";
+import { Button, ConfigProvider, message, notification, Popconfirm, Popover, SelectProps, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { LuPenLine } from "react-icons/lu";
@@ -95,7 +95,11 @@ const AppAdminUser = () => {
             width: "10%",
             render: (text: any, record: any, index: any, action: any) => {
                 return (
-                    <>{record?.active?.toString()}</>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Tag color={!record?.active ? "volcano" : "green"} >
+                            {record?.active?.toString()}
+                        </Tag>
+                    </div>
                 )
             },
         },
