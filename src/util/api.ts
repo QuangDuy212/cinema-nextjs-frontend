@@ -137,8 +137,16 @@ export const callDeleteShow = (id: number) => {
  * Module USER
  */
 
-export const callUpdateUser = (id: number | undefined, fullName: string | undefined, phone: string | undefined, address: string | undefined) => {
-    return axios.put("/api/v1/users", { id, fullName, phone, address })
+export const callUpdateUser = (data: {
+    id: number | undefined,
+    fullName: string | undefined,
+    phone: string | undefined,
+    address: string | undefined,
+    active: boolean;
+    role: { id: number }
+}
+) => {
+    return axios.put("/api/v1/users", data)
 }
 
 export const callCreateUser = (email: string, fullName: string, phone: string, password: string, address: string) => {

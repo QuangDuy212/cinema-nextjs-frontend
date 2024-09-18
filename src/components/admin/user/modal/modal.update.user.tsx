@@ -1,6 +1,6 @@
 "use client"
 
-import { Form, Input, Modal, notification } from "antd";
+import { Form, Input, Modal, notification, Select, SelectProps } from "antd";
 import { useEffect, useState } from "react";
 import { callUpdateUser } from "src/util/api";
 interface IProps {
@@ -8,10 +8,11 @@ interface IProps {
     setOpenModalUpdate: (v: boolean) => void;
     fetchUser: () => void;
     data: IUser | null;
+    roleOptions: SelectProps['options'];
 }
 const ModalUpdateUser = (props: IProps) => {
     //PROPS:
-    const { fetchUser, openModalUpdate, setOpenModalUpdate, data } = props;
+    const { fetchUser, openModalUpdate, setOpenModalUpdate, data, roleOptions } = props;
 
     //STATE: 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
@@ -19,13 +20,26 @@ const ModalUpdateUser = (props: IProps) => {
 
     //METHOD: 
     useEffect(() => {
-        if (data)
-            form.setFieldsValue(data)
+        if (data) {
+            const idRole = data?.role?.id;
+            const dataUpdate = { ...data, role: idRole }
+            form.setFieldsValue(dataUpdate)
+        }
     }, [data])
 
-    const onFinish = async (values: { id: number | undefined, fullName: string | undefined, phone: string | undefined, address: string | undefined }) => {
-        const { id, fullName, phone, address } = values;
-        const res = await callUpdateUser(id, fullName, phone, address);
+    const onFinish = async (values: {
+        id: number | undefined,
+        fullName: string | undefined,
+        phone: string | undefined,
+        address: string | undefined,
+        active: boolean;
+        role: number
+    }) => {
+        const { id, fullName, phone, address, active, role } = values;
+        const data = { id, fullName, phone, address, active, role: { id: role } }
+        console.log(">>> check data: ", data);
+        const res = await callUpdateUser(data);
+        console.log(">>> check res: ", res)
         if (res && res?.data) {
             notification.success({
                 message: "Cập nhật tài khoản thành công!",
@@ -101,6 +115,30 @@ const ModalUpdateUser = (props: IProps) => {
                         rules={[{ required: true, message: 'Please input your email!' }]}
                     >
                         <Input disabled />
+                    </Form.Item>
+                    <Form.Item
+                        labelCol={{ span: 24 }}
+                        label='Active'
+                        name="active"
+                        rules={[{ required: true, message: 'Please input your active!' }]}
+                    >
+                        <Select
+                            options={[
+                                { value: true, label: "True" },
+                                { value: false, label: "False" },
+                            ]}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        labelCol={{ span: 24 }}
+                        label='Role'
+                        name="role"
+                        rules={[{ required: true, message: 'Please input your role!' }]}
+                    >
+                        <Select
+                            options={roleOptions}
+                        />
                     </Form.Item>
 
                     <Form.Item

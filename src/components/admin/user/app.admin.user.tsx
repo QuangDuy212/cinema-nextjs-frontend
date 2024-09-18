@@ -1,11 +1,11 @@
 "use client"
 
-import { Button, ConfigProvider, message, notification, Popconfirm, Popover, Space, Table } from "antd";
+import { Button, ConfigProvider, message, notification, Popconfirm, Popover, SelectProps, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { LuPenLine } from "react-icons/lu";
 import { MdDelete, MdInfoOutline } from "react-icons/md";
-import { callDeleteUser, callFetchAllUsers } from "src/util/api";
+import { callDeleteUser, callFetchAllRoles, callFetchAllUsers } from "src/util/api";
 import 'src/styles/admin/user/app.admin.user.scss'
 import Access from "src/components/share/access";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -32,12 +32,17 @@ const AppAdminUser = () => {
     const [dataInit, setDataInit] = useState<IUser | null>(null);
 
     const [sortQuery, setSortQuery] = useState<string>("");
+    const [listRoles, setListRoles] = useState<IRole[] | undefined>([]);
 
 
     // EFFECT:
     useEffect(() => {
         fetchUser();
     }, [page, size]);
+
+    useEffect(() => {
+        fetchRole();
+    }, [])
 
     const titleDelete = (
         <>
@@ -77,11 +82,11 @@ const AppAdminUser = () => {
             key: "phone"
         },
         {
-            title: 'Address',
-            dataIndex: "address",
+            title: 'Role',
+            dataIndex: ["role", "name"],
             sorter: true,
             width: "10%",
-            key: "address",
+            key: "role",
         },
         {
             title: 'Active',
@@ -178,6 +183,23 @@ const AppAdminUser = () => {
         }
     };
 
+    //SELECT: 
+    const roleOptions: SelectProps['options'] = listRoles?.map((i: IRole) => {
+        return {
+            value: i?.id,
+            label: i?.name,
+        }
+    });
+
+    const fetchRole = async () => {
+        const res = await callFetchAllRoles("?page=1&size=100");
+        if (res && res?.data) {
+            const data = res?.data?.result;
+            setListRoles(data);
+        }
+
+    }
+
     const handleTableChange = (pagination: { pageSize: number, current: number }, filters: any, sorter: any, extra: any) => {
         if (pagination && pagination.current !== page)
             setPage(pagination.current);
@@ -267,6 +289,7 @@ const AppAdminUser = () => {
                 setOpenModalUpdate={setOpenModalUpdate}
                 fetchUser={fetchUser}
                 data={dataInit}
+                roleOptions={roleOptions}
             />
         </>
     )
