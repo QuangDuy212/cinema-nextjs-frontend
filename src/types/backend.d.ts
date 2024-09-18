@@ -21,6 +21,7 @@ declare global {
     interface IFilm {
         id: number,
         name: string,
+        active: booelean;
         director: string,
         image: string,
         performer: string,
@@ -100,6 +101,7 @@ declare global {
 
     interface IUser {
         "id": number,
+        "active": boolean;
         "email": string;
         "fullName": string;
         "phone": string;

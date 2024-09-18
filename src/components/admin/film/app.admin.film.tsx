@@ -1,7 +1,7 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, Space, Table } from "antd";
+import { Button, Popconfirm, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -38,19 +38,27 @@ const AdminFilm = () => {
             key: "name"
         },
         {
-            title: 'Đạo diễn',
-            dataIndex: 'director',
-            sorter: true,
-            width: "10%",
-            key: "director"
-
-        },
-        {
             title: 'Phút',
             dataIndex: 'duration',
             sorter: true,
             width: "5%",
             key: "duration"
+        },
+        {
+            title: 'Active',
+            dataIndex: 'active',
+            sorter: true,
+            width: "10%",
+            key: "active",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Tag color={!record?.active ? "volcano" : "green"} >
+                            {record?.active?.toString()}
+                        </Tag>
+                    </div>
+                )
+            },
         },
 
         {
@@ -82,6 +90,7 @@ const AdminFilm = () => {
                     <Popconfirm
                         placement="leftTop"
                         title={"Xác nhận xóa film"}
+                        //@ts-ignore
                         description={"Bạn có chắc chắn muốn xóa user này ?"}
                         // onConfirm={() => handleDeleteUser(entity.id)}
                         okText="Xác nhận"
@@ -183,6 +192,7 @@ const AdminFilm = () => {
                         <div>{range[0]} - {range[1]} trên {total} dòng</div>
                 }}
                 loading={loading}
+                //@ts-ignore
                 onChange={handleTableChange}
             />
         </>
