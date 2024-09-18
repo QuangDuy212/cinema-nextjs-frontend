@@ -86,7 +86,7 @@ declare global {
         "duration"?: number;
         "trailer"?: string;
         "category"?: {
-            "id": number;
+            "id": number | undefined;
         },
         "origin"?: string;
         // "shows": { "id": number; }[]

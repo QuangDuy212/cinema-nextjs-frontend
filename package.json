@@ -32,7 +32,8 @@
     "sass-loader": "^16.0.1",
     "slugify": "1.6.6",
     "spring-filter-query-builder": "^1.1.1",
-    "swiper": "11.1.0"
+    "swiper": "11.1.0",
+    "uuid": "10.0.0"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

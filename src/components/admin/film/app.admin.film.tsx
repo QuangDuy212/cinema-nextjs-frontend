@@ -8,6 +8,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteFilmById, callFetchAllCategories, callFetchAllFilms } from "src/util/api";
 import ModalCreateFilm from "./modal/modal.create.film";
 import ModalViewFilm from "./modal/modal.view.film";
+import ModalUpdateFilm from "./modal/moda.update.film";
 
 const AdminFilm = () => {
     // STATE: 
@@ -266,6 +267,13 @@ const AdminFilm = () => {
                 setOpenModalView={setOpenModalView}
                 fetchData={fetchFilm}
                 data={dataInit}
+            />
+            <ModalUpdateFilm
+                openModalUpdate={openModalUpdate}
+                setOpenModalUpdate={setOpenModalUpdate}
+                fetchData={fetchFilm}
+                data={dataInit}
+                categoriesOptions={categoriesOptions}
             />
         </>
     )
