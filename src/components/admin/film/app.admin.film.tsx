@@ -7,6 +7,7 @@ import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteFilmById, callFetchAllCategories, callFetchAllFilms } from "src/util/api";
 import ModalCreateFilm from "./modal/modal.create.film";
+import ModalViewFilm from "./modal/modal.view.film";
 
 const AdminFilm = () => {
     // STATE: 
@@ -21,7 +22,7 @@ const AdminFilm = () => {
     const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
     const [openModalView, setOpenModalView] = useState<boolean>(false);
 
-    const [dataInit, setDataInit] = useState<IRole | undefined>();
+    const [dataInit, setDataInit] = useState<IFilm | undefined>();
     const [cateOptions, setCateOptions] = useState<ICategory[] | undefined>([]);
 
     const columns: any = [
@@ -192,13 +193,13 @@ const AdminFilm = () => {
         setOpenModalCreate(true);
     }
 
-    const handleUpdate = (role: IRole) => {
-        setDataInit(role);
+    const handleUpdate = (film: IFilm) => {
+        setDataInit(film);
         setOpenModalUpdate(true);
     }
 
-    const handleView = (role: IRole) => {
-        setDataInit(role);
+    const handleView = (film: IFilm) => {
+        setDataInit(film);
         setOpenModalView(true);
     }
 
@@ -259,6 +260,12 @@ const AdminFilm = () => {
                 setOpenModalCreate={setOpenModalCreate}
                 fetchData={fetchFilm}
                 categoriesOptions={categoriesOptions}
+            />
+            <ModalViewFilm
+                openModalView={openModalView}
+                setOpenModalView={setOpenModalView}
+                fetchData={fetchFilm}
+                data={dataInit}
             />
         </>
     )
