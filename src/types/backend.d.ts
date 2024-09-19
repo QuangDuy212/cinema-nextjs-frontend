@@ -79,6 +79,7 @@ declare global {
         "name"?: string;
         "director"?: string;
         "image"?: string;
+        "active"?: boolean;
         "performer"?: string;
         "premiere"?: string;
         "shortDesc"?: string;
@@ -203,6 +204,7 @@ declare global {
     export interface IPermission {
         id?: string;
         name?: string;
+        active?: boolean;
         apiPath?: string;
         method?: string;
         module?: string;

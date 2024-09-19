@@ -27,7 +27,6 @@ const ModalUpdateFilm = (props: IProps) => {
     const [previewTitle, setPreviewTitle] = useState<string>('');
     const [filmImage, setFilmImage] = useState<string>();
     const [oldImage, setOldImage] = useState<any>()
-    const [fileList, setFileList] = useState<any>([])
 
 
     //LIB: 
@@ -130,6 +129,7 @@ const ModalUpdateFilm = (props: IProps) => {
         "name"?: string;
         "director"?: string;
         "image"?: string;
+        "active"?: boolean;
         "performer"?: string;
         "premiere"?: string;
         "shortDesc"?: string;
@@ -140,16 +140,16 @@ const ModalUpdateFilm = (props: IProps) => {
         "origin"?: string;
     }) => {
         const { id, name, director, image, performer, premiere, shortDesc, contentModeration,
-            duration, trailer, category, origin } = values;
+            duration, trailer, category, origin, active } = values;
         const film = {
             id, name, director, image: filmImage, performer, premiere, shortDesc, contentModeration,
-            duration, trailer, category: { id: category ?? 0 }, origin
+            duration, trailer, category: { id: category ?? 0 }, origin, active
         };
         setIsSubmit(true);
         const res = await callUpdateFilm(film);
         setIsSubmit(false);
         if (res?.data && res) {
-            message.success("Thêm mới Role thành công!");
+            message.success("Chỉnh sửa Film thành công!");
             await fetchData();
             setOpenModalUpdate(false);
             form.resetFields();
@@ -244,6 +244,20 @@ const ModalUpdateFilm = (props: IProps) => {
                     >
                         <Input />
                     </Form.Item>
+
+                    <Form.Item
+                        labelCol={{ span: 24 }}
+                        label='Active'
+                        name="active"
+                        rules={[{ required: true, message: 'Please input your active!' }]}
+                    >
+                        <Select
+                            options={[
+                                { value: true, label: "True" },
+                                { value: false, label: "False" },
+                            ]}
+                        />
+                    </Form.Item>
                     <Form.Item
                         labelCol={{ span: 24 }}
                         label='Director'
@@ -274,7 +288,7 @@ const ModalUpdateFilm = (props: IProps) => {
                         name="shortDesc"
                         rules={[{ required: true, message: 'Please input your shortDesc!' }]}
                     >
-                        <TextArea rows={24} />
+                        <TextArea />
                     </Form.Item>
                     <Form.Item
                         labelCol={{ span: 24 }}

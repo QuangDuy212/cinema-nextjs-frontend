@@ -209,7 +209,7 @@ const AdminFilm = () => {
             const res = await callDeleteFilmById(id);
             //@ts-ignore
             if (+res.statusCode === 200) {
-                message.success('Xóa User thành công');
+                message.success('Xóa Film thành công');
                 fetchFilm();
             } else {
                 notification.error({

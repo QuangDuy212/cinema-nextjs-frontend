@@ -1,7 +1,7 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, Popconfirm, Space, Table, notification } from "antd";
+import { Button, message, Popconfirm, Space, Table, notification, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -53,7 +53,7 @@ const AdminPermission = () => {
             title: 'Method',
             dataIndex: 'method',
             sorter: true,
-            width: "20%",
+            width: "15%",
             key: "method"
         },
         {
@@ -62,6 +62,21 @@ const AdminPermission = () => {
             sorter: true,
             width: "20%",
             key: "module",
+        },
+        {
+            title: 'Active',
+            dataIndex: 'active',
+            sorter: true,
+            width: "5%",
+            render: (text: any, record: any, index: any, action: any) => {
+                return (
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Tag color={!record?.active ? "volcano" : "green"} >
+                            {record?.active?.toString()}
+                        </Tag>
+                    </div>
+                )
+            },
         },
 
         {
