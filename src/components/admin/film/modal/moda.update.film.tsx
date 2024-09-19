@@ -12,11 +12,12 @@ interface IProps {
     setOpenModalUpdate: (v: boolean) => void;
     fetchData: () => void;
     data: IFilm | undefined;
+    setData: (v: IFilm | undefined) => void;
     categoriesOptions: SelectProps['options'];
 }
 const ModalUpdateFilm = (props: IProps) => {
     //PROPS: 
-    const { openModalUpdate, setOpenModalUpdate, fetchData, data, categoriesOptions } = props;
+    const { openModalUpdate, setOpenModalUpdate, fetchData, data, setData, categoriesOptions } = props;
     //STATE: 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
     const [imageUrl, setImageUrl] = useState<string>();
@@ -25,6 +26,9 @@ const ModalUpdateFilm = (props: IProps) => {
     const [previewImage, setPreviewImage] = useState<string>('');
     const [previewTitle, setPreviewTitle] = useState<string>('');
     const [filmImage, setFilmImage] = useState<string>();
+    const [oldImage, setOldImage] = useState<any>()
+
+
     //LIB: 
     const [form] = Form.useForm();
 
@@ -101,7 +105,18 @@ const ModalUpdateFilm = (props: IProps) => {
             const updateData = { ...data, category: data?.category?.id };
             form.setFieldsValue(updateData)
         }
+        setOldImage(data ? [
+            {
+                uid: uuidv4(),
+                name: data?.image ?? "",
+                status: 'done',
+                url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/${data?.image}`,
+            }
+        ]
+            : [])
     }, [data])
+
+
 
     const onFinish = async (values: {
         "id": number;
@@ -157,6 +172,8 @@ const ModalUpdateFilm = (props: IProps) => {
 
     const handleCancel = () => {
         setOpenModalUpdate(false);
+        form.resetFields();
+        setData(undefined);
     };
 
 
@@ -182,36 +199,26 @@ const ModalUpdateFilm = (props: IProps) => {
                     className='register-body__content'
                     form={form}
                 >
-                    <Upload
-                        name="image"
-                        listType="picture-card"
-                        className="avatar-uploader"
-                        maxCount={1}
-                        multiple={false}
-                        customRequest={handleUploadFile}
-                        beforeUpload={beforeUpload}
-                        onChange={handleChange}
-                        onRemove={(file) => handleRemoveFile(file)}
-                        onPreview={handlePreview}
-                        defaultFileList={
-                            data?.id ?
-                                [
-                                    {
-                                        uid: uuidv4(),
-                                        name: data?.image ?? "",
-                                        status: 'done',
-                                        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/${data?.image}`,
-                                    }
-                                ]
-                                : []
-                        }
-
-                    >
-                        <div>
-                            {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                            <div style={{ marginTop: 8 }}>Upload</div>
-                        </div>
-                    </Upload>
+                    <Form.Item>
+                        <Upload
+                            name="image"
+                            listType="picture-card"
+                            className="avatar-uploader"
+                            maxCount={1}
+                            multiple={false}
+                            customRequest={handleUploadFile}
+                            beforeUpload={beforeUpload}
+                            onChange={handleChange}
+                            onRemove={(file) => handleRemoveFile(file)}
+                            onPreview={handlePreview}
+                            fileList={oldImage}
+                        >
+                            <div>
+                                {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                                <div style={{ marginTop: 8 }}>Upload</div>
+                            </div>
+                        </Upload>
+                    </Form.Item>
                     <Form.Item
                         labelCol={{ span: 24 }}
                         hidden

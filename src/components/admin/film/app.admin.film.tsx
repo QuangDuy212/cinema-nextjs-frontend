@@ -273,6 +273,7 @@ const AdminFilm = () => {
                 setOpenModalUpdate={setOpenModalUpdate}
                 fetchData={fetchFilm}
                 data={dataInit}
+                setData={setDataInit}
                 categoriesOptions={categoriesOptions}
             />
         </>
