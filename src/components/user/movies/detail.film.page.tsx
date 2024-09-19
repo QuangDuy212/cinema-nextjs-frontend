@@ -3,35 +3,60 @@
 import { Button, Col, Modal, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
 import 'src/styles/movies/detail.film.page.scss'
-import { callFetchShowsByFilmAndDay } from "src/util/api";
+import { callFetchAllTimes, callFetchFilmById, callFetchShowsByFilmAndDay } from "src/util/api";
 import { convertYoutubeToHTML } from "src/util/method";
 import SeatDetailFilm from "./seat/seat.detail.film";
 import { useRouter } from "next/router";
 
 
 interface IProps {
-    data: IFilm | undefined;
+    id: string;
 }
 const DetailFilm = (props: IProps) => {
     //PROPS: 
-    const { data } = props;
+    const { id } = props;
 
     //STATE: 
     const [isOpenDes, setIsOpenDes] = useState<boolean>(false);
     const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false);
-    const [activeTime, setActiveTime] = useState<number | undefined>(data?.shows[0]?.day?.id);
+    const [activeTime, setActiveTime] = useState<number | undefined>(0);
     const [shows, setShows] = useState<IShow[]>();
     const [isShowSeat, setIsShowSeat] = useState<boolean>(false);
     const [dataForSeat, setDataForSeat] = useState<IShow>();
+    const [data, setData] = useState<IFilm>();
+    const [listTimes, setListTimes] = useState<ITime[]>([]);
 
+    const fetchShow = async () => {
+        if (data) {
+            const res = await callFetchShowsByFilmAndDay(data?.id ?? 0, activeTime ?? 0);
+            if (res && res?.data)
+                setShows(res.data);
+        }
+    }
+
+    const fetchFilm = async () => {
+        const film = await callFetchFilmById(id);
+        if (film && film?.data) {
+            setData(film?.data);
+        }
+    }
+
+    const fetchTime = async () => {
+        const times = await callFetchAllTimes("?page=1&size=3");
+        if (times && times?.data && times?.data?.result) {
+            setListTimes(times?.data?.result);
+        }
+    }
 
     useEffect(() => {
-        const fetchShow = async () => {
-            const res = await callFetchShowsByFilmAndDay(data?.id ?? 0, activeTime ?? 0);
-            setShows(res.data);
-        }
         fetchShow();
     }, [activeTime])
+
+    useEffect(() => {
+        fetchFilm();
+        fetchShow();
+        fetchTime();
+    }, [])
 
 
     const showModal = () => {
@@ -87,13 +112,26 @@ const DetailFilm = (props: IProps) => {
                     </div>
                 </div>
                 <div className="date">
-                    {data?.shows?.map((show) => {
+                    {/* {data?.shows?.map((show, index) => {
                         return (
-                            <div className={`${activeTime == show?.day?.id ? "item active" : "item"}`}
+                            <div
+                                className={`${(activeTime == show?.day?.id) ? "item active" : "item"}`}
                                 key={show?.day?.id}
                                 onClick={() => { setActiveTime(show?.day?.id); setIsShowSeat(false) }}
                             >
                                 {show?.day?.date}
+                            </div>
+                        )
+                    })} */}
+
+                    {listTimes?.map((time, index) => {
+                        return (
+                            <div
+                                className={`${(activeTime == time?.id) ? "item active" : "item"}`}
+                                key={time?.id}
+                                onClick={() => { setActiveTime(time?.id); setIsShowSeat(false) }}
+                            >
+                                {time?.date}
                             </div>
                         )
                     })}

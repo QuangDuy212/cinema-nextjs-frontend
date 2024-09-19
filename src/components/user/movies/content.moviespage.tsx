@@ -4,17 +4,31 @@ import { Col, Row } from "antd";
 import FilmMovies from "./film.movies";
 import 'src/styles/movies/content.moviespage.scss';
 import { use, useEffect, useState } from "react";
-interface IProps {
-    films: IFilm[] | undefined;
-    times: ITime[] | undefined;
-}
-const ContentMoviesPage = (props: IProps) => {
-    const { films, times } = props;
+import { callFetchAllFilms, callFetchAllTimes } from "src/util/api";
+const ContentMoviesPage = () => {
     const [listFilms, setListFilms] = useState<IFilm[]>([]);
-    const [active, setActive] = useState<number>(times ? times[0]?.id : 0);
+    const [times, setTimes] = useState<ITime[]>([]);
+    const [active, setActive] = useState<number>(0);
     useEffect(() => {
-        setListFilms(films ?? []);
+        fetchFilms();
+        fetchTimes();
     }, [])
+
+    const fetchFilms = async () => {
+        const films = await callFetchAllFilms("?page=1&size=1000");
+        if (films && films?.data && films?.data?.result) {
+            const filmsActive = films?.data?.result?.filter((i: IFilm) => i.active == true);
+            setListFilms(filmsActive);
+        }
+    }
+
+    const fetchTimes = async () => {
+        const times = await callFetchAllTimes("?page=1&size=3");
+        if (times && times?.data && times?.data?.result) {
+            const timesActive = times?.data?.result?.filter((i: IFilm) => i.active == true);
+            setTimes(timesActive);
+        }
+    }
     return (
         <>
             <div className="movie-container">
@@ -24,9 +38,11 @@ const ContentMoviesPage = (props: IProps) => {
                         <span style={{ color: "#fff ", fontSize: "20px", fontWeight: 600 }}>Phim đang chiếu</span>
                     </div>
                     <div className="button">
-                        {times?.map((time: ITime) => {
+                        {times?.map((time: ITime, index: number) => {
                             return (
-                                <button className={`${active === time.id ? "item active" : "item"} `} key={time.id}
+                                <button
+                                    className={`${active === time.id ? "item active" : "item"} `}
+                                    key={time.id}
                                     onClick={() => {
                                         setActive(time.id)
                                     }}

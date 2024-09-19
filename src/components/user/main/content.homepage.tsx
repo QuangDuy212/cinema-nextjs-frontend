@@ -11,7 +11,10 @@ const ContentHomepage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const films = await callFetchAllFilms("?page=1&size=100");
-            setData(films?.data?.result);
+            if (films && films?.data && films?.data?.result) {
+                const filmsActive = films?.data?.result?.filter((item: IFilm) => item.active === true);
+                setData(filmsActive);
+            }
         }
         fetchData()
     }, [])

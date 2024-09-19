@@ -37,7 +37,6 @@ const ModalUpdateUser = (props: IProps) => {
     }) => {
         const { id, fullName, phone, address, active, role } = values;
         const data = { id, fullName, phone, address, active, role: { id: role } }
-        console.log(">>> check data: ", data);
         const res = await callUpdateUser(data);
         console.log(">>> check res: ", res)
         if (res && res?.data) {

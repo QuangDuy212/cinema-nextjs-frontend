@@ -13,7 +13,7 @@ const DetailFilmPage = async ({ params }: { params: { slug: string } }) => {
     });
     return (
         <>
-            <DetailFilm data={data?.data} />
+            <DetailFilm id={id} />
         </>
     )
 }
