@@ -1,6 +1,6 @@
 "use client"
 
-import { Descriptions, Drawer } from "antd";
+import { Badge, Descriptions, Drawer } from "antd";
 import moment from "moment";
 
 interface IProps {
@@ -36,6 +36,9 @@ const ModalViewPer = (props: IProps) => {
                     <Descriptions.Item label="API path">{data?.apiPath}</Descriptions.Item>
                     <Descriptions.Item label="Method">{data?.method}</Descriptions.Item>
                     <Descriptions.Item label="Module">{data?.module}</Descriptions.Item>
+                    <Descriptions.Item label="Active">
+                        <Badge status="processing" text={data?.active?.toString()} />
+                    </Descriptions.Item>
                     <Descriptions.Item label="Created at ">
                         {moment(data?.createdAt).format('DD-MM-YYYY HH:mm:ss')}
                     </Descriptions.Item>
