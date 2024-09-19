@@ -1,6 +1,6 @@
 "use client"
 
-import { Form, Input, Modal, notification } from "antd";
+import { Form, Input, Modal, notification, Select } from "antd";
 import { useEffect, useState } from "react";
 import { callUpdatePermission } from "src/util/api";
 
@@ -29,9 +29,10 @@ const ModalUpdatePer = (props: IProps) => {
         apiPath: string;
         method: string;
         module: string;
+        active?: boolean;
     }) => {
-        const { id, name, apiPath, method, module } = values;
-        const per = { name, apiPath, method, module };
+        const { id, name, apiPath, method, module, active } = values;
+        const per = { name, apiPath, method, module, active };
         const res = await callUpdatePermission(per, id);
         if (res && res?.data) {
             notification.success({
@@ -100,6 +101,19 @@ const ModalUpdatePer = (props: IProps) => {
                         rules={[{ required: true, message: 'Please input your name!' }]}
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        labelCol={{ span: 24 }}
+                        label='Active'
+                        name="active"
+                        rules={[{ required: true, message: 'Please input your active!' }]}
+                    >
+                        <Select
+                            options={[
+                                { value: true, label: "True" },
+                                { value: false, label: "False" },
+                            ]}
+                        />
                     </Form.Item>
                     <Form.Item
                         labelCol={{ span: 24 }}
