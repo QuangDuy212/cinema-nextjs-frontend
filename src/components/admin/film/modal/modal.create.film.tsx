@@ -77,6 +77,7 @@ const ModalCreateFilm = (props: IProps) => {
     const handleChange: any = (info: any) => {
         if (info.file.status === 'uploading') {
             setLoading(true);
+
         }
         if (info.file.status === 'done') {
             setLoading(false);

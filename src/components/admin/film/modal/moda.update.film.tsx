@@ -27,6 +27,7 @@ const ModalUpdateFilm = (props: IProps) => {
     const [previewTitle, setPreviewTitle] = useState<string>('');
     const [filmImage, setFilmImage] = useState<string>();
     const [oldImage, setOldImage] = useState<any>()
+    const [fileList, setFileList] = useState<any>([])
 
 
     //LIB: 
@@ -54,6 +55,12 @@ const ModalUpdateFilm = (props: IProps) => {
         const res = await callUploadSingleFile(file, "film");
         if (res && res?.data) {
             setFilmImage(res?.data?.fileName);
+            setOldImage([{
+                uid: uuidv4(),
+                name: data?.image ?? "",
+                status: 'done',
+                url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/${res?.data?.fileName}`,
+            }])
             if (onSuccess) onSuccess('ok')
         } else {
             if (onError) {
@@ -214,7 +221,8 @@ const ModalUpdateFilm = (props: IProps) => {
                             fileList={oldImage}
                         >
                             <div>
-                                {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                                {/* {loading ? <LoadingOutlined /> : <PlusOutlined />} */}
+                                <PlusOutlined />
                                 <div style={{ marginTop: 8 }}>Upload</div>
                             </div>
                         </Upload>
