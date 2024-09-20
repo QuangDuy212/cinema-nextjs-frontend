@@ -62,7 +62,6 @@ const AppPayment = () => {
                     "nameFilm": bill.nameFilm
                 }
                 const history = await callCreateHistory(reqHis);
-                console.log(">>> check history: ", history);
 
             }
             dispatch(setEmptyBill());

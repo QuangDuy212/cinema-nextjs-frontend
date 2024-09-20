@@ -2,13 +2,13 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react'
 import 'src/styles/profile/history.element.scss'
-import { callFetchAllBillByUser } from 'src/util/api';
+import { callFetchAllBillByUser, callFetchHistoryByUser } from 'src/util/api';
 const HistoryElement = () => {
     const [history, setHistory] = useState<IHistory[]>([]);
 
     useEffect(() => {
         const fetchHistory = async () => {
-            const res = await callFetchAllBillByUser(1, 100);
+            const res = await callFetchHistoryByUser("?page=1&size=1000");
             setHistory(res?.data?.result);
         }
         fetchHistory();
