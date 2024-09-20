@@ -223,27 +223,27 @@ declare global {
     }
 
     interface IBill {
-        "id": number;
-        "date": string;
-        "zoomNumber": string;
-        "show": string;
-        "total": number;
-        "quantity": number;
-        "status": string;
-        "user": {
-            "email": string;
+        "id"?: number;
+        "date"?: string;
+        "zoomNumber"?: string;
+        "show"?: string;
+        "total"?: number;
+        "quantity"?: number;
+        "status"?: string;
+        "user"?: {
+            "email"?: string;
         },
-        "seats": [
+        "seats"?: [
             {
-                "id": number;
-                "name": string;
+                "id"?: number;
+                "name"?: string;
             }
         ],
-        "nameFilm": string;
-        "createdAt": string;
-        "updatedAt": string;
-        "createdBy": string;
-        "updatedBy": string;
+        "nameFilm"?: string;
+        "createdAt"?: string;
+        "updatedAt"?: string;
+        "createdBy"?: string;
+        "updatedBy"?: string;
     }
 
     interface IHistory {

@@ -113,7 +113,7 @@ export const callFetchAllShows = (query: string) => {
 }
 
 export const callFetchShowById = (id: number) => {
-    return axios.get(`/api/v1/shows${id}`);
+    return axios.get(`/api/v1/shows/${id}`);
 }
 
 export const callCreateShow = (data: {

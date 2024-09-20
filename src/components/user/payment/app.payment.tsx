@@ -3,10 +3,11 @@
 import { Col, Row } from "antd";
 import { useRouter } from "next/navigation";
 import { resolve } from "node:path/win32";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "src/redux/hook";
 import { setEmptyBill } from "src/redux/slice/billSlide";
 import 'src/styles/payment/app.payment.scss';
-import { callCreateBill, callCreateSeat } from "src/util/api";
+import { callCreateBill, callCreateHistory, callCreateSeat, callFetchShowById } from "src/util/api";
 
 const AppPayment = () => {
     //lib: 
@@ -15,7 +16,19 @@ const AppPayment = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
+    //STATE:
+    const [show, setShow] = useState<IShow>();
 
+    useEffect(() => {
+        fetchShow();
+    }, [])
+
+    const fetchShow = async () => {
+        const showTime = await callFetchShowById(bill.showId);
+        if (showTime && showTime?.data) {
+            setShow(showTime.data);
+        }
+    }
 
     const handleConfirm = async () => {
         if (isAuthenticated) {
@@ -26,12 +39,31 @@ const AppPayment = () => {
                 status: "PENDING"
             }
             const resBill = await callCreateBill(billReq);
-            console.log(">> check res Bill: ", resBill);
             if (resBill && resBill?.data) {
                 seats.forEach(async i => {
                     const res = await callCreateSeat(i, bill.showId, resBill.data.id);
-                    console.log(">>> check create seat : ", res);
                 })
+                var reqSeats = "";
+                seats.forEach((i, index) => {
+                    if (index != seats.length - 1) {
+                        reqSeats += (i + ",");
+                    }
+                    else {
+                        reqSeats += i;
+                    }
+                })
+                const reqHis = {
+                    "total": bill.total,
+                    "quantity": bill.quantity,
+                    "zoomNumber": bill.zoomNumber,
+                    "time": show?.time ?? "",
+                    "date": bill.time,
+                    "seats": reqSeats,
+                    "nameFilm": bill.nameFilm
+                }
+                const history = await callCreateHistory(reqHis);
+                console.log(">>> check history: ", history);
+
             }
             dispatch(setEmptyBill());
             router.push("/thank")

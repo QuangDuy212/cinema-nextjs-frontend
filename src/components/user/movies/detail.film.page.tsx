@@ -112,18 +112,6 @@ const DetailFilm = (props: IProps) => {
                     </div>
                 </div>
                 <div className="date">
-                    {/* {data?.shows?.map((show, index) => {
-                        return (
-                            <div
-                                className={`${(activeTime == show?.day?.id) ? "item active" : "item"}`}
-                                key={show?.day?.id}
-                                onClick={() => { setActiveTime(show?.day?.id); setIsShowSeat(false) }}
-                            >
-                                {show?.day?.date}
-                            </div>
-                        )
-                    })} */}
-
                     {listTimes?.map((time, index) => {
                         return (
                             <div
