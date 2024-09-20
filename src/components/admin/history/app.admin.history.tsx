@@ -1,17 +1,15 @@
 "use client"
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, message, notification, Popconfirm, SelectProps, Space, Table, Tag } from "antd";
+import { message, notification, Popconfirm, Space, Table, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { callDeleteBillById, callFetchAllBill } from "src/util/api";
-import ModalViewBill from "./modal/modal.view.bill";
-import ModalUpdateBill from "./modal/moda.update.bill";
+import { callDeleteHistoryById, callFetchAllHistories } from "src/util/api";
+import ModalViewHistory from "./modal/modal.view.history";
 
-const AdminBill = () => {
+const AdminHistory = () => {
     // STATE: 
-    const [data, setData] = useState<IBill[]>();
+    const [data, setData] = useState<IHistory[]>();
     const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(2);
@@ -23,7 +21,7 @@ const AdminBill = () => {
     const [openModalUpdate, setOpenModalUpdate] = useState<boolean>(false);
     const [openModalView, setOpenModalView] = useState<boolean>(false);
 
-    const [dataInit, setDataInit] = useState<IBill | undefined>();
+    const [dataInit, setDataInit] = useState<IHistory | undefined>();
 
     // VARIABLE: 
     const columns: any = [
@@ -32,6 +30,13 @@ const AdminBill = () => {
             dataIndex: 'id',
             width: "5%",
             key: 'id',
+        },
+        {
+            title: 'Date',
+            dataIndex: 'date',
+            sorter: true,
+            width: "10%",
+            key: "date"
         },
         {
             title: 'Film',
@@ -57,22 +62,6 @@ const AdminBill = () => {
             key: "total"
 
         },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            sorter: true,
-            width: "10%",
-            key: "status",
-            render: (text: any, record: any, index: any, action: any) => {
-                return (
-                    <>
-                        <Tag color={record?.status === "PENDING" ? "volcano" : "green"} >
-                            {record?.status}
-                        </Tag>
-                    </>
-                )
-            },
-        },
 
         {
             title: 'Action',
@@ -80,25 +69,10 @@ const AdminBill = () => {
             key: "action",
             render: (_value: any, entity: any, _index: any, _action: any) => (
                 <Space>
-                    {/* < Access
-                         permission={ALL_PERMISSIONS.USERS.UPDATE}
-                         hideChildren
-                     > */}
-                    <EditOutlined
-                        style={{
-                            fontSize: 20,
-                            color: '#ffa500',
-                            cursor: "pointer"
-                        }}
-                        type=""
-                        onClick={() => handleUpdate(entity)}
-                    />
-                    {/* </Access > */}
-
                     {/* <Access
-                         permission={ALL_PERMISSIONS.USERS.DELETE}
-                         hideChildren
-                     > */}
+                          permission={ALL_PERMISSIONS.USERS.DELETE}
+                          hideChildren
+                      > */}
                     <Popconfirm
                         placement="leftTop"
                         title={"Xác nhận xóa user"}
@@ -158,7 +132,7 @@ const AdminBill = () => {
         }
     };
 
-    const fetchBill = async () => {
+    const fetchHistory = async () => {
         setLoading(true);
         let query = `?page=${page}&size=${size}`;
 
@@ -171,35 +145,26 @@ const AdminBill = () => {
         }
 
 
-        const res = await callFetchAllBill(query);
-        if (res && res?.data) {
+        const res = await callFetchAllHistories(query);
+        if (res && res?.data && res?.data?.result) {
             setData(res.data.result);
             setLoading(false);
             setTotal(res.data.meta.total);
         }
     };
 
-    const handleCreate = () => {
-        setOpenModalCreate(true);
-    }
-
-    const handleUpdate = (bill: IBill) => {
-        setDataInit(bill);
-        setOpenModalUpdate(true);
-    }
-
-    const handleView = (bill: IBill) => {
-        setDataInit(bill);
+    const handleView = (his: IHistory) => {
+        setDataInit(his);
         setOpenModalView(true);
     }
 
     const handleDelete = async (id: number | undefined) => {
         if (id) {
-            const res = await callDeleteBillById(id);
+            const res = await callDeleteHistoryById(id);
             //@ts-ignore
             if (+res.statusCode === 200) {
                 message.success('Xóa Delete thành công');
-                fetchBill();
+                fetchHistory();
             } else {
                 notification.error({
                     message: 'Có lỗi xảy ra',
@@ -209,14 +174,9 @@ const AdminBill = () => {
             }
         }
     }
-
-
-
-
-
     // EFFECT:
     useEffect(() => {
-        fetchBill();
+        fetchHistory();
     }, [page, size]);
 
     return (
@@ -236,19 +196,13 @@ const AdminBill = () => {
                 //@ts-ignore
                 onChange={handleTableChange}
             />
-            <ModalViewBill
+            <ModalViewHistory
                 openModalView={openModalView}
                 setOpenModalView={setOpenModalView}
+                fetchData={fetchHistory}
                 data={dataInit}
-                fetchData={fetchBill}
-            />
-            <ModalUpdateBill
-                openModalUpdate={openModalUpdate}
-                setOpenModalUpdate={setOpenModalUpdate}
-                data={dataInit}
-                fetchData={fetchBill}
             />
         </>
     )
 }
-export default AdminBill;
+export default AdminHistory;

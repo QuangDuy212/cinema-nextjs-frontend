@@ -25,6 +25,7 @@ import { BiCategoryAlt } from "react-icons/bi";
 import { PiSlideshowLight } from "react-icons/pi";
 import { BsCalendarDate } from "react-icons/bs";
 import { RiBillLine } from "react-icons/ri";
+import { GoHistory } from "react-icons/go";
 
 const { Content, Sider } = Layout;
 
@@ -161,6 +162,11 @@ const LayoutAdmin = ({ children }: Readonly<{
                     label: <Link href='/admin/time'>Date</Link>,
                     key: '/admin/time',
                     icon: <BsCalendarDate />
+                },
+                {
+                    label: <Link href='/admin/history'>History</Link>,
+                    key: '/admin/history',
+                    icon: <GoHistory />
                 },
             ]
 

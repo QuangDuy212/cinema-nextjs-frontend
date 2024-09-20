@@ -173,26 +173,6 @@ declare global {
         status: string;
     }
 
-    interface IHistory {
-        "id": number;
-        "total": number;
-        "quantity": number;
-        "status": string;
-        "user": {
-            "email": string;
-        },
-        "nameFilm": string;
-        "seats": {
-            "id": number;
-            "name": string;
-        }[]
-        ,
-        "createdAt": string;
-        "updatedAt": string;
-        "createdBy": string;
-        "updatedBy": string;
-    }
-
     interface IReqRegister {
         fullName: string;
         email: string;
@@ -264,5 +244,21 @@ declare global {
         "updatedAt": string;
         "createdBy": string;
         "updatedBy": string;
+    }
+
+    interface IHistory {
+        "id"?: number;
+        "total"?: number;
+        "quantity"?: number;
+        "zoomNumber"?: number;
+        "date"?: string;
+        "show"?: string;
+        "email"?: string;
+        "seats"?: string;
+        "nameFilm"?: string;
+        "createdAt"?: string;
+        "updatedAt"?: string;
+        "createdBy"?: string;
+        "updatedBy"?: string;
     }
 }

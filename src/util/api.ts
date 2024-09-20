@@ -315,3 +315,27 @@ export const callUploadSingleFile = (file: File, folder: string) => {
         },
     });
 }
+
+/**
+ * Module HISTORY
+ */
+
+export const callFetchAllHistories = (query: string) => {
+    return axios.get(`/api/v1/histories${query}`);
+}
+
+export const callFetchHistoryById = (id: number) => {
+    return axios.get(`/api/v1/histories/${id}`);
+}
+
+export const callCreateHistory = (data: IHistory) => {
+    return axios.post(`/api/v1/histories`, data);
+}
+
+export const callFetchHistoryByUser = (query: string) => {
+    return axios.get(`/api/v1/histories${query}`);
+}
+
+export const callDeleteHistoryById = (id: number) => {
+    return axios.delete(`/api/v1/histories/${id}`);
+}
