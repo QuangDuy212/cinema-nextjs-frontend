@@ -61,7 +61,7 @@ const AdminRole = () => {
                         {record?.permissions?.map((p: IPermission) => {
                             return (
                                 <div key={p?.id} style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "4px" }}>
-                                    {p?.name}
+                                    {p?.name}-{p?.module}
                                 </div>
                             )
                         })}
@@ -225,9 +225,11 @@ const AdminRole = () => {
 
     //SELECT: 
     const options: SelectProps['options'] = listPer?.map((i: IPermission) => {
+        var label = i?.name ?? "";
+        label += ("-" + i?.module);
         return {
             value: i?.id,
-            label: i?.name,
+            label: label,
         }
     });
 

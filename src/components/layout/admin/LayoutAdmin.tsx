@@ -47,35 +47,35 @@ const LayoutAdmin = ({ children }: Readonly<{
         const ACL_ENABLE = process.env.NEXT_ACL_ENABLE;
         if (permissions?.length || ACL_ENABLE === 'false') {
 
-            const viewCompany = permissions?.find(item =>
-                item.apiPath === ALL_PERMISSIONS.COMPANIES.GET_PAGINATE.apiPath
-                && item.method === ALL_PERMISSIONS.COMPANIES.GET_PAGINATE.method
-            )
+            // const viewCompany = permissions?.find(item =>
+            //     item.apiPath === ALL_PERMISSIONS.COMPANIES.GET_PAGINATE.apiPath
+            //     && item.method === ALL_PERMISSIONS.COMPANIES.GET_PAGINATE.method
+            // )
 
-            const viewUser = permissions?.find(item =>
-                item.apiPath === ALL_PERMISSIONS.USERS.GET_PAGINATE.apiPath
-                && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
-            )
+            // const viewUser = permissions?.find(item =>
+            //     item.apiPath === ALL_PERMISSIONS.USERS.GET_PAGINATE.apiPath
+            //     && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
+            // )
 
-            const viewJob = permissions?.find(item =>
-                item.apiPath === ALL_PERMISSIONS.JOBS.GET_PAGINATE.apiPath
-                && item.method === ALL_PERMISSIONS.JOBS.GET_PAGINATE.method
-            )
+            // const viewJob = permissions?.find(item =>
+            //     item.apiPath === ALL_PERMISSIONS.JOBS.GET_PAGINATE.apiPath
+            //     && item.method === ALL_PERMISSIONS.JOBS.GET_PAGINATE.method
+            // )
 
-            const viewResume = permissions?.find(item =>
-                item.apiPath === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.apiPath
-                && item.method === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.method
-            )
+            // const viewResume = permissions?.find(item =>
+            //     item.apiPath === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.apiPath
+            //     && item.method === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.method
+            // )
 
-            const viewRole = permissions?.find(item =>
-                item.apiPath === ALL_PERMISSIONS.ROLES.GET_PAGINATE.apiPath
-                && item.method === ALL_PERMISSIONS.ROLES.GET_PAGINATE.method
-            )
+            // const viewRole = permissions?.find(item =>
+            //     item.apiPath === ALL_PERMISSIONS.ROLES.GET_PAGINATE.apiPath
+            //     && item.method === ALL_PERMISSIONS.ROLES.GET_PAGINATE.method
+            // )
 
-            const viewPermission = permissions?.find(item =>
-                item.apiPath === ALL_PERMISSIONS.PERMISSIONS.GET_PAGINATE.apiPath
-                && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
-            )
+            // const viewPermission = permissions?.find(item =>
+            //     item.apiPath === ALL_PERMISSIONS.PERMISSIONS.GET_PAGINATE.apiPath
+            //     && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
+            // )
 
             // const full = [
             //     {

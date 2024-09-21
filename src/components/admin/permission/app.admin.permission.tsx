@@ -107,6 +107,7 @@ const AdminPermission = () => {
                     <Popconfirm
                         placement="leftTop"
                         title={"Xác nhận xóa user"}
+                        //@ts-ignore
                         description={"Bạn có chắc chắn muốn xóa user này ?"}
                         onConfirm={() => handleDelete(entity.id)}
                         okText="Xác nhận"
@@ -201,12 +202,14 @@ const AdminPermission = () => {
     const handleDelete = async (id: number | undefined) => {
         if (id) {
             const res = await callDeletePermission(id);
+            //@ts-ignore
             if (+res.statusCode === 200) {
-                message.success('Xóa User thành công');
+                message.success('Xóa Permission thành công');
                 fetchPer();
             } else {
                 notification.error({
                     message: 'Có lỗi xảy ra',
+                    //@ts-ignore
                     description: res.message
                 });
             }
@@ -241,6 +244,7 @@ const AdminPermission = () => {
                         <div>{range[0]} - {range[1]} trên {total} dòng</div>
                 }}
                 loading={loading}
+                //@ts-ignore
                 onChange={handleTableChange}
             />
             <ModalCreatePer
