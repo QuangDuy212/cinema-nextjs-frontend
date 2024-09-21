@@ -8,11 +8,19 @@ import { useAppSelector } from 'src/redux/hook';
 import { setUserLoginInfo } from 'src/redux/slice/accountSlide';
 import 'src/styles/profile/profile.element.scss'
 import { callFetchAccount, callUpdateUser } from 'src/util/api';
+import ModalChangePassword from './modal.change.password';
 const ProfileElement = () => {
+    //STATE: 
     const [data, setData] = useState<IUser>();
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    //LIB:
     const [form] = Form.useForm();
+
+    //REDUX: 
     const user = useAppSelector(state => state.account.user);
     const dispatch = useDispatch();
+
+
     type FieldType = {
         id?: number;
         fullName?: string;
@@ -23,7 +31,8 @@ const ProfileElement = () => {
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         const { id, fullName, phone, address } = values;
-        const res = await callUpdateUser(id, fullName, phone, address);
+        const reqUpdate = { id, fullName, phone, address }
+        const res = await callUpdateUser(reqUpdate);
         if (res && res?.data) {
             dispatch(setUserLoginInfo(res?.data))
             message.success('Sửa thông tin thành công!');
@@ -118,16 +127,28 @@ const ProfileElement = () => {
                         </Col>
                     </Row>
 
-                    <Form.Item wrapperCol={{ offset: 10, }}>
-                        <div className='button-form'>
-                            <button className='item' type="submit">Đổi mật khẩu</button>
-                            <button className='item active'>Lưu thông tin</button>
+                    <Form.Item wrapperCol={{ offset: 10, }} >
+                        <div style={{ display: "flex", gap: "20px" }}>
+                            <div className='button-form' >
+                                <div className='item'
+                                    onClick={() => setOpenModal(true)}
+                                >Đổi mật khẩu</div>
+                            </div>
 
+                            <div className='button-form'>
+                                <button className='item active'
+                                    type='submit'
+                                >Lưu thông tin</button>
+                            </div>
                         </div>
                     </Form.Item>
-                </Form>
 
+                </Form>
             </div>
+            <ModalChangePassword
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+            />
         </>
     )
 }

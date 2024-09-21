@@ -149,12 +149,12 @@ export const callDeleteShow = (id: number) => {
  */
 
 export const callUpdateUser = (data: {
-    id: number | undefined,
-    fullName: string | undefined,
-    phone: string | undefined,
-    address: string | undefined,
-    active: boolean;
-    role: { id: number }
+    id?: number | undefined,
+    fullName?: string | undefined,
+    phone?: string | undefined,
+    address?: string | undefined,
+    active?: boolean;
+    role?: { id: number }
 }
 ) => {
     return axios.put("/api/v1/users", data)
@@ -175,6 +175,8 @@ export const callFetchAllUsers = (query: string) => {
 export const callFetchUserById = (id: number) => {
     return axios.get(`/api/v1/users/${id}`);
 }
+
+
 
 /**
  * Module PERMISSION
@@ -338,4 +340,12 @@ export const callFetchHistoryByUser = (query: string) => {
 
 export const callDeleteHistoryById = (id: number) => {
     return axios.delete(`/api/v1/histories/${id}`);
+}
+
+/**
+ * Module ACCOUNT
+ */
+
+export const callChangePassword = (data: { currentPassword: string, newPassword: string }) => {
+    return axios.post(`/api/v1/account/change-password`, data);
 }
