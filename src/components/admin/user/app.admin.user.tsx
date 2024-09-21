@@ -110,48 +110,48 @@ const AppAdminUser = () => {
             key: "action",
             render: (_value: any, entity: any, _index: any, _action: any) => (
                 <Space>
-                    {/* < Access
+                    < Access
                         permission={ALL_PERMISSIONS.USERS.UPDATE}
                         hideChildren
-                    > */}
-                    <EditOutlined
-                        style={{
-                            fontSize: 20,
-                            color: '#ffa500',
-                            cursor: "pointer"
-                        }}
-                        type=""
-                        onClick={() => {
-                            setOpenModalUpdate(true);
-                            setDataInit(entity);
-                        }}
-                    />
-                    {/* </Access > */}
+                    >
+                        <EditOutlined
+                            style={{
+                                fontSize: 20,
+                                color: '#ffa500',
+                                cursor: "pointer"
+                            }}
+                            type=""
+                            onClick={() => {
+                                setOpenModalUpdate(true);
+                                setDataInit(entity);
+                            }}
+                        />
+                    </Access >
 
-                    {/* <Access
+                    <Access
                         permission={ALL_PERMISSIONS.USERS.DELETE}
                         hideChildren
-                    > */}
-                    <Popconfirm
-                        placement="leftTop"
-                        title={"Xác nhận xóa user"}
-                        //@ts-ignore
-                        description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        onConfirm={() => handleDeleteUser(entity.id)}
-                        okText="Xác nhận"
-                        cancelText="Hủy"
                     >
-                        <span style={{ cursor: "pointer", margin: "0 10px" }}>
-                            <DeleteOutlined
-                                style={{
-                                    fontSize: 20,
-                                    color: '#ff4d4f',
-                                    cursor: "pointer"
-                                }}
-                            />
-                        </span>
-                    </Popconfirm>
-                    {/* </Access> */}
+                        <Popconfirm
+                            placement="leftTop"
+                            title={"Xác nhận xóa user"}
+                            //@ts-ignore
+                            description={"Bạn có chắc chắn muốn xóa user này ?"}
+                            onConfirm={() => handleDeleteUser(entity.id)}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <span style={{ cursor: "pointer", margin: "0 10px" }}>
+                                <DeleteOutlined
+                                    style={{
+                                        fontSize: 20,
+                                        color: '#ff4d4f',
+                                        cursor: "pointer"
+                                    }}
+                                />
+                            </span>
+                        </Popconfirm>
+                    </Access>
                     <FaEye style={{
                         fontSize: 20,
                         color: '#ccc',
@@ -255,13 +255,18 @@ const AppAdminUser = () => {
 
     return (
         <>
-            <div style={{ marginBottom: "10px" }}>
-                <Button type='primary'
-                    icon={<IoAddCircleOutline />}
-                    onClick={() => handleNewUser()}>
-                    <> </>Thêm mới
-                </Button>
-            </div>
+            < Access
+                permission={ALL_PERMISSIONS.USERS.CREATE}
+                hideChildren
+            >
+                <div style={{ marginBottom: "10px" }}>
+                    <Button type='primary'
+                        icon={<IoAddCircleOutline />}
+                        onClick={() => handleNewUser()}>
+                        <> </>Thêm mới
+                    </Button>
+                </div>
+            </Access>
             <Table
                 dataSource={data ?? []}
                 columns={columns}

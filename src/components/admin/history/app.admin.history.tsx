@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { callDeleteHistoryById, callFetchAllHistories } from "src/util/api";
 import ModalViewHistory from "./modal/modal.view.history";
+import Access from "src/components/share/access";
+import { ALL_PERMISSIONS } from "src/config/permissions";
 
 const AdminHistory = () => {
     // STATE: 
@@ -69,30 +71,30 @@ const AdminHistory = () => {
             key: "action",
             render: (_value: any, entity: any, _index: any, _action: any) => (
                 <Space>
-                    {/* <Access
-                          permission={ALL_PERMISSIONS.USERS.DELETE}
-                          hideChildren
-                      > */}
-                    <Popconfirm
-                        placement="leftTop"
-                        title={"Xác nhận xóa user"}
-                        //@ts-ignore
-                        description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        onConfirm={() => handleDelete(entity.id)}
-                        okText="Xác nhận"
-                        cancelText="Hủy"
+                    <Access
+                        permission={ALL_PERMISSIONS.HISTORIES.DELETE}
+                        hideChildren
                     >
-                        <span style={{ cursor: "pointer", margin: "0 10px" }}>
-                            <DeleteOutlined
-                                style={{
-                                    fontSize: 20,
-                                    color: '#ff4d4f',
-                                    cursor: "pointer"
-                                }}
-                            />
-                        </span>
-                    </Popconfirm>
-                    {/* </Access> */}
+                        <Popconfirm
+                            placement="leftTop"
+                            title={"Xác nhận xóa user"}
+                            //@ts-ignore
+                            description={"Bạn có chắc chắn muốn xóa user này ?"}
+                            onConfirm={() => handleDelete(entity.id)}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <span style={{ cursor: "pointer", margin: "0 10px" }}>
+                                <DeleteOutlined
+                                    style={{
+                                        fontSize: 20,
+                                        color: '#ff4d4f',
+                                        cursor: "pointer"
+                                    }}
+                                />
+                            </span>
+                        </Popconfirm>
+                    </Access>
                     <FaEye style={{
                         fontSize: 20,
                         color: '#ccc',

@@ -8,6 +8,8 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { callDeleteBillById, callFetchAllBill } from "src/util/api";
 import ModalViewBill from "./modal/modal.view.bill";
 import ModalUpdateBill from "./modal/moda.update.bill";
+import Access from "src/components/share/access";
+import { ALL_PERMISSIONS } from "src/config/permissions";
 
 const AdminBill = () => {
     // STATE: 
@@ -80,45 +82,45 @@ const AdminBill = () => {
             key: "action",
             render: (_value: any, entity: any, _index: any, _action: any) => (
                 <Space>
-                    {/* < Access
-                         permission={ALL_PERMISSIONS.USERS.UPDATE}
-                         hideChildren
-                     > */}
-                    <EditOutlined
-                        style={{
-                            fontSize: 20,
-                            color: '#ffa500',
-                            cursor: "pointer"
-                        }}
-                        type=""
-                        onClick={() => handleUpdate(entity)}
-                    />
-                    {/* </Access > */}
-
-                    {/* <Access
-                         permission={ALL_PERMISSIONS.USERS.DELETE}
-                         hideChildren
-                     > */}
-                    <Popconfirm
-                        placement="leftTop"
-                        title={"Xác nhận xóa user"}
-                        //@ts-ignore
-                        description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        onConfirm={() => handleDelete(entity.id)}
-                        okText="Xác nhận"
-                        cancelText="Hủy"
+                    < Access
+                        permission={ALL_PERMISSIONS.BILLS.UPDATE}
+                        hideChildren
                     >
-                        <span style={{ cursor: "pointer", margin: "0 10px" }}>
-                            <DeleteOutlined
-                                style={{
-                                    fontSize: 20,
-                                    color: '#ff4d4f',
-                                    cursor: "pointer"
-                                }}
-                            />
-                        </span>
-                    </Popconfirm>
-                    {/* </Access> */}
+                        <EditOutlined
+                            style={{
+                                fontSize: 20,
+                                color: '#ffa500',
+                                cursor: "pointer"
+                            }}
+                            type=""
+                            onClick={() => handleUpdate(entity)}
+                        />
+                    </Access >
+
+                    <Access
+                        permission={ALL_PERMISSIONS.BILLS.DELETE}
+                        hideChildren
+                    >
+                        <Popconfirm
+                            placement="leftTop"
+                            title={"Xác nhận xóa user"}
+                            //@ts-ignore
+                            description={"Bạn có chắc chắn muốn xóa user này ?"}
+                            onConfirm={() => handleDelete(entity.id)}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <span style={{ cursor: "pointer", margin: "0 10px" }}>
+                                <DeleteOutlined
+                                    style={{
+                                        fontSize: 20,
+                                        color: '#ff4d4f',
+                                        cursor: "pointer"
+                                    }}
+                                />
+                            </span>
+                        </Popconfirm>
+                    </Access>
                     <FaEye style={{
                         fontSize: 20,
                         color: '#ccc',

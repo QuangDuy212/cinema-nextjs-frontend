@@ -9,6 +9,8 @@ import { callDeleteFilmById, callFetchAllCategories, callFetchAllFilms } from "s
 import ModalCreateFilm from "./modal/modal.create.film";
 import ModalViewFilm from "./modal/modal.view.film";
 import ModalUpdateFilm from "./modal/moda.update.film";
+import Access from "src/components/share/access";
+import { ALL_PERMISSIONS } from "src/config/permissions";
 
 const AdminFilm = () => {
     // STATE: 
@@ -77,45 +79,45 @@ const AdminFilm = () => {
             key: "action",
             render: (_value: any, entity: any, _index: any, _action: any) => (
                 <Space>
-                    {/* < Access
-                        permission={ALL_PERMISSIONS.USERS.UPDATE}
+                    < Access
+                        permission={ALL_PERMISSIONS.FILMS.UPDATE}
                         hideChildren
-                    > */}
-                    <EditOutlined
-                        style={{
-                            fontSize: 20,
-                            color: '#ffa500',
-                            cursor: "pointer"
-                        }}
-                        type=""
-                        onClick={() => handleUpdate(entity)}
-                    />
-                    {/* </Access > */}
-
-                    {/* <Access
-                        permission={ALL_PERMISSIONS.USERS.DELETE}
-                        hideChildren
-                    > */}
-                    <Popconfirm
-                        placement="leftTop"
-                        title={"Xác nhận xóa user"}
-                        //@ts-ignore
-                        description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        onConfirm={() => handleDelete(entity.id)}
-                        okText="Xác nhận"
-                        cancelText="Hủy"
                     >
-                        <span style={{ cursor: "pointer", margin: "0 10px" }}>
-                            <DeleteOutlined
-                                style={{
-                                    fontSize: 20,
-                                    color: '#ff4d4f',
-                                    cursor: "pointer"
-                                }}
-                            />
-                        </span>
-                    </Popconfirm>
-                    {/* </Access> */}
+                        <EditOutlined
+                            style={{
+                                fontSize: 20,
+                                color: '#ffa500',
+                                cursor: "pointer"
+                            }}
+                            type=""
+                            onClick={() => handleUpdate(entity)}
+                        />
+                    </Access >
+
+                    <Access
+                        permission={ALL_PERMISSIONS.FILMS.DELETE}
+                        hideChildren
+                    >
+                        <Popconfirm
+                            placement="leftTop"
+                            title={"Xác nhận xóa user"}
+                            //@ts-ignore
+                            description={"Bạn có chắc chắn muốn xóa user này ?"}
+                            onConfirm={() => handleDelete(entity.id)}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <span style={{ cursor: "pointer", margin: "0 10px" }}>
+                                <DeleteOutlined
+                                    style={{
+                                        fontSize: 20,
+                                        color: '#ff4d4f',
+                                        cursor: "pointer"
+                                    }}
+                                />
+                            </span>
+                        </Popconfirm>
+                    </Access>
                     <FaEye style={{
                         fontSize: 20,
                         color: '#ccc',
@@ -233,14 +235,19 @@ const AdminFilm = () => {
 
     return (
         <>
-            <div style={{ marginBottom: "10px" }}>
-                <Button type='primary'
-                    icon={<IoAddCircleOutline />}
-                    onClick={() => handleCreate()}
-                >
-                    <> </>Thêm mới
-                </Button>
-            </div>
+            <Access
+                permission={ALL_PERMISSIONS.FILMS.CREATE}
+                hideChildren
+            >
+                <div style={{ marginBottom: "10px" }}>
+                    <Button type='primary'
+                        icon={<IoAddCircleOutline />}
+                        onClick={() => handleCreate()}
+                    >
+                        <> </>Thêm mới
+                    </Button>
+                </div>
+            </Access>
             <Table
                 dataSource={data ?? []}
                 columns={columns}

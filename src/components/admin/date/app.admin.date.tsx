@@ -9,6 +9,8 @@ import { callDeleteTimeById, callFetchAllShows, callFetchAllTimes } from "src/ut
 import ModalCreateDate from "./modal/moda.create.date";
 import ModalUpdateDate from "./modal/modal.update.date";
 import ModalViewDate from "./modal/modal.view.date";
+import Access from "src/components/share/access";
+import { ALL_PERMISSIONS } from "src/config/permissions";
 
 const AdminDate = () => {
     // STATE: 
@@ -85,45 +87,45 @@ const AdminDate = () => {
             key: "action",
             render: (_value: any, entity: any, _index: any, _action: any) => (
                 <Space>
-                    {/* < Access
-                        permission={ALL_PERMISSIONS.USERS.UPDATE}
+                    < Access
+                        permission={ALL_PERMISSIONS.TIMES.UPDATE}
                         hideChildren
-                    > */}
-                    <EditOutlined
-                        style={{
-                            fontSize: 20,
-                            color: '#ffa500',
-                            cursor: "pointer"
-                        }}
-                        type=""
-                        onClick={() => handleUpdate(entity)}
-                    />
-                    {/* </Access > */}
-
-                    {/* <Access
-                        permission={ALL_PERMISSIONS.USERS.DELETE}
-                        hideChildren
-                    > */}
-                    <Popconfirm
-                        placement="leftTop"
-                        title={"Xác nhận xóa user"}
-                        //@ts-ignore
-                        description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        onConfirm={() => handleDelete(entity.id)}
-                        okText="Xác nhận"
-                        cancelText="Hủy"
                     >
-                        <span style={{ cursor: "pointer", margin: "0 10px" }}>
-                            <DeleteOutlined
-                                style={{
-                                    fontSize: 20,
-                                    color: '#ff4d4f',
-                                    cursor: "pointer"
-                                }}
-                            />
-                        </span>
-                    </Popconfirm>
-                    {/* </Access> */}
+                        <EditOutlined
+                            style={{
+                                fontSize: 20,
+                                color: '#ffa500',
+                                cursor: "pointer"
+                            }}
+                            type=""
+                            onClick={() => handleUpdate(entity)}
+                        />
+                    </Access >
+
+                    <Access
+                        permission={ALL_PERMISSIONS.TIMES.DELETE}
+                        hideChildren
+                    >
+                        <Popconfirm
+                            placement="leftTop"
+                            title={"Xác nhận xóa user"}
+                            //@ts-ignore
+                            description={"Bạn có chắc chắn muốn xóa user này ?"}
+                            onConfirm={() => handleDelete(entity.id)}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <span style={{ cursor: "pointer", margin: "0 10px" }}>
+                                <DeleteOutlined
+                                    style={{
+                                        fontSize: 20,
+                                        color: '#ff4d4f',
+                                        cursor: "pointer"
+                                    }}
+                                />
+                            </span>
+                        </Popconfirm>
+                    </Access>
                     <FaEye style={{
                         fontSize: 20,
                         color: '#ccc',
@@ -225,14 +227,19 @@ const AdminDate = () => {
 
     return (
         <>
-            <div style={{ marginBottom: "10px" }}>
-                <Button type='primary'
-                    icon={<IoAddCircleOutline />}
-                    onClick={() => handleCreate()}
-                >
-                    <> </>Thêm mới
-                </Button>
-            </div>
+            <Access
+                permission={ALL_PERMISSIONS.TIMES.CREATE}
+                hideChildren
+            >
+                <div style={{ marginBottom: "10px" }}>
+                    <Button type='primary'
+                        icon={<IoAddCircleOutline />}
+                        onClick={() => handleCreate()}
+                    >
+                        <> </>Thêm mới
+                    </Button>
+                </div>
+            </Access>
             <Table
                 dataSource={data ?? []}
                 columns={columns}
