@@ -9,6 +9,7 @@ import { callDeleteRoleById, callFetchAllPermissions, callFetchAllRoles } from "
 import ModalCreateRole from "./modal/modal.create.role";
 import ModalViewRole from "./modal/modal.view.role";
 import ModalUpdateRole from "./modal/modal.update.role";
+import { groupByPermission } from "src/util/method";
 
 const AdminRole = () => {
     // STATE: 
@@ -27,6 +28,12 @@ const AdminRole = () => {
     const [dataInit, setDataInit] = useState<IRole | undefined>();
     const [listPer, setListPer] = useState<IPermission[]>([]);
 
+    const [listPermissions, setListPermissions] = useState<{
+        module: string;
+        permissions: IPermission[]
+    }[] | null>(null);
+
+
     // VARIABLE: 
     const columns: any = [
         {
@@ -39,36 +46,36 @@ const AdminRole = () => {
             title: 'Name',
             dataIndex: 'name',
             sorter: true,
-            width: "10%",
+            width: "35%",
             key: "name"
         },
         {
             title: 'Description',
             dataIndex: 'description',
             sorter: true,
-            width: "15%",
+            width: "50%",
             key: "description"
         },
-        {
-            title: 'Permission',
-            dataIndex: 'permissions',
-            sorter: true,
-            width: "50%",
-            key: "permissions",
-            render: (text: any, record: any, index: any, action: any) => {
-                return (
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-                        {record?.permissions?.map((p: IPermission) => {
-                            return (
-                                <div key={p?.id} style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "4px" }}>
-                                    {p?.name}-{p?.module}
-                                </div>
-                            )
-                        })}
-                    </div>
-                )
-            },
-        },
+        // {
+        //     title: 'Permission',
+        //     dataIndex: 'permissions',
+        //     sorter: true,
+        //     width: "50%",
+        //     key: "permissions",
+        //     render: (text: any, record: any, index: any, action: any) => {
+        //         return (
+        //             <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+        //                 {record?.permissions?.map((p: IPermission) => {
+        //                     return (
+        //                         <div key={p?.id} style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "4px" }}>
+        //                             {p?.name}-{p?.module}
+        //                         </div>
+        //                     )
+        //                 })}
+        //             </div>
+        //         )
+        //     },
+        // },
         {
             title: 'Active',
             dataIndex: 'active',
@@ -251,6 +258,16 @@ const AdminRole = () => {
     useEffect(() => {
         fetchPer();
     }, [])
+
+    useEffect(() => {
+        const init = async () => {
+            const res = await callFetchAllPermissions(`page=1&size=100`);
+            if (res.data?.result) {
+                setListPermissions(groupByPermission(res.data?.result))
+            }
+        }
+        init();
+    }, [])
     return (
         <>
             <div style={{ marginBottom: "10px" }}>
@@ -296,7 +313,9 @@ const AdminRole = () => {
                 setOpenModalUpdate={setOpenModalUpdate}
                 fetchData={fetchRole}
                 data={dataInit}
+                setData={setDataInit}
                 options={options}
+                listPermissions={listPermissions}
             />
         </>
     )

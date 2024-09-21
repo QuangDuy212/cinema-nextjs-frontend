@@ -47,75 +47,55 @@ const LayoutAdmin = ({ children }: Readonly<{
         const ACL_ENABLE = process.env.NEXT_ACL_ENABLE;
         if (permissions?.length || ACL_ENABLE === 'false') {
 
-            // const viewCompany = permissions?.find(item =>
-            //     item.apiPath === ALL_PERMISSIONS.COMPANIES.GET_PAGINATE.apiPath
-            //     && item.method === ALL_PERMISSIONS.COMPANIES.GET_PAGINATE.method
-            // )
+            const viewUser = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.USERS.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
+            )
 
-            // const viewUser = permissions?.find(item =>
-            //     item.apiPath === ALL_PERMISSIONS.USERS.GET_PAGINATE.apiPath
-            //     && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
-            // )
+            const viewRole = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.ROLES.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.ROLES.GET_PAGINATE.method
+            )
 
-            // const viewJob = permissions?.find(item =>
-            //     item.apiPath === ALL_PERMISSIONS.JOBS.GET_PAGINATE.apiPath
-            //     && item.method === ALL_PERMISSIONS.JOBS.GET_PAGINATE.method
-            // )
+            const viewPermission = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.PERMISSIONS.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
+            )
 
-            // const viewResume = permissions?.find(item =>
-            //     item.apiPath === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.apiPath
-            //     && item.method === ALL_PERMISSIONS.RESUMES.GET_PAGINATE.method
-            // )
+            const viewCategory = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.CATEGORIES.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.CATEGORIES.GET_PAGINATE.method
+            )
 
-            // const viewRole = permissions?.find(item =>
-            //     item.apiPath === ALL_PERMISSIONS.ROLES.GET_PAGINATE.apiPath
-            //     && item.method === ALL_PERMISSIONS.ROLES.GET_PAGINATE.method
-            // )
+            const viewFilm = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.FILMS.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.FILMS.GET_PAGINATE.method
+            )
 
-            // const viewPermission = permissions?.find(item =>
-            //     item.apiPath === ALL_PERMISSIONS.PERMISSIONS.GET_PAGINATE.apiPath
-            //     && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
-            // )
+            const viewShow = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.SHOWS.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.SHOWS.GET_PAGINATE.method
+            )
 
-            // const full = [
-            //     {
-            //         label: <Link href='/admin'>Dashboard</Link>,
-            //         key: '/admin',
-            //         icon: <AppstoreOutlined />
-            //     },
-            //     ...(viewCompany || ACL_ENABLE === 'false' ? [{
-            //         label: <Link href='/admin/company'>Company</Link>,
-            //         key: '/admin/company',
-            //         icon: <BankOutlined />,
-            //     }] : []),
+            const viewSeat = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.SEATS.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.SEATS.GET_PAGINATE.method
+            )
 
-            //     ...(viewUser || ACL_ENABLE === 'false' ? [{
-            //         label: <Link href='/admin/user'>User</Link>,
-            //         key: '/admin/user',
-            //         icon: <UserOutlined />
-            //     }] : []),
-            //     ...(viewJob || ACL_ENABLE === 'false' ? [{
-            //         label: <Link href='/admin/job'>Job</Link>,
-            //         key: '/admin/job',
-            //         icon: <ScheduleOutlined />
-            //     }] : []),
+            const viewBill = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.BILLS.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.BILLS.GET_PAGINATE.method
+            )
 
-            //     ...(viewResume || ACL_ENABLE === 'false' ? [{
-            //         label: <Link href='/admin/resume'>Resume</Link>,
-            //         key: '/admin/resume',
-            //         icon: <AliwangwangOutlined />
-            //     }] : []),
-            //     ...(viewPermission || ACL_ENABLE === 'false' ? [{
-            //         label: <Link href='/admin/permission'>Permission</Link>,
-            //         key: '/admin/permission',
-            //         icon: <ApiOutlined />
-            //     }] : []),
-            //     ...(viewRole || ACL_ENABLE === 'false' ? [{
-            //         label: <Link href='/admin/role'>Role</Link>,
-            //         key: '/admin/role',
-            //         icon: <ExceptionOutlined />
-            //     }] : []),
-            // ];
+            const viewTime = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.TIMES.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.TIMES.GET_PAGINATE.method
+            )
+
+            const viewHistory = permissions?.find(item =>
+                item.apiPath === ALL_PERMISSIONS.HISTORIES.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.HISTORIES.GET_PAGINATE.method
+            )
 
             const full = [
                 {
@@ -123,52 +103,107 @@ const LayoutAdmin = ({ children }: Readonly<{
                     key: '/admin',
                     icon: <AppstoreOutlined />
                 },
-                {
+                ...(viewUser || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/user'>User</Link>,
                     key: '/admin/user',
                     icon: <UserOutlined />
-                },
-                {
+                }] : []),
+
+                ...(viewPermission || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/permission'>Permission</Link>,
                     key: '/admin/permission',
                     icon: <FaUserShield />
-                },
-                {
+                }] : []),
+                ...(viewRole || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/role'>Role</Link>,
                     key: '/admin/role',
                     icon: <FiUsers />
-                },
-                {
+                }] : []),
+
+                ...(viewBill || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/bill'>Bill</Link>,
                     key: '/admin/bill',
                     icon: <RiBillLine />
-                },
-                {
+                }] : []),
+                ...(viewFilm || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/film'>Film</Link>,
                     key: '/admin/film',
                     icon: <FaFilm />
-                },
-                {
+                }] : []),
+                ...(viewCategory || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/category'>Category</Link>,
                     key: '/admin/category',
                     icon: <BiCategoryAlt />
-                },
-                {
+                }] : []),
+                ...(viewShow || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/show'>Show</Link>,
                     key: '/admin/show',
                     icon: <PiSlideshowLight />
-                },
-                {
+                }] : []),
+                ...(viewTime || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/time'>Date</Link>,
                     key: '/admin/time',
                     icon: <BsCalendarDate />
-                },
-                {
+                }] : []),
+                ...(viewHistory || ACL_ENABLE === 'false' ? [{
                     label: <Link href='/admin/history'>History</Link>,
                     key: '/admin/history',
                     icon: <GoHistory />
-                },
-            ]
+                }] : []),
+            ];
+
+            // const full = [
+            //     {
+            //         label: <Link href='/admin'>Dashboard</Link>,
+            //         key: '/admin',
+            //         icon: <AppstoreOutlined />
+            //     },
+            //     {
+            //         label: <Link href='/admin/user'>User</Link>,
+            //         key: '/admin/user',
+            //         icon: <UserOutlined />
+            //     },
+            //     {
+            //         label: <Link href='/admin/permission'>Permission</Link>,
+            //         key: '/admin/permission',
+            //         icon: <FaUserShield />
+            //     },
+            //     {
+            //         label: <Link href='/admin/role'>Role</Link>,
+            //         key: '/admin/role',
+            //         icon: <FiUsers />
+            //     },
+            //     {
+            //         label: <Link href='/admin/bill'>Bill</Link>,
+            //         key: '/admin/bill',
+            //         icon: <RiBillLine />
+            //     },
+            //     {
+            //         label: <Link href='/admin/film'>Film</Link>,
+            //         key: '/admin/film',
+            //         icon: <FaFilm />
+            //     },
+            //     {
+            //         label: <Link href='/admin/category'>Category</Link>,
+            //         key: '/admin/category',
+            //         icon: <BiCategoryAlt />
+            //     },
+            //     {
+            //         label: <Link href='/admin/show'>Show</Link>,
+            //         key: '/admin/show',
+            //         icon: <PiSlideshowLight />
+            //     },
+            //     {
+            //         label: <Link href='/admin/time'>Date</Link>,
+            //         key: '/admin/time',
+            //         icon: <BsCalendarDate />
+            //     },
+            //     {
+            //         label: <Link href='/admin/history'>History</Link>,
+            //         key: '/admin/history',
+            //         icon: <GoHistory />
+            //     },
+            // ]
 
             setMenuItems(full);
         }

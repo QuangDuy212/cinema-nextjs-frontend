@@ -1,20 +1,27 @@
 "use client"
 
+import { ProCard } from "@ant-design/pro-components";
 import { Form, Input, message, Modal, notification, Select, SelectProps } from "antd";
 import { permission } from "process";
 import { useEffect, useState } from "react";
 import { callFetchAllPermissions, callUpdateRole } from "src/util/api";
+import ModuleApi from "../module.api";
 
 interface IProps {
     openModalUpdate: boolean;
     setOpenModalUpdate: (v: boolean) => void;
     fetchData: () => void;
     data: IRole | undefined;
+    setData: (v: IRole) => void;
     options: SelectProps['options'];
+    listPermissions: {
+        module: string;
+        permissions: IPermission[]
+    }[] | null;
 }
 const ModalUpdateRole = (props: IProps) => {
     //PROPS: 
-    const { openModalUpdate, setOpenModalUpdate, fetchData, data, options } = props;
+    const { openModalUpdate, setOpenModalUpdate, fetchData, data, options, listPermissions } = props;
     //STATE: 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
