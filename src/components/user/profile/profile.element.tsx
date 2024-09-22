@@ -55,19 +55,18 @@ const ProfileElement = () => {
     return (
         <>
             <div style={{
-                maxWidth: "900px", display: "flex", justifyContent: "center", alignItems: "center"
+                maxWidth: "900px", display: "flex", justifyContent: "center", alignItems: "center",
             }} className='profile-ele-container'>
                 <Form
                     name="basic"
                     form={form}
-                    labelCol={{ span: 24 }}
-                    wrapperCol={{ span: 24 }}
                     initialValues={{ remember: true }}
-                    style={{ width: "100%" }}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     className='form-profile'
+                    labelCol={{ span: 24 }}
+                    wrapperCol={{ span: 24 }}
                 >
                     <Form.Item<FieldType>
                         label="ID"
@@ -78,57 +77,44 @@ const ProfileElement = () => {
                         <Input
                             className='input-profile' />
                     </Form.Item>
-                    <Row gutter={[20, 20]}>
-                        <Col md={24} xl={12}>
-                            <Form.Item<FieldType>
-                                label="Tên"
-                                name="fullName"
-                                rules={[{ required: true, message: 'Không được để trống' }]}
-                                initialValue={user.fullName}
-                            >
-                                <Input
-                                    className='input-profile' />
-                            </Form.Item>
-                        </Col>
-                        <Col md={24} xl={12}>
-                            <Form.Item<FieldType>
-                                label="Số điện thoại"
-                                name="phone"
-                                rules={[{ required: true, message: 'Không được để trống' }]}
-                                initialValue={user?.phone}
-                            >
-                                <Input
-                                    className='input-profile' />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    <Form.Item<FieldType>
+                        label="Tên"
+                        name="fullName"
+                        rules={[{ required: true, message: 'Không được để trống' }]}
+                        initialValue={user.fullName}
+                    >
+                        <Input
+                            className='input-profile' />
+                    </Form.Item>
+                    <Form.Item<FieldType>
+                        label="Số điện thoại"
+                        name="phone"
+                        rules={[{ required: true, message: 'Không được để trống' }]}
+                        initialValue={user?.phone}
+                    >
+                        <Input
+                            className='input-profile' />
+                    </Form.Item>
+                    <Form.Item<FieldType>
+                        label="Địa chỉ"
+                        name="address"
+                        rules={[{ required: true, message: 'Không được để trống' }]}
+                        initialValue={user?.address}
+                    >
+                        <Input
+                            className='input-profile' />
+                    </Form.Item>
+                    <Form.Item<FieldType>
+                        label="Email"
+                        name="email"
+                        initialValue={user?.email}
+                    >
+                        <Input
+                            className='input-profile' disabled />
+                    </Form.Item>
 
-                    <Row gutter={[20, 20]}>
-                        <Col md={24} xl={12}>
-                            <Form.Item<FieldType>
-                                label="Địa chỉ"
-                                name="address"
-                                rules={[{ required: true, message: 'Không được để trống' }]}
-                                initialValue={user?.address}
-                            >
-                                <Input
-                                    className='input-profile' />
-                            </Form.Item>
-                        </Col>
-                        <Col md={24} xl={12}>
-                            <Form.Item<FieldType>
-                                label="Email"
-                                name="email"
-                                initialValue={user?.email}
-                            >
-                                <Input
-                                    className='input-profile' disabled />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-
-                    <Form.Item wrapperCol={{ offset: 10, }} >
-                        <div style={{ display: "flex", gap: "20px" }}>
+                    <Form.Item  >
+                        <div style={{ display: "flex", gap: "20px", justifyContent: "center", alignItems: "center" }}>
                             <div className='button-form' >
                                 <div className='item'
                                     onClick={() => setOpenModal(true)}
