@@ -23,12 +23,12 @@ const ContentHomepage = () => {
             <div className="container">
                 <div className="content">
                     <div className="content__main">
-                        <Row gutter={[20, 20]}>
+                        <Row gutter={[20, 20]} style={{ margin: 0 }}>
                             <Col sm={24} md={24} lg={18} xl={18}>
                                 <div className="title">
                                     <div className="title__start">
                                         <div className="circle"></div>
-                                        <span style={{ color: "#fff ", fontSize: "20px", fontWeight: 600 }}>Phim đang chiếu</span>
+                                        <span style={{ color: "#fff ", fontSize: "16px", fontWeight: 600 }}>Phim đang chiếu</span>
 
                                     </div>
                                     <div className="title__end">
@@ -46,17 +46,17 @@ const ContentHomepage = () => {
                                     </Row>
                                 </div>
                             </Col>
-                            <Col sm={0} md={0} lg={6} xl={6}>
-                                <div className="title">
+                            <Col sm={24} md={24} lg={6} xl={6}>
+                                <div className="title" style={{ width: "100%" }}>
                                     <div className="title__start">
-                                        <span style={{ color: "#fff ", fontSize: "20px", fontWeight: 600 }}>Khuyến mại</span>
+                                        <span style={{ color: "#fff ", fontSize: "16px", fontWeight: 600 }}>Khuyến mại</span>
 
                                     </div>
                                     <div className="title__end">
                                         <Link href={"/movies"}>Xem tất cả</Link>
                                     </div>
                                 </div>
-                                <div className="main">
+                                <div className="main" style={{ width: "100%" }}>
                                     <div className="promotion">
                                         <img alt="Bo ga siu dang" src="/home/1.png" />
                                     </div>

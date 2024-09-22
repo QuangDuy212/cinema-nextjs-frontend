@@ -15,10 +15,15 @@ import { callFetchAccount, callLogout } from 'src/util/api';
 import { setLogoutAction } from 'src/redux/slice/accountSlide';
 import Link from 'next/link';
 import { IoMenu } from "react-icons/io5";
+import { IoMdClose } from "react-icons/io";
 
 
 
 const AppHeader = () => {
+    //STATE:
+    const [isClient, setIsClient] = useState<boolean>(false);
+    const [openNavMobile, setOpenNavMobile] = useState<boolean>(false);
+
     // redux:
     const user = useSelector((state: RootState) => state.account.user);
     const isAuthenticated = useSelector((state: RootState) => state.account.isAuthenticated);
@@ -39,14 +44,10 @@ const AppHeader = () => {
         },
     ];
 
-
-    //STATE: 
-
-    const [isClient, setIsClient] = useState<boolean>(false);
-
     //METHOD: 
     const handleLogout = async () => {
         const res = await callLogout();
+        //@ts-ignore
         if (res && res && +res?.statusCode === 200) {
             dispatch(setLogoutAction({}));
             message.success('Đăng xuất thành công');
@@ -72,7 +73,9 @@ const AppHeader = () => {
                             style={{ display: "flex", justifyContent: "space-between" }}
                         >
                             <div style={{ display: "flex", padding: "15px 0", gap: "30px" }} className='nav-link'>
-                                <img src="/home/logo.png" style={{ height: "50px", width: "70px" }} />
+                                <img src="/home/logo.png" style={{ height: "50px", width: "70px" }}
+                                    onClick={() => router.push("/")}
+                                />
                                 <ActiveLink href="/">Trang chủ</ActiveLink>
                                 <ActiveLink href="/movies" >Lịch chiếu</ActiveLink>
                                 <ActiveLink href="/news-list" >Tin tức</ActiveLink>
@@ -110,17 +113,70 @@ const AppHeader = () => {
                             style={{ padding: "0 16px", display: "flex", justifyContent: "space-between" }}
                         >
                             <div style={{ display: "flex", padding: "15px 0", gap: "4px" }} className='nav-link'>
-                                <img src="/home/logo.png" style={{ height: "40px", width: "53px", objectFit: "contain" }} />
+                                <img src="/home/logo.png"
+                                    style={{ height: "40px", width: "53px", objectFit: "contain" }}
+                                    onClick={() => router.push("/")}
+                                />
                                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                     <span style={{ fontSize: "12px", fontWeight: 500, color: "#fff" }}>TRUNG TÂM CHIẾU PHIM QUỐC GIA</span>
                                     <span style={{ fontSize: "12px", fontWeight: 300, color: "#fff" }}>National Cinema Center</span>
                                 </div>
                             </div>
-                            <div style={{ color: "#fff", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                <IoMenu style={{ fontSize: "40px" }} />
+                            <div
+                                style={{ color: "#fff", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                {openNavMobile
+                                    ?
+                                    <IoMdClose
+                                        style={{ fontSize: "40px" }}
+                                        onClick={() => setOpenNavMobile(false)}
+                                    />
+                                    :
+                                    <IoMenu
+                                        style={{ fontSize: "40px" }}
+                                        onClick={() => setOpenNavMobile(true)}
+                                    />
+                                }
                             </div>
                         </div>
                     </div>
+            }
+            {openNavMobile &&
+                <div className='nav-header-link-mobile'>
+                    <div className='nav-link-mobile'>
+                        <ActiveLink href="/">Trang chủ</ActiveLink>
+                        <ActiveLink href="/movies" >Lịch chiếu</ActiveLink>
+                        <ActiveLink href="/news-list" >Tin tức</ActiveLink>
+                        <ActiveLink href="/promotions" >Khuyến mãi</ActiveLink>
+                        <ActiveLink href="/ticket-price" >Giá vé</ActiveLink>
+                        <ActiveLink href="/festivals" >Liên hoan phim</ActiveLink>
+                        <ActiveLink href="/about" >Giới thiệu</ActiveLink>
+                    </div>
+                    <div className='account-mobile'>
+                        <div style={{
+                            color: "#fff", display: "flex", justifyContent: "center",
+                            padding: "10px",
+                            width: "100%"
+                        }}>{user?.fullName}</div>
+                        <div style={{
+                            color: "#fff", display: "flex", justifyContent: "center",
+                            alignItems: "center"
+                        }}>
+                            <div style={{
+                                padding: "10px", width: "50%", display: "flex", justifyContent: "center",
+                                alignItems: "center"
+                            }}
+                                onClick={() => router.push("/profile")}
+                            >Thông tin cá nhân</div>
+                            <div style={{
+                                padding: "10px", width: "50%", display: "flex", justifyContent: "center",
+                                alignItems: "center"
+                            }}
+                                onClick={() => { handleLogout() }}
+                            >Đăng xuất</div>
+                        </div>
+                    </div>
+                </div>
+
             }
         </>
     )
