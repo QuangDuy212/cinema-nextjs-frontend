@@ -10,10 +10,11 @@ import ActiveLink from './active.link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/store';
 import { redirect, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { callFetchAccount, callLogout } from 'src/util/api';
 import { setLogoutAction } from 'src/redux/slice/accountSlide';
 import Link from 'next/link';
+import { IoMenu } from "react-icons/io5";
 
 
 
@@ -38,6 +39,12 @@ const AppHeader = () => {
         },
     ];
 
+
+    //STATE: 
+
+    const [isClient, setIsClient] = useState<boolean>(false);
+
+    //METHOD: 
     const handleLogout = async () => {
         const res = await callLogout();
         if (res && res && +res?.statusCode === 200) {
@@ -47,47 +54,74 @@ const AppHeader = () => {
         }
     }
 
+    let isMobile = false;
+    if (typeof window !== "undefined") {
+        isMobile = window?.matchMedia("(max-width: 1200px)")?.matches;// check mobile device
+    }
+
     useEffect(() => {
+        setIsClient(true)
     }, [])
     return (
         <>
-            <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw" }}>
-                <div className="container"
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                    <div style={{ display: "flex", padding: "15px 0", gap: "30px" }} className='nav-link'>
-                        <img src='https://chieuphimquocgia.com.vn/_next/image?url=%2Fimages%2Flogo.png&w=96&q=75' style={{ height: "50px", width: "70px" }} />
-                        <ActiveLink href="/">Trang chủ</ActiveLink>
-                        <ActiveLink href="/movies" >Lịch chiếu</ActiveLink>
-                        <ActiveLink href="/news-list" >Tin tức</ActiveLink>
-                        <ActiveLink href="/promotions" >Khuyến mãi</ActiveLink>
-                        <ActiveLink href="/ticket-price" >Giá vé</ActiveLink>
-                        <ActiveLink href="/festivals" >Liên hoan phim</ActiveLink>
-                        <ActiveLink href="/about" >Giới thiệu</ActiveLink>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", fontSize: "16px" }}>
-                        {!isAuthenticated ?
-                            <span
-                                onClick={() => router.push("/auth/signin")}
-                                style={{ color: "#fff", cursor: "pointer" }}
-                            >Đăng nhập</span>
-                            :
+            {
+                (!isMobile && isClient)
+                    ?
+                    <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw", top: 0, left: 0 }}>
+                        <div className="container"
+                            style={{ display: "flex", justifyContent: "space-between" }}
+                        >
+                            <div style={{ display: "flex", padding: "15px 0", gap: "30px" }} className='nav-link'>
+                                <img src="/home/logo.png" style={{ height: "50px", width: "70px" }} />
+                                <ActiveLink href="/">Trang chủ</ActiveLink>
+                                <ActiveLink href="/movies" >Lịch chiếu</ActiveLink>
+                                <ActiveLink href="/news-list" >Tin tức</ActiveLink>
+                                <ActiveLink href="/promotions" >Khuyến mãi</ActiveLink>
+                                <ActiveLink href="/ticket-price" >Giá vé</ActiveLink>
+                                <ActiveLink href="/festivals" >Liên hoan phim</ActiveLink>
+                                <ActiveLink href="/about" >Giới thiệu</ActiveLink>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", fontSize: "16px" }}>
+                                {!isAuthenticated ?
+                                    <span
+                                        onClick={() => router.push("/auth/signin")}
+                                        style={{ color: "#fff", cursor: "pointer" }}
+                                    >Đăng nhập</span>
+                                    :
 
-                            <Dropdown menu={{ items }} trigger={['click']}>
-                                <a onClick={(e) => e.preventDefault()}
-                                    style={{ color: "#fff" }}
-                                >
-                                    <Space>
-                                        <span>{user.fullName ? user.fullName : "Người dùng"}</span>
-                                        <DownOutlined />
-                                    </Space>
-                                </a>
-                            </Dropdown>
-                        }
+                                    <Dropdown menu={{ items }} trigger={['click']}>
+                                        <a onClick={(e) => e.preventDefault()}
+                                            style={{ color: "#fff" }}
+                                        >
+                                            <Space>
+                                                <span>{user.fullName ? user.fullName : "Người dùng"}</span>
+                                                <DownOutlined />
+                                            </Space>
+                                        </a>
+                                    </Dropdown>
+                                }
 
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    :
+                    <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw", top: 0, left: 0 }}>
+                        <div
+                            style={{ padding: "0 16px", display: "flex", justifyContent: "space-between" }}
+                        >
+                            <div style={{ display: "flex", padding: "15px 0", gap: "4px" }} className='nav-link'>
+                                <img src="/home/logo.png" style={{ height: "40px", width: "53px", objectFit: "contain" }} />
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                    <span style={{ fontSize: "12px", fontWeight: 500, color: "#fff" }}>TRUNG TÂM CHIẾU PHIM QUỐC GIA</span>
+                                    <span style={{ fontSize: "12px", fontWeight: 300, color: "#fff" }}>National Cinema Center</span>
+                                </div>
+                            </div>
+                            <div style={{ color: "#fff", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <IoMenu style={{ fontSize: "40px" }} />
+                            </div>
+                        </div>
+                    </div>
+            }
         </>
     )
 }

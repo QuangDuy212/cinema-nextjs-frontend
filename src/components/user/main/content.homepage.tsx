@@ -19,7 +19,7 @@ const ContentHomepage = () => {
         fetchData()
     }, [])
     return (
-        <div style={{ backgroundColor: "#10151b", padding: "112px 0 40px" }}>
+        <div style={{ backgroundColor: "#10151b", padding: "40px 0 40px" }}>
             <div className="container">
                 <div className="content">
                     <div className="content__main">

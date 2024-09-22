@@ -16,7 +16,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 const SwiperComponent = () => {
     return (
         <>
-            <div style={{ height: "100vh" }}>
+            <div style={{ paddingTop: "80px" }}>
                 <Swiper
                     spaceBetween={30}
                     centeredSlides={true}

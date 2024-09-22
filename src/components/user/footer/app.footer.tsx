@@ -4,7 +4,6 @@ import React from 'react';
 import { FacebookOutlined, InstagramOutlined, YoutubeOutlined } from '@ant-design/icons';
 import 'src/styles/footer/app.footer.scss';
 import Link from 'next/link';
-
 const AppFooter = () => {
     return (
         <>
