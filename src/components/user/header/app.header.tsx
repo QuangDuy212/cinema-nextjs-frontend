@@ -66,8 +66,41 @@ const AppHeader = () => {
     return (
         <>
             {
-                (!isMobile && isClient)
+                (isMobile && isClient)
                     ?
+                    <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw", top: 0, left: 0 }}>
+                        <div
+                            style={{ padding: "0 16px", display: "flex", justifyContent: "space-between" }}
+                        >
+                            <div style={{ display: "flex", padding: "15px 0", gap: "4px" }} className='nav-link'>
+                                <img src="/home/logo.png"
+                                    style={{ height: "40px", width: "53px", objectFit: "contain" }}
+                                    onClick={() => router.push("/")}
+                                />
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                    <span style={{ fontSize: "12px", fontWeight: 500, color: "#fff" }}>TRUNG TÂM CHIẾU PHIM QUỐC GIA</span>
+                                    <span style={{ fontSize: "12px", fontWeight: 300, color: "#fff" }}>National Cinema Center</span>
+                                </div>
+                            </div>
+                            <div
+                                style={{ color: "#fff", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                {openNavMobile
+                                    ?
+                                    <IoMdClose
+                                        style={{ fontSize: "40px" }}
+                                        onClick={() => setOpenNavMobile(false)}
+                                    />
+                                    :
+                                    <IoMenu
+                                        style={{ fontSize: "40px" }}
+                                        onClick={() => setOpenNavMobile(true)}
+                                    />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    :
+
                     <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw", top: 0, left: 0 }}>
                         <div className="container"
                             style={{ display: "flex", justifyContent: "space-between" }}
@@ -104,38 +137,6 @@ const AppHeader = () => {
                                     </Dropdown>
                                 }
 
-                            </div>
-                        </div>
-                    </div>
-                    :
-                    <div style={{ backgroundColor: "#10151b", position: "fixed", zIndex: "1000", width: "100vw", top: 0, left: 0 }}>
-                        <div
-                            style={{ padding: "0 16px", display: "flex", justifyContent: "space-between" }}
-                        >
-                            <div style={{ display: "flex", padding: "15px 0", gap: "4px" }} className='nav-link'>
-                                <img src="/home/logo.png"
-                                    style={{ height: "40px", width: "53px", objectFit: "contain" }}
-                                    onClick={() => router.push("/")}
-                                />
-                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                                    <span style={{ fontSize: "12px", fontWeight: 500, color: "#fff" }}>TRUNG TÂM CHIẾU PHIM QUỐC GIA</span>
-                                    <span style={{ fontSize: "12px", fontWeight: 300, color: "#fff" }}>National Cinema Center</span>
-                                </div>
-                            </div>
-                            <div
-                                style={{ color: "#fff", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                {openNavMobile
-                                    ?
-                                    <IoMdClose
-                                        style={{ fontSize: "40px" }}
-                                        onClick={() => setOpenNavMobile(false)}
-                                    />
-                                    :
-                                    <IoMenu
-                                        style={{ fontSize: "40px" }}
-                                        onClick={() => setOpenNavMobile(true)}
-                                    />
-                                }
                             </div>
                         </div>
                     </div>

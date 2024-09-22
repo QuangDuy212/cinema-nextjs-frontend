@@ -174,13 +174,15 @@ const DetailFilm = (props: IProps) => {
                     </div>
                     <div className="date">
                         {listTimes?.map((time, index) => {
+                            const items = time.date.split("-");
                             return (
                                 <div
                                     className={`${(activeTime == time?.id) ? "item active" : "item"}`}
                                     key={time?.id}
                                     onClick={() => { setActiveTime(time?.id); setIsShowSeat(false) }}
                                 >
-                                    {time?.date}
+                                    <div>Th. {items[1]}</div>
+                                    <div>{items[0]}</div>
                                 </div>
                             )
                         })}
