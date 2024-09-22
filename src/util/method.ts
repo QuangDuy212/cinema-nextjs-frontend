@@ -83,3 +83,7 @@ export function colorMethod(method: "POST" | "PUT" | "GET" | "DELETE" | string) 
             return grey[10];
     }
 }
+
+export const limitText = (text: string, count: number) => {
+    return text.slice(0, count) + (text.length > count ? "..." : "");
+}

@@ -1,13 +1,14 @@
 .movie {
     display      : flex;
-    height       : 380px;
     width        : 100%;
     border-radius: 10px;
     border       : 1px solid #ccc;
     overflow     : hidden;
+    height       : 100%;
 
     &__image {
         overflow: hidden;
+        cursor  : pointer;
 
         img {
             width     : 100%;
@@ -22,8 +23,7 @@
     }
 
     &__info {
-        padding: 24px;
-        width  : 405px;
+        padding: 16px;
 
         .start {
             color        : #5D6A81;
@@ -38,8 +38,9 @@
         }
 
         .name {
+            cursor: pointer;
 
-            a {
+            span {
                 text-decoration: none;
                 color          : #fff;
                 font-size      : 14px;
