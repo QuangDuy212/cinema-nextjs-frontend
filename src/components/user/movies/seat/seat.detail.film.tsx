@@ -129,16 +129,16 @@ const SeatDetailFilm = (props: IProps) => {
                             <div className='note-seat__item--text'>Ghế bạn chọn</div>
                         </div>
                     </div>
-                    <div className='list-seat-info'>
+                    <div className='list-seat-info container'>
                         <Row style={{ width: "100%" }}>
-                            <Col sm={24} md={24} xl={12} xxl={12}>
-                                <div className='list-seat-info__choosed'>
+                            <Col xs={24} sm={24} md={24} xl={12} xxl={12}>
+                                <div className='list-seat-info__choosed' style={{ marginTop: "20px" }}>
                                     <div className='list-seat-info__choosed--quantity'>Số lượng: <span>{quantity}</span></div>
                                     <div className='list-seat-info__choosed--total'>Tổng tiền: <span>{quantity * (data?.price ?? 0)}</span></div>
                                 </div>
                             </Col>
-                            <Col sm={24} md={24} xl={12} xxl={12}>
-                                <div className='list-seat-info__btn'>
+                            <Col xs={24} sm={24} md={24} xl={12} xxl={12}>
+                                <div className='list-seat-info__btn' style={{ marginTop: "20px" }}>
                                     <div className='return-btn-seat'
                                         onClick={() => setIsShowSeat(false)}
                                     >Quay lại</div>

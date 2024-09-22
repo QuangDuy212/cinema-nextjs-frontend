@@ -180,7 +180,7 @@ const DetailFilm = (props: IProps) => {
                                     key={time?.id}
                                     onClick={() => { setActiveTime(time?.id); setIsShowSeat(false) }}
                                 >
-                                    {time?.date} - update github
+                                    {time?.date}
                                 </div>
                             )
                         })}
