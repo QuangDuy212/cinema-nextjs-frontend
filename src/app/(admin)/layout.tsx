@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import ProtectedRouteAdmin from "src/components/admin/ProtectedRouteAdmin";
 import LayoutAdmin from "src/components/layout/admin/LayoutAdmin";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <LayoutAdmin>
-      {children}
-    </LayoutAdmin>
+    <ProtectedRouteAdmin>
+      <LayoutAdmin>
+        {children}
+      </LayoutAdmin>
+    </ProtectedRouteAdmin>
   );
 }

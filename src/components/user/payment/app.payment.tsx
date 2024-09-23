@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "src/redux/hook";
 import { setEmptyBill } from "src/redux/slice/billSlide";
 import 'src/styles/payment/app.payment.scss';
 import { callCreateBill, callCreateHistory, callCreateSeat, callFetchShowById } from "src/util/api";
+import { redirect } from 'next/navigation';
 
 const AppPayment = () => {
     //lib: 
@@ -20,6 +21,7 @@ const AppPayment = () => {
     const [show, setShow] = useState<IShow>();
 
     useEffect(() => {
+        if (!isAuthenticated) redirect("/auth/signin")
         fetchShow();
     }, [])
 
