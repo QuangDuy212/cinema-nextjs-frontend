@@ -17,7 +17,7 @@ const ContentMoviesPage = () => {
         setIsClient(true);
         fetchFilms();
         fetchTimes();
-    }, [])
+    }, []);
 
 
     //METHODS:
@@ -34,6 +34,7 @@ const ContentMoviesPage = () => {
         if (times && times?.data && times?.data?.result) {
             const timesActive = times?.data?.result?.filter((i: IFilm) => i.active == true);
             setTimes(timesActive);
+            setActive(times.data.result[0].id);
         }
     }
     return (

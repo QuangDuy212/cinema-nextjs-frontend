@@ -51,6 +51,7 @@ const DetailFilm = (props: IProps) => {
         const times = await callFetchAllTimes("?page=1&size=3");
         if (times && times?.data && times?.data?.result) {
             setListTimes(times?.data?.result);
+            setActiveTime(times.data.result[0].id)
         }
     }
 
