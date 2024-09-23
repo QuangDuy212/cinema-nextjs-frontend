@@ -1,8 +1,12 @@
+import { Metadata } from "next";
 import DetailFilm from "src/components/user/movies/detail.film.page";
 import { callFetchFilmById } from "src/util/api";
 import { sendRequest } from "src/util/method";
 
-
+export const metadata: Metadata = {
+    title: 'Movies page',
+    description: 'Movies page',
+}
 const DetailFilmPage = async ({ params }: { params: { slug: string } }) => {
     const temp = params?.slug?.split(".html") ?? [];
     const temp1 = (temp[0]?.split("-") ?? []) as string[];

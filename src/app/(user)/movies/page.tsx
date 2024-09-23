@@ -1,8 +1,10 @@
+import { Metadata } from "next";
 import ContentMoviesPage from "src/components/user/movies/content.moviespage";
-import { callFetchAllFilms, callFetchAllTimes } from "src/util/api";
-import { sendRequest } from "src/util/method";
 
-
+export const metadata: Metadata = {
+    title: 'Movies page',
+    description: 'Movies page',
+}
 const MoviePage = async () => {
     return (
         <>
