@@ -1,11 +1,30 @@
-import { Metadata } from "next";
+
 import DetailFilm from "src/components/user/movies/detail.film.page";
 import { callFetchFilmById } from "src/util/api";
 import { sendRequest } from "src/util/method";
+import type { Metadata, ResolvingMetadata } from 'next'
 
-export const metadata: Metadata = {
-    title: 'Movies page',
-    description: 'Movies page',
+type Props = {
+    params: { slug: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+}
+export async function generateMetadata(
+    { params, searchParams }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    // read route params
+    const slug = params.slug;
+    const name = slug.split("-");
+    const id = name[name.length - 1].split(".");
+    // fetch data
+    const film = await sendRequest<IBackendRes<IFilm>>({
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/films/${id[0]}`,
+        method: "GET",
+    });
+    console.log(">>> check film", film)
+    return {
+        title: film?.data?.name ?? "Film page",
+    }
 }
 const DetailFilmPage = async ({ params }: { params: { slug: string } }) => {
     const temp = params?.slug?.split(".html") ?? [];
