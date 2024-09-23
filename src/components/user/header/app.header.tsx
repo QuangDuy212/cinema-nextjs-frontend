@@ -2,7 +2,7 @@
 
 import 'src/app/page.module.css'
 import 'src/styles/header/app.header.scss'
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, FireOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, message, Space } from 'antd';
 import "antd/dist/antd.css";
@@ -38,6 +38,12 @@ const AppHeader = () => {
             label: <Link href="/profile">Thông tin cá nhân</Link>,
             key: '0',
         },
+        ...(user.role?.permissions?.length ? [{
+            label: <Link
+                href={"/admin"}
+            >Trang Quản Trị</Link>,
+            key: 'admin',
+        },] : []),
         {
             label: <span onClick={() => { handleLogout() }}>Đăng xuất</span>,
             key: '1',
@@ -161,6 +167,16 @@ const AppHeader = () => {
                                     padding: "10px",
                                     width: "100%"
                                 }}>{user?.fullName}</div>
+                                {user.role?.permissions?.length &&
+                                    <div style={{
+                                        color: "#fff", display: "flex", justifyContent: "center",
+                                        padding: "10px",
+                                        width: "100%"
+                                    }}
+                                        onClick={() => router.push("/admin")}
+                                    >Trang quản trị</div>
+                                }
+
                                 <div style={{
                                     color: "#fff", display: "flex", justifyContent: "center",
                                     alignItems: "center"
