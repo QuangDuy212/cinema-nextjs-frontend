@@ -84,7 +84,7 @@ const AppPayment = () => {
             <div className="payment-container">
                 <div className="container">
                     <Row gutter={[20, 20]}>
-                        <Col md={24} xl={16}>
+                        <Col xs={24} sm={24} md={24} xl={16}>
                             <div className="payment__info">
                                 <div className="payment__info--title">Thông tin phim</div>
                                 <div className="payment__info--film">
@@ -163,7 +163,7 @@ const AppPayment = () => {
                                 </div>
                             </div>
                         </Col>
-                        <Col md={24} xl={8}>
+                        <Col xs={24} sm={24} md={24} xl={8}>
                             <div className="buy">
                                 <div className="buy__method"></div>
                                 <div className="buy__expense">
