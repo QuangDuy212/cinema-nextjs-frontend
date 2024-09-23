@@ -153,28 +153,46 @@ const AppHeader = () => {
                         <ActiveLink href="/about" >Giới thiệu</ActiveLink>
                     </div>
                     <div className='account-mobile'>
-                        <div style={{
-                            color: "#fff", display: "flex", justifyContent: "center",
-                            padding: "10px",
-                            width: "100%"
-                        }}>{user?.fullName}</div>
-                        <div style={{
-                            color: "#fff", display: "flex", justifyContent: "center",
-                            alignItems: "center"
-                        }}>
-                            <div style={{
-                                padding: "10px", width: "50%", display: "flex", justifyContent: "center",
-                                alignItems: "center"
-                            }}
-                                onClick={() => router.push("/profile")}
-                            >Thông tin cá nhân</div>
-                            <div style={{
-                                padding: "10px", width: "50%", display: "flex", justifyContent: "center",
-                                alignItems: "center"
-                            }}
-                                onClick={() => { handleLogout() }}
-                            >Đăng xuất</div>
-                        </div>
+                        {isAuthenticated
+                            ?
+                            <div>
+                                <div style={{
+                                    color: "#fff", display: "flex", justifyContent: "center",
+                                    padding: "10px",
+                                    width: "100%"
+                                }}>{user?.fullName}</div>
+                                <div style={{
+                                    color: "#fff", display: "flex", justifyContent: "center",
+                                    alignItems: "center"
+                                }}>
+                                    <div style={{
+                                        padding: "10px", width: "50%", display: "flex", justifyContent: "center",
+                                        alignItems: "center"
+                                    }}
+                                        onClick={() => router.push("/profile")}
+                                    >Thông tin cá nhân</div>
+                                    <div style={{
+                                        padding: "10px", width: "50%", display: "flex", justifyContent: "center",
+                                        alignItems: "center"
+                                    }}
+                                        onClick={() => { handleLogout() }}
+                                    >Đăng xuất</div>
+                                </div>
+                            </div>
+                            :
+                            <div className='list-btn-login-header'>
+                                <div className='list-btn-login-header__register'
+                                    onClick={() => router.push("/auth/register")}
+                                >
+                                    Đăng kí
+                                </div>
+                                <div className='list-btn-login-header__login'
+                                    onClick={() => router.push("/auth/signin")}
+                                >
+                                    Đăng nhập
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
 
