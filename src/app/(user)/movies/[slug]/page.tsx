@@ -20,10 +20,18 @@ export async function generateMetadata(
     const film = await sendRequest<IBackendRes<IFilm>>({
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/films/${id[0]}`,
         method: "GET",
+        nextOption: {
+            cache: "no-store",
+            // next: { tags: ['track-by-profile'] }
+        }
     });
-    console.log(">>> check film", film)
     return {
         title: film?.data?.name ?? "Film page",
+        openGraph: {
+            type: "website",
+            title: film?.data?.name ?? "Trung tâm chiếu phim quốc gia",
+            images: [`${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/${film?.data?.image}`]
+        },
     }
 }
 const DetailFilmPage = async ({ params }: { params: { slug: string } }) => {
