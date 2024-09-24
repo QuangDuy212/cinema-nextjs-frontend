@@ -1,13 +1,33 @@
 
 import DetailFilm from "src/components/user/movies/detail.film.page";
 import { callFetchFilmById } from "src/util/api";
-import { sendRequest } from "src/util/method";
+import { convertSlugUrl, sendRequest } from "src/util/method";
 import type { Metadata, ResolvingMetadata } from 'next'
 
 type Props = {
     params: { slug: string }
     searchParams: { [key: string]: string | string[] | undefined }
 }
+
+export async function generateStaticParams() {
+    const films = await sendRequest<IBackendRes<IModelPaginate<IFilm>>>({
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/films?page=1&size=1000`,
+        method: "GET",
+        nextOption: {
+            cache: "no-store",
+            // next: { tags: ['track-by-profile'] }
+        }
+    });
+
+    // return films?.data?.result?.map((film) => ({
+    //     slug: `${convertSlugUrl(film.name)}-${film.id}.html`,
+    // }))
+    return [
+        { slug: "bao-thu-di-tim-chu-k-long-tieng-2.html" }
+    ]
+}
+
+
 export async function generateMetadata(
     { params, searchParams }: Props,
     parent: ResolvingMetadata

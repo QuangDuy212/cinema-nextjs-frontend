@@ -1,11 +1,10 @@
 "use client"
 
-import { ProCard } from "@ant-design/pro-components";
+
 import { Form, Input, message, Modal, notification, Select, SelectProps } from "antd";
 import { permission } from "process";
 import { useEffect, useState } from "react";
 import { callFetchAllPermissions, callUpdateRole } from "src/util/api";
-import ModuleApi from "../module.api";
 
 interface IProps {
     openModalUpdate: boolean;

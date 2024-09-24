@@ -3,9 +3,8 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Form, Input, message, Modal, notification, Select, SelectProps, Upload } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { callUpdateFilm, callUploadSingleFile } from "src/util/api";
-import { v4 as uuidv4 } from 'uuid';
 
 interface IProps {
     openModalUpdate: boolean;
@@ -55,7 +54,7 @@ const ModalUpdateFilm = (props: IProps) => {
         if (res && res?.data) {
             setFilmImage(res?.data?.fileName);
             setOldImage([{
-                uid: uuidv4(),
+                uid: 1 + Math.random() * (100 - 1),
                 name: data?.image ?? "",
                 status: 'done',
                 url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/${res?.data?.fileName}`,
@@ -113,7 +112,7 @@ const ModalUpdateFilm = (props: IProps) => {
         }
         setOldImage(data ? [
             {
-                uid: uuidv4(),
+                uid: 1 + Math.random() * (100 - 1),
                 name: data?.image ?? "",
                 status: 'done',
                 url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/film/${data?.image}`,

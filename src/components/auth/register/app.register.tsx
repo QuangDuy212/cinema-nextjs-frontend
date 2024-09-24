@@ -35,6 +35,7 @@ const AppRegister = () => {
             notification.error({
                 message: "Có lỗi xảy ra",
                 description:
+                    //@ts-ignore
                     res.message && Array.isArray(res.message) ? res.message[0] : res.message,
                 duration: 5
             })

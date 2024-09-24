@@ -23,7 +23,9 @@ const NO_RETRY_HEADER = 'x-no-retry';
 const handleRefreshToken = async (): Promise<string | null> => {
     return await mutex.runExclusive(async () => {
         const res = await instance.get<IBackendRes<AccessTokenResponse>>('/api/v1/auth/refresh');
-        if (res && res?.data) return res?.data?.access_token;
+        if (res && res?.data)
+            //@ts-ignore
+            return res?.data?.access_token;
         else return null;
     });
 };
@@ -69,6 +71,7 @@ instance.interceptors.response.use(
         ) {
             const message = error?.response?.data?.error ?? "Có lỗi xảy ra, vui lòng login.";
             //dispatch redux action
+            //@ts-ignore
             makeStore.dispatch(setRefreshTokenAction({ status: true, message }));
         }
 

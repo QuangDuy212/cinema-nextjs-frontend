@@ -9,7 +9,6 @@ import { callDeleteRoleById, callFetchAllPermissions, callFetchAllRoles } from "
 import ModalCreateRole from "./modal/modal.create.role";
 import ModalViewRole from "./modal/modal.view.role";
 import ModalUpdateRole from "./modal/modal.update.role";
-import { groupByPermission } from "src/util/method";
 import Access from "src/components/share/access";
 import { ALL_PERMISSIONS } from "src/config/permissions";
 
@@ -265,7 +264,7 @@ const AdminRole = () => {
         const init = async () => {
             const res = await callFetchAllPermissions(`page=1&size=100`);
             if (res.data?.result) {
-                setListPermissions(groupByPermission(res.data?.result))
+                setListPermissions(res.data?.result)
             }
         }
         init();
