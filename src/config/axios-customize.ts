@@ -31,8 +31,9 @@ const handleRefreshToken = async (): Promise<string | null> => {
 };
 
 instance.interceptors.request.use(function (config) {
-    if (typeof window !== "undefined" && window && window.localStorage && window.localStorage.getItem('access_token')) {
-        config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('access_token');
+    if (typeof window !== "undefined" && window && window.localStorage && window.localStorage.getItem('access_token')
+    ) {
+        config.headers.Authorization = 'Bearer ' + window?.localStorage?.getItem('access_token');
     }
     if (!config.headers.Accept && config.headers["Content-Type"]) {
         config.headers.Accept = "application/json";
@@ -48,7 +49,7 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(
     (res) => res.data,
     async (error) => {
-        console.log(">>> check error: ", error)
+        // console.log(">>> check error: ", error)
         if (error?.config && error?.response
             && +error?.response?.status === 401
             && error?.config?.url !== '/api/v1/auth/login'
@@ -58,6 +59,7 @@ instance.interceptors.response.use(
             error.config.headers[NO_RETRY_HEADER] = 'true'
             if (access_token) {
                 error.config.headers['Authorization'] = `Bearer ${access_token}`;
+                localStorage.removeItem('access_token');
                 localStorage.setItem('access_token', access_token)
                 return instance.request(error.config);
             }
@@ -73,6 +75,7 @@ instance.interceptors.response.use(
             //dispatch redux action
             //@ts-ignore
             makeStore.dispatch(setRefreshTokenAction({ status: true, message }));
+            window.location.href = "/auth/signin";
         }
 
         if (+error?.response?.status === 403) {

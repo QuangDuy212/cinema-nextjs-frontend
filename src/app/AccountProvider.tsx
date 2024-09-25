@@ -22,7 +22,8 @@ export default function AccountProvider({
             || window.location.pathname === '/auth/register'
         )
             return;
-        dispatch(fetchAccount())
+        if (localStorage.getItem('access_token'))
+            dispatch(fetchAccount())
     }, [])
 
     useEffect(() => {

@@ -10,7 +10,7 @@ const ContentHomepage = () => {
     const [data, setData] = useState<IFilm[]>([]);
     useEffect(() => {
         const fetchData = async () => {
-            const films = await callFetchAllFilms("?page=1&size=100");
+            const films = await callFetchAllFilms("?page=1&size=1000");
             if (films && films?.data && films?.data?.result) {
                 const filmsActive = films?.data?.result?.filter((item: IFilm) => item.active === true);
                 setData(filmsActive);

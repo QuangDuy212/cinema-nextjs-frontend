@@ -28,6 +28,7 @@ const AppSignin = () => {
         setIsSubmit(false);
         // const token = await callRefreshToken();
         if (res.data != null) {
+            localStorage.removeItem('access_token')
             localStorage.setItem('access_token', res?.data?.access_token);
             dispatch(setUserLoginInfo(res?.data?.user))
             message.success('Đăng nhập tài khoản thành công!');

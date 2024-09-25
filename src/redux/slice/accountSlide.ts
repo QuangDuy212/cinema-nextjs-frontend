@@ -68,7 +68,7 @@ export const accountSlide = createSlice({
             state.activeMenu = action.payload;
         },
         setUserLoginInfo: (state, action) => {
-            console.log(">>> check action: ", action.payload)
+            // console.log(">>> check action: ", action.payload)
             state.isAuthenticated = true;
             state.isLoading = false;
             state.user.id = action?.payload?.id;
