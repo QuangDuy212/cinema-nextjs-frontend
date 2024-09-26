@@ -59,6 +59,10 @@ export const ALL_PERMISSIONS = {
         UPDATE: { method: "PUT", apiPath: '/api/v1/histories', module: "HISTORIES" },
         DELETE: { method: "DELETE", apiPath: '/api/v1/histories/{id}', module: "HISTORIES" },
     },
+    ACCOUNT: {
+        CHANGE_PASSWORD: { method: "POST", apiPath: '/api/v1/account/change-password', module: "ACCOUNT" },
+        RETRY_PASSWORD: { method: "POST", apiPath: '/api/v1/account/retry-password', module: "ACCOUNT" },
+    },
 }
 
 export const ALL_MODULES = {
@@ -71,5 +75,6 @@ export const ALL_MODULES = {
     SEATS: "SEATS",
     BILLS: "BILLS",
     TIMES: "TIMES",
-    HISTORIES: "HISTORIES"
+    HISTORIES: "HISTORIES",
+    ACCOUNT: "ACCOUNT"
 }

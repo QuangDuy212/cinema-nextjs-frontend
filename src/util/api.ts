@@ -349,3 +349,15 @@ export const callDeleteHistoryById = (id: number) => {
 export const callChangePassword = (data: { currentPassword: string, newPassword: string }) => {
     return axios.post(`/api/v1/account/change-password`, data);
 }
+
+export const callChangeForgotPassword = (data: { code: string, email: string, newPassword: string, confirmPassword: string }) => {
+    return axios.post(`/api/v1/account/change-password-with-code`, data);
+}
+
+export const callRetryPassword = (data: { email: string }) => {
+    return axios.post(`/api/v1/account/retry-password`, data);
+}
+
+/**
+ * Module EMAIL
+ */

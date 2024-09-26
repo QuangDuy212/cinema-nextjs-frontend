@@ -33,7 +33,8 @@ const ProfileElement = () => {
         const { id, fullName, phone, address } = values;
         const reqUpdate = { id, fullName, phone, address }
         const res = await callUpdateUser(reqUpdate);
-        if (res && res?.data) {
+
+        if (res) {
             dispatch(setUserLoginInfo(res?.data))
             message.success('Sửa thông tin thành công!');
         } else {

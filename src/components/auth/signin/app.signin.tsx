@@ -9,8 +9,13 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'src/redux/hook';
 import { useRouter } from 'next/navigation';
 import { setUserLoginInfo } from 'src/redux/slice/accountSlide';
+import ModalForgotPassword from './modal.forgot.password';
 const AppSignin = () => {
+    //STATE: 
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    //LIB: 
     const router = useRouter();
     const dispatch = useDispatch();
     const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
@@ -78,6 +83,14 @@ const AppSignin = () => {
                                         <Input.Password style={{ borderRadius: "5px" }} />
                                     </Form.Item>
 
+                                    <div
+                                        style={{ width: "100%", textAlign: "right", cursor: "pointer", color: "#5495ff" }}
+                                        onClick={() => setIsModalOpen(true)}
+                                    >
+                                        Quên mật khẩu?
+
+                                    </div>
+
                                     <Form.Item
                                     // wrapperCol={{ offset: 6, span: 16 }}
                                     >
@@ -100,6 +113,10 @@ const AppSignin = () => {
                     </main>
                 </div>
             </div>
+            <ModalForgotPassword
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+            />
         </>
     )
 }

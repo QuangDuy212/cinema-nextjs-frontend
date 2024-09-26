@@ -46,7 +46,8 @@ const ModalChangePassword = (props: IProps) => {
         setIsSubmit(true);
         const res = await callChangePassword(data)
         setIsSubmit(false);
-        if (res) {
+        //@ts-ignore
+        if (res && res?.statusCode === 200) {
             message.success("Cập nhật mật khẩu thành công!");
             setOpenModal(false);
             form.resetFields();
