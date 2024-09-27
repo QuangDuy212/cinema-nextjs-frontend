@@ -217,10 +217,10 @@ const LayoutAdmin = ({ children }: Readonly<{
     const handleLogout = async () => {
         const res = await callLogout();
         //@ts-ignore
-        if (res && +res.statusCode === 200) {
-            dispatch(setLogoutAction({}));
+        if (res && +res?.statusCode === 200) {
             message.success('Đăng xuất thành công');
-            router.push('/');
+            router.push("/")
+            dispatch(setLogoutAction({}));
         }
     }
 

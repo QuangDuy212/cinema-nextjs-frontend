@@ -16,7 +16,7 @@ const ProtectedRouteAdmin = ({
     }, [])
     return (
         <>
-            {(role && role.name == "ADMIN")
+            {(role && role.permissions?.length && role.permissions?.length > 2)
                 ?
                 children
                 :

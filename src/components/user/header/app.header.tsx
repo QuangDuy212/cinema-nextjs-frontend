@@ -38,7 +38,7 @@ const AppHeader = () => {
             label: <Link href="/profile">Thông tin cá nhân</Link>,
             key: '0',
         },
-        ...(user.role?.permissions?.length ? [{
+        ...((user.role?.permissions?.length && user.role?.permissions?.length > 2) ? [{
             label: <Link
                 href={"/admin"}
             >Trang Quản Trị</Link>,
