@@ -361,3 +361,7 @@ export const callRetryPassword = (data: { email: string }) => {
 /**
  * Module EMAIL
  */
+
+export const callSendBillForUserEmail = (data: IHistory) => {
+    return axios.post(`/api/v1/email/bill`, data);
+}

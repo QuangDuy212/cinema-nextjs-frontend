@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "src/redux/hook";
 import { setEmptyBill } from "src/redux/slice/billSlide";
 import 'src/styles/payment/app.payment.scss';
-import { callCreateBill, callCreateHistory, callCreateSeat, callFetchShowById } from "src/util/api";
+import { callCreateBill, callCreateHistory, callCreateSeat, callFetchShowById, callSendBillForUserEmail } from "src/util/api";
 import { redirect } from 'next/navigation';
 
 const AppPayment = () => {
@@ -64,6 +64,7 @@ const AppPayment = () => {
                     "nameFilm": bill.nameFilm
                 }
                 const history = await callCreateHistory(reqHis);
+                const sendEmail = callSendBillForUserEmail(reqHis);
 
             }
             dispatch(setEmptyBill());
